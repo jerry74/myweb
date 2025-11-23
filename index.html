@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>2025 富國島親子之旅</title>
+    
+    <!-- 引入 Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 React 和 Babel -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        /* 隱藏滾動條但保留功能 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        /* iOS 安全區域適配 */
+        .pb-safe {
+            padding-bottom: env(safe-area-inset-bottom, 20px);
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // --- 圖示組件 (SVG) ---
+        const IconBase = ({ children, size = 24, className = "" }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>{children}</svg>
+        );
+
+        const Icons = {
+            Plane: (props) => <IconBase {...props}><path d="M2 22h20"/><path d="M20.5 10.5a2.5 2.5 0 0 0-2.5-2.5H12L8.5 2H2v6l3.5 3.5L2 19h16v3"/></IconBase>,
+            Hotel: (props) => <IconBase {...props}><path d="M2 22h20"/><path d="M10 2h4a2 2 0 0 1 2 2v1h-8V4a2 2 0 0 1 2-2Z"/><path d="M4 10h16v10H4z"/><path d="M10 10v10"/><path d="M16 5v5"/><path d="M8 5v5"/></IconBase>,
+            MapPin: (props) => <IconBase {...props}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></IconBase>,
+            Sun: (props) => <IconBase {...props}><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></IconBase>,
+            Moon: (props) => <IconBase {...props}><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></IconBase>,
+            Utensils: (props) => <IconBase {...props}><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></IconBase>,
+            Camera: (props) => <IconBase {...props}><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></IconBase>,
+            ShoppingBag: (props) => <IconBase {...props}><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></IconBase>,
+            Ticket: (props) => <IconBase {...props}><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/></IconBase>,
+            Info: (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></IconBase>,
+            X: (props) => <IconBase {...props}><path d="M18 6 6 18"/><path d="m6 6 12 12"/></IconBase>,
+            ChevronRight: (props) => <IconBase {...props}><path d="m9 18 6-6-6-6"/></IconBase>,
+            Calendar: (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconBase>,
+            Map: (props) => <IconBase {...props}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></IconBase>,
+            CloudSun: (props) => <IconBase {...props}><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></IconBase>,
+            Clock: (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>
+        };
+
+        // --- 數據資料 ---
+
+        const itineraryData = [
+          {
+            day: 1,
+            date: "11月29日 (六)",
+            title: "抵達與夜市體驗",
+            hotel: {
+              name: "塔希提中央海景飯店",
+              sub: "Tahiti Central Hotel",
+              checkIn: "14:00",
+              checkOut: "12:00",
+              note: "早餐 06:30-09:30 | 🈲 榴槤、山竹入內",
+              locationQuery: "Tahiti Central Hotel Phu Quoc"
+            },
+            events: [
+              {
+                time: "14:00",
+                endTime: "16:50",
+                title: "飛往富國島",
+                type: "flight",
+                icon: Icons.Plane,
+                location: "桃園機場 (TPE) -> 富國島 (PQC)",
+                desc: "航班 VJ845。抵達後辦理入境手續，領取行李。",
+                detail: {
+                  info: "越捷航空 VJ845",
+                  seat: "經濟艙",
+                  terminal: "T1 (桃園) -> PQC"
+                }
+              },
+              {
+                time: "17:30",
+                title: "飯店 Check-in",
+                type: "hotel",
+                icon: Icons.Hotel,
+                location: "塔希提中央海景飯店",
+                desc: "位於中部楊東鎮，交通便利。",
+                mapQuery: "Tahiti Central Hotel Phu Quoc"
+              },
+              {
+                time: "18:00",
+                title: "飯店周邊親子美食 (口袋名單)",
+                type: "food",
+                icon: Icons.Utensils,
+                location: "Tran Hung Dao 路 (飯店步行圈)",
+                desc: "若不去夜市的替代方案。Xin Chao 海景餐廳、Crab House 蟹屋。",
+                mapQuery: "Xin Chao Seafood Restaurant Phu Quoc",
+                detail: {
+                  "Xin Chao (欣查奧)": "66 Tran Hung Dao (步行僅 3 分鐘，就在飯店斜對面)。海景優美，環境舒適衛生，適合帶長輩與小孩。",
+                  "Crab House (蟹屋)": "26 Nguyen Trai (車程約 5 分鐘)。美式肯瓊風味手抓海鮮，氣氛歡樂，小朋友會喜歡。",
+                  "Bun Quay Kien Xay": "28 Bach Dang (靠近夜市)。必吃「客家攪拌米粉」，體驗DIY醬料樂趣。"
+                }
+              },
+              {
+                time: "18:40",
+                title: "前往夜市交通",
+                type: "transport",
+                icon: Icons.MapPin,
+                location: "飯店 -> 夜市 (距離約 1km)",
+                desc: "選擇步行或搭車前往。",
+                detail: {
+                  "步行": "約 10-15 分鐘。出飯店左轉沿 Tran Hung Dao 路直行。",
+                  "計程車/Grab": "約 3 分鐘。車資約 20,000 - 30,000 VND。"
+                }
+              },
+              {
+                time: "19:00",
+                title: "富國島夜市 (Phu Quoc Night Market)",
+                type: "food",
+                icon: Icons.Utensils,
+                location: "楊東鎮中心",
+                desc: "晚餐自理。推薦：炒冰、椰子冰淇淋、海鮮大排檔、法棍。",
+                mapQuery: "Phu Quoc Night Market",
+                detail: {
+                  tips: "當地名稱：Chợ Đêm Phú Quốc。人多請注意隨身財物。",
+                  mustEat: "烤海膽、椰子糖"
+                }
+              }
+            ]
+          },
+          {
+            day: 2,
+            date: "11月30日 (日)",
+            title: "採買與南部風情",
+            hotel: {
+              name: "富國翡翠灣高級公寓",
+              sub: "Premier Residences Emerald Bay",
+              checkIn: "15:00",
+              checkOut: "12:00",
+              note: "早餐 06:30-10:00 | 📍 南部 Khem Beach",
+              locationQuery: "Premier Residences Phu Quoc Emerald Bay"
+            },
+            events: [
+              {
+                time: "07:45",
+                title: "前往超市交通",
+                type: "transport",
+                icon: Icons.MapPin,
+                location: "飯店 -> Kingkong Mart (約 2.9km)",
+                desc: "位於同條路 (Tran Hung Dao) 南方，距離稍遠。",
+                detail: {
+                  "計程車/Grab": "推薦。車程約 6-8 分鐘，車資約 30,000 - 50,000 VND。",
+                  "步行": "約 35-40 分鐘 (天氣炎熱，不建議步行)。"
+                }
+              },
+              {
+                time: "08:00",
+                title: "Kingkong Mart 採買",
+                type: "shopping",
+                icon: Icons.ShoppingBag,
+                location: "中部楊東鎮",
+                desc: "富國島最大超市，購買伴手禮、零食、牛奶、防曬乳。",
+                mapQuery: "Kingkong Mart Phu Quoc",
+                detail: {
+                  tips: "必買：腰果、胡椒、G7咖啡、Sim酒。",
+                  location_context: "距離夜市 (市中心) 約 2.5km，沿 Tran Hung Dao 路直行可達。"
+                }
+              },
+              {
+                time: "12:00",
+                title: "Sao Beach (白沙灘)",
+                type: "activity",
+                icon: Icons.Sun,
+                location: "東南部海岸",
+                desc: "午餐推薦 Paradiso Restaurant。玩沙、網紅鞦韆。",
+                mapQuery: "Sao Beach Phu Quoc"
+              },
+              {
+                time: "16:00",
+                title: "飯店 Check-in",
+                type: "hotel",
+                icon: Icons.Hotel,
+                location: "富國翡翠灣高級公寓",
+                mapQuery: "Premier Residences Phu Quoc Emerald Bay"
+              },
+              {
+                time: "17:30",
+                title: "日落小鎮 (Sunset Town)",
+                type: "sightseeing",
+                icon: Icons.Camera,
+                location: "南部安泰鎮",
+                desc: "地中海風格建築。晚餐推薦：Sorrento (披薩) 或 Runam。",
+                mapQuery: "Sunset Town Phu Quoc"
+              },
+              {
+                time: "21:00",
+                title: "海洋之吻 (Kiss of the Sea)",
+                type: "show",
+                icon: Icons.Ticket,
+                location: "日落小鎮海灘",
+                desc: "結合水舞、火舞與高空煙火的壓軸秀。",
+                mapQuery: "Kiss of the Sea show Phu Quoc"
+              }
+            ]
+          },
+          {
+            day: 3,
+            date: "12月01日 (一)",
+            title: "奢華度假與夜釣",
+            hotel: {
+              name: "新世界富國島度假村",
+              sub: "New World Phu Quoc Resort",
+              checkIn: "15:00",
+              checkOut: "12:00",
+              note: "早餐 07:00-10:30 | 私人泳池別墅",
+              locationQuery: "New World Phu Quoc Resort"
+            },
+            events: [
+              {
+                time: "11:00",
+                title: "飯店轉換",
+                type: "transport",
+                icon: Icons.Hotel,
+                location: "Premier Residences -> New World (約 750m)",
+                desc: "兩間飯店皆位於 Khem Beach，距離極近。",
+                detail: {
+                  "計程車/Grab": "約 2 分鐘。建議搭車搬運行李。",
+                  "步行": "約 10 分鐘 (沿海灘或道路)。"
+                }
+              },
+              {
+                time: "11:15",
+                title: "Check-in & 寄放行李",
+                type: "hotel",
+                icon: Icons.Hotel,
+                location: "新世界度假村",
+                desc: "享受私人海灘，視潮汐狀況趕海捕蟹。",
+                mapQuery: "New World Phu Quoc Resort"
+              },
+              {
+                time: "14:00",
+                title: "飯店設施打混",
+                type: "relax",
+                icon: Icons.Sun,
+                location: "飯店內",
+                desc: "私人泳池游泳、兒童俱樂部。"
+              },
+              {
+                time: "17:00",
+                title: "日落夜釣 (Night Fishing)",
+                type: "activity",
+                icon: Icons.Moon,
+                location: "南部碼頭出海",
+                desc: "觀賞日落 -> 釣墨魚體驗 -> 船上享用海鮮粥/炒麵。",
+                detail: {
+                  tips: "船家會提供釣具。建議容易暈船者提前吃藥。"
+                }
+              }
+            ]
+          },
+          {
+            day: 4,
+            date: "12月02日 (二)",
+            title: "跨海纜車與水樂園",
+            hotel: {
+              name: "新世界富國島度假村",
+              sub: "續住",
+              checkIn: "-",
+              checkOut: "12:00",
+              note: "好好享受設施",
+              locationQuery: "New World Phu Quoc Resort"
+            },
+            events: [
+              {
+                time: "09:00",
+                title: "SUP 漿板玩水",
+                type: "activity",
+                icon: Icons.Sun,
+                location: "飯店私人海灘",
+                desc: "上午海況通常較平靜，適合玩水。"
+              },
+              {
+                time: "13:30",
+                title: "太陽世界香島樂園",
+                type: "activity",
+                icon: Icons.Ticket,
+                location: "Hon Thom Island",
+                desc: "搭乘世界最長跨海纜車。遊玩 Aquatopia 水樂園 (漂漂河、兒童戲水區)。",
+                mapQuery: "An Thoi Cable Car Station",
+                detail: {
+                  tips: "纜車單程約20分鐘。記得帶泳衣、浴巾。"
+                }
+              },
+              {
+                time: "17:30",
+                title: "親吻橋 (Kiss Bridge)",
+                type: "sightseeing",
+                icon: Icons.Camera,
+                location: "日落小鎮",
+                desc: "夕陽最佳觀賞點。",
+                mapQuery: "Kiss Bridge Phu Quoc"
+              }
+            ]
+          },
+          {
+            day: 5,
+            date: "12月03日 (三)",
+            title: "移動至北部不夜城",
+            hotel: {
+              name: "溫德姆花園大世界飯店",
+              sub: "Wyndham Garden Grandworld",
+              checkIn: "14:00",
+              checkOut: "12:00",
+              note: "早餐 06:00-10:00 | 位於北島不夜城",
+              locationQuery: "Wyndham Garden Grandworld Phu Quoc"
+            },
+            events: [
+              {
+                time: "09:00",
+                title: "退房 & 移動",
+                type: "transport",
+                icon: Icons.MapPin,
+                location: "南部 -> 北部",
+                desc: "車程約 1 - 1.5 小時。"
+              },
+              {
+                time: "14:30",
+                title: "泰迪熊博物館",
+                type: "sightseeing",
+                icon: Icons.Ticket,
+                location: "Grand World 內",
+                desc: "Teddy Bear Museum，適合親子拍照。",
+                mapQuery: "Teddy Bear Museum Phu Quoc"
+              },
+              {
+                time: "18:00",
+                title: "富國大世界 (Grand World)",
+                type: "sightseeing",
+                icon: Icons.Moon,
+                location: "Grand World",
+                desc: "威尼斯運河、竹造傳奇建築。晚餐在此解決。",
+                mapQuery: "Grand World Phu Quoc"
+              },
+              {
+                time: "18:30",
+                title: "北島親子美食口袋名單",
+                type: "food",
+                icon: Icons.Utensils,
+                location: "Grand World / Almaz",
+                desc: "Madame Thao (越式家常)、Pizza Taxi (小孩最愛)、Bach Giai (百佳中餐廳)。",
+                mapQuery: "Madame Thao Grand World",
+                detail: {
+                  "Madame Thao": "越式家常菜，口味適中，環境乾淨，適合家庭用餐。",
+                  "Bach Giai (百佳)": "位於 Almaz 中心，提供精緻中餐，若想念中式熱炒可選。",
+                  "Pizza Taxi": "口味接受度高，有義大利麵與披薩，小孩最愛。",
+                  "JMT Korean": "韓式料理，小菜豐富，也是換口味的好選擇。"
+                }
+              },
+              {
+                time: "20:15",
+                title: "越南國粹 (Quintessence of Vietnam)",
+                type: "show",
+                icon: Icons.Ticket,
+                location: "Grand World (Tinh Hoa Vietnam Area)",
+                desc: "大型實景多媒體秀，結合3D光雕與水舞，演繹越南歷史文化。",
+                mapQuery: "The Quintessence of Vietnam Grand World Phu Quoc",
+                detail: {
+                  tips: "演出時間 20:15 - 21:00。建議提前入場。場面震撼，值得一看。",
+                  price: "約 300,000 VND (成人)"
+                }
+              }
+            ]
+          },
+          {
+            day: 6,
+            date: "12月04日 (四)",
+            title: "珍珠樂園 VinWonders",
+            hotel: {
+              name: "溫德姆花園大世界飯店",
+              sub: "續住",
+              checkIn: "-",
+              checkOut: "12:00",
+              note: "記得設鬧鐘，明天去Safari",
+              locationQuery: "Wyndham Garden Grandworld Phu Quoc"
+            },
+            events: [
+              {
+                time: "09:00",
+                title: "富國島珍珠遊樂園",
+                type: "activity",
+                icon: Icons.Ticket,
+                location: "VinWonders",
+                desc: "全日遊玩。水族館(避暑)、水樂園、室外遊樂設施。",
+                mapQuery: "VinWonders Phu Quoc",
+                detail: {
+                  tips: "100cm+ 兒童可玩大多家庭設施。午餐推薦：海底世界餐廳 (Deep Sea Cafeteria)。"
+                }
+              },
+              {
+                time: "14:00",
+                title: "餵企鵝活動",
+                type: "show",
+                icon: Icons.Camera,
+                location: "水族館 (The Sea Shell)",
+                desc: "每日 14:00 / 15:00 (請入園確認)。"
+              },
+              {
+                time: "18:45",
+                title: "ONCE Show 城堡煙火秀",
+                type: "show",
+                icon: Icons.Sun,
+                location: "鳳凰火廣場",
+                desc: "3D投影+水舞+煙火實景秀。必看！",
+                detail: {
+                  tips: "建議提前 20 分鐘卡位。位置選廣場中央偏後。"
+                }
+              },
+              {
+                time: "21:30",
+                title: "威尼斯的色彩",
+                type: "show",
+                icon: Icons.Moon,
+                location: "Grand World 愛之湖",
+                desc: "水幕投影秀。"
+              }
+            ]
+          },
+          {
+            day: 7,
+            date: "12月05日 (五)",
+            title: "野生動物園 Safari",
+            hotel: {
+              name: "溫德姆花園大世界飯店",
+              sub: "續住",
+              checkIn: "-",
+              checkOut: "12:00",
+              note: "整理行李，明天回程",
+              locationQuery: "Wyndham Garden Grandworld Phu Quoc"
+            },
+            events: [
+              {
+                time: "09:00",
+                title: "富國島野生動物園",
+                type: "activity",
+                icon: Icons.Camera,
+                location: "Vinpearl Safari",
+                desc: "搭乘 Safari Bus 進入猛獸區。Kids Zoo 餵小羊。",
+                mapQuery: "Vinpearl Safari Phu Quoc"
+              },
+              {
+                time: "10:30",
+                title: "小小保育員 (Junior Zoo Keeper)",
+                type: "activity",
+                icon: Icons.Ticket,
+                location: "Kids Zoo 區域",
+                desc: "體驗照顧小動物、清理環境。包含免費領取飼料餵食動物。",
+                mapQuery: "Vinpearl Safari Phu Quoc",
+                detail: {
+                  tips: "名額有限，建議入園後儘早前往 Kids Zoo 詢問場次。",
+                  highlight: "寓教於樂的親子體驗"
+                }
+              },
+              {
+                time: "12:00",
+                title: "長頸鹿餐廳午餐",
+                type: "food",
+                icon: Icons.Utensils,
+                location: "Giraffe Restaurant",
+                desc: "購買紅蘿蔔條 (30k VND) 親手餵長頸鹿。",
+                mapQuery: "Giraffe Restaurant Phu Quoc"
+              },
+              {
+                time: "19:00",
+                title: "夜遊野生動物園 (Night Safari)",
+                type: "activity",
+                icon: Icons.Moon,
+                location: "Vinpearl Safari",
+                desc: "需提前預約。觀察夜行性動物。",
+                detail: {
+                  tips: "若無預約到，可改看《越南精髓》表演。"
+                }
+              }
+            ]
+          },
+          {
+            day: 8,
+            date: "12月06日 (六)",
+            title: "返程",
+            hotel: {
+              name: "甜蜜的家",
+              sub: "Sweet Home",
+              checkIn: "-",
+              checkOut: "-",
+              note: "-",
+              locationQuery: ""
+            },
+            events: [
+              {
+                time: "06:00",
+                title: "退房 & 前往機場",
+                type: "transport",
+                icon: Icons.MapPin,
+                location: "前往 PQC 機場",
+                desc: "預留 40-50 分鐘車程。"
+              },
+              {
+                time: "08:25",
+                title: "飛往台北",
+                type: "flight",
+                icon: Icons.Plane,
+                location: "富國島 (PQC) -> 桃園 (TPE)",
+                desc: "航班 VJ844。預計 13:00 抵達。",
+                detail: {
+                  info: "越捷航空 VJ844",
+                  seat: "經濟艙",
+                  arrival: "13:00 TPE"
+                }
+              }
+            ]
+          }
+        ];
+
+        // --- 組件 ---
+
+        const Modal = ({ isOpen, onClose, title, children, mapQuery }) => {
+          if (!isOpen) return null;
+          return (
+            <div className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200">
+              <div className="bg-white w-full max-w-sm rounded-2xl shadow-2xl overflow-hidden transform transition-all scale-100">
+                <div className="bg-teal-600 p-4 flex justify-between items-center">
+                  <h3 className="text-white font-bold text-lg truncate pr-4">{title}</h3>
+                  <button onClick={onClose} className="text-white/80 hover:text-white p-1 rounded-full hover:bg-white/10 transition-colors">
+                    <Icons.X size={24} />
+                  </button>
+                </div>
+                <div className="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                  {children}
+                  {mapQuery && (
+                    <a 
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`}
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="flex items-center justify-center w-full gap-2 bg-teal-50 text-teal-700 py-3 rounded-xl font-semibold hover:bg-teal-100 transition-colors mt-4 border border-teal-200"
+                    >
+                      <Icons.Map size={20} />
+                      開啟 Google Maps 導航
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        };
+
+        const WeatherWidget = () => {
+          return (
+            <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md rounded-full px-3 py-1 text-white text-sm font-medium border border-white/30">
+              <Icons.CloudSun size={16} />
+              <span>28°C</span>
+              <span className="opacity-70">|</span>
+              <span>富國島</span>
+            </div>
+          );
+        };
+
+        const DayTab = ({ day, date, isActive, onClick }) => (
+          <button
+            onClick={onClick}
+            className={`flex-shrink-0 flex flex-col items-center justify-center px-4 py-2 rounded-xl transition-all duration-300 min-w-[80px] snap-center ${
+              isActive 
+                ? 'bg-teal-600 text-white shadow-lg scale-105 ring-2 ring-teal-200' 
+                : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200'
+            }`}
+          >
+            <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-teal-100' : 'text-slate-400'}`}>Day {day}</span>
+            <span className="text-sm font-bold whitespace-nowrap mt-0.5">{date.split(' ')[0]}</span>
+          </button>
+        );
+
+        const TimelineItem = ({ event, isLast, onOpenModal }) => {
+          const Icon = event.icon;
+          return (
+            <div className="relative pl-8 pb-8 group">
+              {/* 連接線 */}
+              {!isLast && (
+                <div className="absolute left-[11px] top-8 bottom-0 w-[2px] bg-slate-200 group-hover:bg-teal-200 transition-colors"></div>
+              )}
+              
+              {/* 時間點圓圈 */}
+              <div className={`absolute left-0 top-1.5 w-6 h-6 rounded-full border-2 flex items-center justify-center bg-white z-10 shadow-sm transition-all duration-300 ${
+                event.type === 'flight' ? 'border-blue-500 text-blue-500' :
+                event.type === 'hotel' ? 'border-purple-500 text-purple-500' :
+                event.type === 'food' ? 'border-orange-500 text-orange-500' :
+                'border-teal-500 text-teal-500'
+              }`}>
+                <div className={`w-2 h-2 rounded-full ${
+                   event.type === 'flight' ? 'bg-blue-500' :
+                   event.type === 'hotel' ? 'bg-purple-500' :
+                   event.type === 'food' ? 'bg-orange-500' :
+                   'bg-teal-500'
+                }`} />
+              </div>
+
+              {/* 卡片內容 */}
+              <div 
+                className="bg-white rounded-2xl p-4 shadow-sm border border-slate-100 active:scale-[0.98] transition-all duration-200 touch-manipulation cursor-pointer hover:shadow-md hover:border-teal-100"
+                onClick={() => onOpenModal(event)}
+              >
+                <div className="flex justify-between items-start mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-sm font-bold text-slate-400 bg-slate-50 px-2 py-0.5 rounded">{event.time}</span>
+                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
+                      event.type === 'flight' ? 'bg-blue-50 text-blue-600' :
+                      event.type === 'hotel' ? 'bg-purple-50 text-purple-600' :
+                      event.type === 'food' ? 'bg-orange-50 text-orange-600' :
+                      'bg-teal-50 text-teal-600'
+                    }`}>
+                      {event.type === 'flight' ? '交通' : event.type === 'hotel' ? '住宿' : event.type === 'food' ? '美食' : '行程'}
+                    </span>
+                  </div>
+                  {event.mapQuery && <Icons.MapPin size={16} className="text-slate-300" />}
+                </div>
+                
+                <h3 className="text-lg font-bold text-slate-800 mb-1 flex items-center gap-2">
+                  <Icon size={20} className={
+                     event.type === 'flight' ? 'text-blue-500' :
+                     event.type === 'hotel' ? 'text-purple-500' :
+                     event.type === 'food' ? 'text-orange-500' :
+                     'text-teal-500'
+                  }/>
+                  {event.title}
+                </h3>
+                
+                <p className="text-slate-500 text-sm leading-relaxed">{event.desc}</p>
+                
+                {event.location && (
+                  <div className="mt-3 flex items-center text-xs text-slate-400 font-medium">
+                    <Icons.MapPin size={12} className="mr-1" />
+                    {event.location}
+                    <Icons.ChevronRight size={12} className="ml-auto opacity-50" />
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        };
+
+        const HotelBanner = ({ hotel }) => (
+          <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-md border-b border-slate-100 shadow-sm px-4 py-3 mb-6 -mx-4">
+            <div className="flex items-start gap-3">
+              <div className="p-2 bg-indigo-50 rounded-lg text-indigo-600">
+                <Icons.Hotel size={20} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">本日住宿</div>
+                <h3 className="text-sm font-bold text-slate-800 truncate">{hotel.name}</h3>
+                <div className="flex items-center gap-2 mt-1 text-xs text-slate-500">
+                   <div className="flex items-center gap-1">
+                     <Icons.Clock size={12} className="text-teal-600" />
+                     <span className="font-medium text-slate-700">入住:</span> {hotel.checkIn}
+                   </div>
+                   <div className="w-px h-3 bg-slate-300"></div>
+                   <div className="flex items-center gap-1">
+                     <span className="font-medium text-slate-700">退房:</span> {hotel.checkOut}
+                   </div>
+                </div>
+              </div>
+              {hotel.locationQuery && (
+                 <a 
+                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(hotel.locationQuery)}`}
+                 target="_blank" 
+                 rel="noreferrer"
+                 className="p-2 text-slate-400 hover:text-teal-600 transition-colors"
+               >
+                 <Icons.MapPin size={20} />
+               </a>
+              )}
+            </div>
+            {hotel.note && (
+              <div className="mt-2 text-[10px] bg-orange-50 text-orange-700 px-2 py-1 rounded flex items-center gap-1">
+                <Icons.Info size={10} />
+                {hotel.note}
+              </div>
+            )}
+          </div>
+        );
+
+        function App() {
+          const [activeDay, setActiveDay] = useState(1);
+          const [selectedEvent, setSelectedEvent] = useState(null);
+          const [isMapMode, setIsMapMode] = useState(false);
+
+          const currentDayData = itineraryData.find(d => d.day === activeDay);
+
+          useEffect(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }, [activeDay]);
+
+          return (
+            <div className="min-h-screen bg-slate-50 font-sans pb-24">
+              {/* Hero Section */}
+              <div className="relative bg-gradient-to-br from-teal-500 to-blue-600 text-white pb-8 pt-12 px-6 rounded-b-[2.5rem] shadow-xl overflow-hidden">
+                <div className="absolute top-0 right-0 p-12 opacity-10 transform rotate-12 translate-x-8 -translate-y-8">
+                  <Icons.Plane size={120} />
+                </div>
+                
+                <div className="relative z-10">
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="space-y-1">
+                      <h2 className="text-teal-100 font-medium text-sm tracking-widest uppercase">Travel Itinerary</h2>
+                      <h1 className="text-3xl font-bold">富國島之旅</h1>
+                      <div className="flex items-center gap-2 text-teal-50 text-sm mt-1">
+                        <Icons.Calendar size={14} />
+                        2025.11.29 - 12.06
+                      </div>
+                    </div>
+                    <WeatherWidget />
+                  </div>
+                  
+                  <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/20">
+                     <div className="text-xs text-teal-100 uppercase tracking-wider mb-1">Day {activeDay} / 8</div>
+                     <div className="text-xl font-bold flex items-center gap-2">
+                       {currentDayData.title}
+                     </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Main Content */}
+              <div className="px-4 mt-6 max-w-lg mx-auto">
+                
+                {/* Daily Hotel Info */}
+                <HotelBanner hotel={currentDayData.hotel} />
+
+                {/* Vertical Timeline */}
+                <div className="relative">
+                  {currentDayData.events.map((event, index) => (
+                    <TimelineItem 
+                      key={index} 
+                      event={event} 
+                      isLast={index === currentDayData.events.length - 1}
+                      onOpenModal={setSelectedEvent}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Bottom Navigation Tabs */}
+              <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-[0_-4px_20px_rgba(0,0,0,0.05)] z-40 pb-safe">
+                <div className="flex overflow-x-auto hide-scrollbar py-3 px-4 gap-3 snap-x">
+                   {/* Map Toggle Button */}
+                   <button 
+                    onClick={() => setIsMapMode(true)}
+                    className="flex-shrink-0 flex flex-col items-center justify-center px-4 py-2 rounded-xl bg-orange-100 text-orange-700 border border-orange-200 snap-center min-w-[80px]"
+                  >
+                    <Icons.Map size={18} className="mb-1" />
+                    <span className="text-xs font-bold">地圖</span>
+                  </button>
+
+                  {itineraryData.map((day) => (
+                    <DayTab 
+                      key={day.day} 
+                      day={day.day} 
+                      date={day.date} 
+                      isActive={activeDay === day.day} 
+                      onClick={() => setActiveDay(day.day)} 
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Detail Modal */}
+              <Modal 
+                isOpen={!!selectedEvent} 
+                onClose={() => setSelectedEvent(null)} 
+                title={selectedEvent?.title}
+                mapQuery={selectedEvent?.mapQuery}
+              >
+                {selectedEvent && (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 text-slate-600">
+                        {/* 使用 IIFE 或直接渲染該圖示 */}
+                        {React.createElement(selectedEvent.icon, { size: 24, className: "text-teal-500" })}
+                      <span className="font-bold text-lg">{selectedEvent.location}</span>
+                    </div>
+                    
+                    <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                      <h4 className="text-xs font-bold text-slate-400 uppercase mb-2">詳細資訊</h4>
+                      <p className="text-slate-700 text-sm leading-relaxed">
+                        {selectedEvent.desc}
+                      </p>
+                    </div>
+
+                    {selectedEvent.detail && (
+                      <div className="grid grid-cols-1 gap-2">
+                        {Object.entries(selectedEvent.detail).map(([key, value]) => (
+                          <div key={key} className="flex items-start gap-2 text-sm">
+                             <div className="w-1.5 h-1.5 rounded-full bg-teal-400 mt-2 flex-shrink-0" />
+                             <span className="text-slate-600">{value}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </Modal>
+
+              {/* Map Mode Modal */}
+              <Modal 
+                isOpen={isMapMode} 
+                onClose={() => setIsMapMode(false)} 
+                title="行程地標總覽"
+              >
+                <div className="space-y-2 max-h-[60vh] overflow-y-auto">
+                  <p className="text-sm text-slate-500 mb-4">點擊下方地點開啟 Google Maps 導航</p>
+                  {[
+                     { name: "塔希提飯店", q: "Tahiti Central Hotel Phu Quoc" },
+                     { name: "富國島夜市", q: "Phu Quoc Night Market" },
+                     { name: "Kingkong Mart", q: "Kingkong Mart Phu Quoc" },
+                     { name: "Sao Beach", q: "Sao Beach Phu Quoc" },
+                     { name: "日落小鎮", q: "Sunset Town Phu Quoc" },
+                     { name: "新世界度假村", q: "New World Phu Quoc Resort" },
+                     { name: "香島纜車站", q: "An Thoi Cable Car Station" },
+                     { name: "親吻橋", q: "Kiss Bridge Phu Quoc" },
+                     { name: "溫德姆 Grand World", q: "Wyndham Garden Grandworld Phu Quoc" },
+                     { name: "珍珠遊樂園", q: "VinWonders Phu Quoc" },
+                     { name: "野生動物園", q: "Vinpearl Safari Phu Quoc" },
+                     { name: "長頸鹿餐廳", q: "Giraffe Restaurant Phu Quoc" },
+                     { name: "Madame Thao (北部美食)", q: "Madame Thao Grand World Phu Quoc" },
+                     { name: "Bach Giai (北部中餐)", q: "Bach Giai Restaurant Phu Quoc" },
+                  ].map((place, i) => (
+                    <a 
+                      key={i}
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.q)}`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-teal-50 border border-slate-100 transition-colors text-slate-700"
+                    >
+                      <span className="font-medium">{place.name}</span>
+                      <Icons.MapPin size={16} className="text-teal-500" />
+                    </a>
+                  ))}
+                </div>
+              </Modal>
+            </div>
+          );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
+
+
