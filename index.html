@@ -45,7 +45,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useRef } = React;
 
         // --- 圖示組件 (SVG) ---
         const IconBase = ({ children, size = 24, className = "" }) => (
@@ -857,6 +857,7 @@
           const [showWelcome, setShowWelcome] = useState(false);
           const [welcomeStatus, setWelcomeStatus] = useState('before'); // 'before' | 'ended'
           const [countdown, setCountdown] = useState('');
+          const userDismissedWelcome = useRef(false); // 使用 Ref 避免依賴閉包問題
 
           const currentDayData = itineraryData.find(d => d.day === activeDay);
 
@@ -864,8 +865,6 @@
           useEffect(() => {
             const updateTime = () => {
                 const now = new Date();
-                // const now = new Date(2025, 10, 30); // 測試用日期
-
                 const startDate = new Date(2025, 10, 29, 14, 0, 0); // 2025/11/29 14:00
                 const endDate = new Date(2025, 11, 6, 23, 59, 59);    // 2025/12/06 23:59
 
@@ -878,22 +877,29 @@
                     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                     setCountdown(`${days}天 ${hours}時 ${minutes}分 ${seconds}秒`);
                     setWelcomeStatus('before');
-                    setShowWelcome(true);
+                    
+                    // 只有當使用者沒有手動關閉過，才顯示歡迎頁
+                    if (!userDismissedWelcome.current) {
+                        setShowWelcome(true);
+                    }
                 } else if (now > endDate) {
                     // 已結束
                     setWelcomeStatus('ended');
-                    setShowWelcome(true);
-                    setActiveDay(1); // 預設顯示第一天
+                    if (!userDismissedWelcome.current) {
+                        setShowWelcome(true);
+                        setActiveDay(1); 
+                    }
                 } else {
-                    // 旅程進行中 -> 計算是第幾天
-                    // 簡單計算天數差異
+                    // 旅程進行中
                     const startDay = new Date(2025, 10, 29);
                     const todayNormalized = new Date(now.getFullYear(), now.getMonth(), now.getDate());
                     const diffTime = Math.abs(todayNormalized - startDay);
                     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
                     
                     setActiveDay(diffDays);
-                    setShowWelcome(false);
+                    if (!userDismissedWelcome.current) {
+                        setShowWelcome(false);
+                    }
                 }
             };
 
@@ -903,15 +909,14 @@
             return () => clearInterval(timer);
           }, []);
 
-          // 首次載入時不自動跳轉頂部，避免遮擋 Welcome
-          useEffect(() => {
-            if (!showWelcome) {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          }, [activeDay, showWelcome]);
+          const handleStart = () => {
+              userDismissedWelcome.current = true;
+              setShowWelcome(false);
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+          };
 
           if (showWelcome) {
-              return <WelcomeScreen onStart={() => setShowWelcome(false)} countdownText={countdown} status={welcomeStatus} />;
+              return <WelcomeScreen onStart={handleStart} countdownText={countdown} status={welcomeStatus} />;
           }
 
           return (
