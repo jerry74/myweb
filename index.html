@@ -69,7 +69,8 @@
             Map: (props) => <IconBase {...props}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></IconBase>,
             CloudSun: (props) => <IconBase {...props}><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></IconBase>,
             Clock: (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>,
-            ArrowRight: (props) => <IconBase {...props}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></IconBase>
+            ArrowRight: (props) => <IconBase {...props}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></IconBase>,
+            Coffee: (props) => <IconBase {...props}><path d="M17 8h1a4 4 0 1 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z"/><line x1="6" x2="6" y1="2" y2="4"/><line x1="10" x2="10" y1="2" y2="4"/><line x1="14" x2="14" y1="2" y2="4"/></IconBase>
         };
 
         // --- 數據資料 ---
@@ -84,7 +85,7 @@
               sub: "Tahiti Central Hotel",
               checkIn: "14:00",
               checkOut: "12:00",
-              note: "早餐 06:30-09:30 | 🈲 榴槤、山竹入內",
+              note: "🈲 榴槤、山竹入內",
               locationQuery: "Tahiti Central Hotel Phu Quoc"
             },
             events: [
@@ -166,6 +167,14 @@
             },
             events: [
               {
+                time: "07:00",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "Tahiti Central Hotel",
+                desc: "供應時間：06:30 - 09:30。位於飯店餐廳。",
+              },
+              {
                 time: "07:45",
                 title: "前往超市交通",
                 type: "transport",
@@ -241,19 +250,27 @@
             },
             events: [
               {
-                time: "11:00",
-                title: "飯店轉換",
+                time: "07:30",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "Mercato Restaurant",
+                desc: "供應時間：06:30 - 10:00。盡情享用五星級自助餐。",
+              },
+              {
+                time: "12:00",
+                title: "飯店轉換 & 退房",
                 type: "transport",
                 icon: Icons.Hotel,
                 location: "Premier Residences -> New World (約 750m)",
-                desc: "兩間飯店皆位於 Khem Beach，距離極近。",
+                desc: "中午 12:00 退房。兩間飯店皆位於 Khem Beach，距離極近。",
                 detail: {
                   "計程車/Grab": "約 2 分鐘。建議搭車搬運行李。",
                   "步行": "約 10 分鐘 (沿海灘或道路)。"
                 }
               },
               {
-                time: "11:15",
+                time: "12:15",
                 title: "Check-in & 寄放行李",
                 type: "hotel",
                 icon: Icons.Hotel,
@@ -296,6 +313,14 @@
             },
             events: [
               {
+                time: "08:00",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "The Bay Kitchen",
+                desc: "供應時間：07:00 - 10:30。享受悠閒的度假早餐。",
+              },
+              {
                 time: "09:00",
                 title: "SUP 漿板玩水",
                 type: "activity",
@@ -321,8 +346,23 @@
                 type: "sightseeing",
                 icon: Icons.Camera,
                 location: "日落小鎮",
-                desc: "夕陽最佳觀賞點。",
+                desc: "夕陽最佳觀賞點。欣賞完日落後可準備看秀。",
                 mapQuery: "Kiss Bridge Phu Quoc"
+              },
+              {
+                time: "18:00",
+                title: "日落小鎮表演時刻表 (週二)",
+                type: "show",
+                icon: Icons.Ticket,
+                location: "Sunset Town / Vui-Fest Bazaar",
+                desc: "⚠️ 注意：週二「海洋之吻」停演。推薦觀賞以下節目：",
+                mapQuery: "Sunset Town Phu Quoc",
+                detail: {
+                  "18:00 - Love Hurricane": "愛情颶風 (水上特技秀)：結合水上摩托車 (Jetski) 與飛板 (Flyboard) 的高難度演出。地點：Kiss Bridge 海灣。",
+                  "19:00 - Vui-Fest Street Show": "Loảng Xoảng Show (廚具敲擊樂) & Tinh Tươm Show (馬戲雜耍)。地點：Vui-Fest 夜市。",
+                  "19:30 - 越式木偶戲": "越南傳統水上木偶戲。地點：海灘 A Ơi 劇院。",
+                  "20:00 - Symphony of the Sea": "大海交響曲：結合鼓樂、旗舞與極限運動的夜間秀。地點：Kiss Bridge 海灣。"
+                }
               }
             ]
           },
@@ -340,21 +380,20 @@
             },
             events: [
               {
-                time: "09:00",
+                time: "08:00",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "The Bay Kitchen",
+                desc: "供應時間：07:00 - 10:30。",
+              },
+              {
+                time: "12:00",
                 title: "退房 & 移動",
                 type: "transport",
                 icon: Icons.MapPin,
                 location: "南部 -> 北部",
-                desc: "車程約 1 - 1.5 小時。"
-              },
-              {
-                time: "14:30",
-                title: "泰迪熊博物館",
-                type: "sightseeing",
-                icon: Icons.Ticket,
-                location: "Grand World 內",
-                desc: "Teddy Bear Museum，適合親子拍照。",
-                mapQuery: "Teddy Bear Museum Phu Quoc"
+                desc: "中午 12:00 退房後出發。車程約 1 - 1.5 小時。",
               },
               {
                 time: "18:00",
@@ -409,24 +448,53 @@
             },
             events: [
               {
+                time: "07:30",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "Nautilus Restaurant",
+                desc: "供應時間：06:00 - 10:00。",
+              },
+              {
                 time: "09:00",
                 title: "富國島珍珠遊樂園",
                 type: "activity",
                 icon: Icons.Ticket,
                 location: "VinWonders",
-                desc: "全日遊玩。水族館(避暑)、水樂園、室外遊樂設施。",
+                desc: "全日遊玩。請先確認兒童海洋生物學體驗集合地點。",
                 mapQuery: "VinWonders Phu Quoc",
                 detail: {
-                  tips: "100cm+ 兒童可玩大多家庭設施。午餐推薦：海底世界餐廳 (Deep Sea Cafeteria)。"
+                  tips: "100cm+ 兒童可玩大多家庭設施。"
                 }
               },
               {
+                time: "10:00",
+                endTime: "12:00",
+                title: "兒童海洋生物學體驗 (Junior Marine Biologist)",
+                type: "activity",
+                icon: Icons.Ticket,
+                location: "水族館 (The Sea Shell)",
+                desc: "10:00 - 12:00 體驗活動。讓孩子化身小小生物學家，探索海洋奧秘。",
+              },
+              {
+                time: "12:30",
+                title: "海底餐廳午餐",
+                type: "food",
+                icon: Icons.Utensils,
+                location: "Deep Sea Cafeteria",
+                desc: "在巨型水族箱旁用餐，與魚兒共進午餐。",
+                mapQuery: "Deep Sea Cafeteria VinWonders"
+              },
+              {
                 time: "14:00",
-                title: "餵企鵝活動",
+                title: "人魚表演 (Mermaid Show)",
                 type: "show",
                 icon: Icons.Camera,
                 location: "水族館 (The Sea Shell)",
-                desc: "每日 14:00 / 15:00 (請入園確認)。"
+                desc: "14:00 場次。欣賞人魚公主在水底的曼妙舞姿。",
+                detail: {
+                  tips: "建議提前 15 分鐘前往水族館大水槽前佔位。"
+                }
               },
               {
                 time: "18:45",
@@ -463,25 +531,31 @@
             },
             events: [
               {
+                time: "07:30",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "Nautilus Restaurant",
+                desc: "供應時間：06:00 - 10:00。",
+              },
+              {
                 time: "09:00",
-                title: "富國島野生動物園",
+                title: "搭乘 Safari Bus (最佳時段)",
                 type: "activity",
                 icon: Icons.Camera,
-                location: "Vinpearl Safari",
-                desc: "搭乘 Safari Bus 進入猛獸區。Kids Zoo 餵小羊。",
+                location: "Vinpearl Safari 猛獸區",
+                desc: "建議一早入園先去搭乘，此時動物最活躍，且不需排隊太久。",
                 mapQuery: "Vinpearl Safari Phu Quoc"
               },
               {
-                time: "10:30",
-                title: "小小保育員 (Junior Zoo Keeper)",
+                time: "10:00",
+                title: "Kids Zoo 餵食動物 (最佳時段)",
                 type: "activity",
                 icon: Icons.Ticket,
                 location: "Kids Zoo 區域",
-                desc: "體驗照顧小動物、清理環境。包含免費領取飼料餵食動物。",
-                mapQuery: "Vinpearl Safari Phu Quoc",
+                desc: "上午時段動物食慾較好，適合互動拍照。",
                 detail: {
-                  tips: "名額有限，建議入園後儘早前往 Kids Zoo 詢問場次。",
-                  highlight: "寓教於樂的親子體驗"
+                  tips: "可免費領取飼料或現場購買。"
                 }
               },
               {
@@ -492,6 +566,28 @@
                 location: "Giraffe Restaurant",
                 desc: "購買紅蘿蔔條 (30k VND) 親手餵長頸鹿。",
                 mapQuery: "Giraffe Restaurant Phu Quoc"
+              },
+              {
+                time: "14:30",
+                title: "小小保育員 (Junior Zoo Keeper)",
+                type: "activity",
+                icon: Icons.Ticket,
+                location: "Kids Zoo 區域",
+                desc: "14:30 場次。體驗照顧小動物、清理環境。",
+                mapQuery: "Vinpearl Safari Phu Quoc",
+                detail: {
+                  tips: "名額有限，建議入園後儘早前往 Kids Zoo 詢問或預約。",
+                  highlight: "寓教於樂的親子體驗"
+                }
+              },
+              {
+                time: "16:30",
+                title: "泰迪熊博物館 (Teddy Bear Museum)",
+                type: "sightseeing",
+                icon: Icons.Ticket,
+                location: "Grand World 內",
+                desc: "動物園行程結束後前往。收藏豐富泰迪熊，適合親子拍照。",
+                mapQuery: "Teddy Bear Museum Phu Quoc"
               },
               {
                 time: "19:00",
@@ -525,7 +621,15 @@
                 type: "transport",
                 icon: Icons.MapPin,
                 location: "前往 PQC 機場",
-                desc: "預留 40-50 分鐘車程。"
+                desc: "預留 40-50 分鐘車程。",
+              },
+              {
+                time: "06:30",
+                title: "早餐時光",
+                type: "food",
+                icon: Icons.Coffee,
+                location: "外帶或機場使用",
+                desc: "因出發較早，建議前一晚請飯店準備早餐盒 (Breakfast Box)。",
               },
               {
                 time: "08:25",
