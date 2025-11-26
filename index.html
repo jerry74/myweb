@@ -30,6 +30,15 @@
             -webkit-tap-highlight-color: transparent;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
+        /* 動畫效果 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
@@ -59,7 +68,8 @@
             Calendar: (props) => <IconBase {...props}><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></IconBase>,
             Map: (props) => <IconBase {...props}><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/><line x1="9" x2="9" y1="3" y2="18"/><line x1="15" x2="15" y1="6" y2="21"/></IconBase>,
             CloudSun: (props) => <IconBase {...props}><path d="M12 2v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="M20 12h2"/><path d="m19.07 4.93-1.41 1.41"/><path d="M15.947 12.65a4 4 0 0 0-5.925-4.128"/><path d="M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6Z"/></IconBase>,
-            Clock: (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>
+            Clock: (props) => <IconBase {...props}><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></IconBase>,
+            ArrowRight: (props) => <IconBase {...props}><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></IconBase>
         };
 
         // --- 數據資料 ---
@@ -536,6 +546,31 @@
 
         // --- 組件 ---
 
+        const WelcomeScreen = ({ onStart }) => (
+            <div className="fixed inset-0 z-50 bg-gradient-to-br from-blue-600 to-teal-500 flex flex-col items-center justify-center text-white px-6">
+                <div className="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+                <div className="animate-float mb-8">
+                    <Icons.Plane size={80} />
+                </div>
+                <h1 className="text-4xl font-bold mb-2 text-center">2025 富國島之旅</h1>
+                <p className="text-lg text-blue-100 mb-8 text-center font-medium tracking-wide">2025.11.29 - 12.06</p>
+                <div className="bg-white/20 backdrop-blur-sm rounded-xl p-6 mb-10 max-w-xs w-full border border-white/30 shadow-lg">
+                    <div className="text-center">
+                        <p className="text-sm text-blue-100 mb-1">距離出發還有</p>
+                        <p className="text-2xl font-bold">期待您的旅程</p>
+                    </div>
+                </div>
+                <button 
+                    onClick={onStart}
+                    className="group relative bg-white text-teal-600 font-bold py-4 px-10 rounded-full shadow-xl hover:shadow-2xl transition-all active:scale-95 flex items-center gap-2"
+                >
+                    <span>開始旅程</span>
+                    <Icons.ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <p className="absolute bottom-8 text-xs text-blue-200/60">Designed for your Family Trip</p>
+            </div>
+        );
+
         const Modal = ({ isOpen, onClose, title, children, mapQuery }) => {
           if (!isOpen) return null;
           return (
@@ -703,15 +738,56 @@
           const [activeDay, setActiveDay] = useState(1);
           const [selectedEvent, setSelectedEvent] = useState(null);
           const [isMapMode, setIsMapMode] = useState(false);
+          const [showWelcome, setShowWelcome] = useState(false);
 
           const currentDayData = itineraryData.find(d => d.day === activeDay);
 
+          // 智能日期判斷
           useEffect(() => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }, [activeDay]);
+            const checkDateStatus = () => {
+                const now = new Date();
+                // 為了測試，您可以解除下行註解並設定特定日期
+                // const now = new Date(2025, 10, 30); // 注意：月份是 0-index，10代表11月
+
+                const startDate = new Date(2025, 10, 29); // 2025/11/29
+                const endDate = new Date(2025, 11, 6);    // 2025/12/06
+
+                // 將時間正規化到午夜，方便比較日期
+                const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+                const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+                const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+
+                if (today < start) {
+                    // 還沒到旅程開始日 -> 顯示 Welcome Page
+                    setShowWelcome(true);
+                } else if (today >= start && today <= end) {
+                    // 旅程中 -> 計算是第幾天
+                    const diffTime = Math.abs(today - start);
+                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                    setActiveDay(diffDays);
+                    setShowWelcome(false);
+                } else {
+                    // 旅程結束 -> 顯示第一天或最後一天 (這裡預設顯示第一天)
+                    setActiveDay(1);
+                    setShowWelcome(false);
+                }
+            };
+
+            checkDateStatus();
+          }, []);
+
+          useEffect(() => {
+            if (!showWelcome) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+          }, [activeDay, showWelcome]);
+
+          if (showWelcome) {
+              return <WelcomeScreen onStart={() => setShowWelcome(false)} />;
+          }
 
           return (
-            <div className="min-h-screen bg-slate-50 font-sans pb-24">
+            <div className="min-h-screen bg-slate-50 font-sans pb-24 animate-in fade-in duration-500">
               {/* Hero Section */}
               <div className="relative bg-gradient-to-br from-teal-500 to-blue-600 text-white pb-8 pt-12 px-6 rounded-b-[2.5rem] shadow-xl overflow-hidden">
                 <div className="absolute top-0 right-0 p-12 opacity-10 transform rotate-12 translate-x-8 -translate-y-8">
@@ -865,5 +941,4 @@
     </script>
 </body>
 </html>
-
 
