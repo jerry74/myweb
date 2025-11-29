@@ -857,56 +857,55 @@
           const [showWelcome, setShowWelcome] = useState(false);
           const [welcomeStatus, setWelcomeStatus] = useState('before'); // 'before' | 'ended'
           const [countdown, setCountdown] = useState('');
-          const userDismissedWelcome = useRef(false); // 使用 Ref 避免依賴閉包問題
+          const userDismissedWelcome = useRef(false);
 
           const currentDayData = itineraryData.find(d => d.day === activeDay);
 
-          // 智能日期判斷與倒數
+          // 1. 初始化檢查 (只執行一次)
           useEffect(() => {
-            const updateTime = () => {
+            const now = new Date();
+            const startDate = new Date(2025, 10, 29); // 2025/11/29 00:00
+            const endDate = new Date(2025, 11, 6);    // 2025/12/06 00:00
+            
+            // 將時間正規化到午夜，方便比較日期
+            const current = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const start = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            const end = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+
+            if (current < start) {
+                // 還沒到旅程開始日
+                setWelcomeStatus('before');
+                setShowWelcome(true);
+            } else if (current > end) {
+                // 旅程已結束
+                setWelcomeStatus('ended');
+                setShowWelcome(true);
+                setActiveDay(1); 
+            } else {
+                // 旅程進行中
+                const diffTime = Math.abs(current - start);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+                setActiveDay(diffDays);
+                setShowWelcome(false); 
+            }
+          }, []); // 空依賴陣列，確保只執行一次
+
+          // 2. 倒數計時器 (每秒執行，只更新倒數文字)
+          useEffect(() => {
+             const timer = setInterval(() => {
                 const now = new Date();
                 const startDate = new Date(2025, 10, 29, 14, 0, 0); // 2025/11/29 14:00
-                const endDate = new Date(2025, 11, 6, 23, 59, 59);    // 2025/12/06 23:59
-
+                
                 if (now < startDate) {
-                    // 未開始 -> 計算倒數
                     const diff = startDate - now;
                     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                     const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                     const seconds = Math.floor((diff % (1000 * 60)) / 1000);
                     setCountdown(`${days}天 ${hours}時 ${minutes}分 ${seconds}秒`);
-                    setWelcomeStatus('before');
-                    
-                    // 只有當使用者沒有手動關閉過，才顯示歡迎頁
-                    if (!userDismissedWelcome.current) {
-                        setShowWelcome(true);
-                    }
-                } else if (now > endDate) {
-                    // 已結束
-                    setWelcomeStatus('ended');
-                    if (!userDismissedWelcome.current) {
-                        setShowWelcome(true);
-                        setActiveDay(1); 
-                    }
-                } else {
-                    // 旅程進行中
-                    const startDay = new Date(2025, 10, 29);
-                    const todayNormalized = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-                    const diffTime = Math.abs(todayNormalized - startDay);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
-                    
-                    setActiveDay(diffDays);
-                    if (!userDismissedWelcome.current) {
-                        setShowWelcome(false);
-                    }
                 }
-            };
-
-            updateTime();
-            const timer = setInterval(updateTime, 1000); // 每秒更新
-
-            return () => clearInterval(timer);
+             }, 1000);
+             return () => clearInterval(timer);
           }, []);
 
           const handleStart = () => {
