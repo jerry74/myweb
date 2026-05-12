@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f6f78">
+  <meta name="description" content="2026 沖繩親子自由行 PWA 行程表">
+  <title>2026 沖繩親子行程</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <section id="countdownView" class="state-view countdown-view is-hidden" aria-live="polite">
+    <div class="state-inner">
+      <p class="eyebrow">Before Departure</p>
+      <h1>沖繩親子自由行</h1>
+      <p class="lead">行程、住宿、三餐與雨天切換都已整理好。出發前可先安裝到手機，旅途中離線也能快速查看。</p>
+      <div class="countdown-grid" aria-label="出發倒數">
+        <div><strong id="countdownDays">0</strong><span>天</span></div>
+        <div><strong id="countdownHours">0</strong><span>時</span></div>
+        <div><strong id="countdownMinutes">0</strong><span>分</span></div>
+      </div>
+      <div class="state-actions">
+        <button id="countdownInstallButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
+        <a id="previewTripButton" class="ghost-button" href="#todayTimeline">預覽完整行程</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="endedView" class="state-view ended-view is-hidden" aria-live="polite">
+    <div class="state-inner">
+      <p class="eyebrow">Trip Completed</p>
+      <h1>沖繩行程已結束</h1>
+      <p class="lead">這份行程可以繼續當作回顧與下次規劃參考。住宿、餐廳、雨天備案與地圖連結都保留下來。</p>
+      <div class="state-actions">
+        <a id="revisitTripButton" class="primary-button" href="#todayTimeline">重新查看完整行程</a>
+      </div>
+    </div>
+  </section>
+
+  <header id="appHeader" class="app-header">
+    <div class="header-media" aria-hidden="true"></div>
+    <div class="header-content dashboard-header">
+      <div class="hero-kicker">
+        <p class="eyebrow">Okinawa Family Trip</p>
+        <span id="tripDateRange">2026/05/30 - 2026/06/06</span>
+      </div>
+      <div class="hero-grid">
+        <section id="todayHero" class="hero-card" aria-live="polite" aria-labelledby="todayHeroTitle">
+          <div class="hero-card-copy">
+            <p class="eyebrow">Today First</p>
+            <h1 id="todayHeroTitle">沖繩親子自由行</h1>
+            <p id="todayHeroLead" class="lead">2 大 1 小，名護先、殘波岬後，最後回那霸收尾。離線可看，地圖與攻略一鍵開。</p>
+            <div id="todayHeroMeta" class="hero-meta"></div>
+            <div id="todayHeroNextStop" class="hero-next-stop"></div>
+          </div>
+          <div id="todayHeroActions" class="hero-actions">
+            <button id="installButton" class="primary-button" type="button" hidden>安裝到手機</button>
+            <a id="todayTimelineAction" class="ghost-button" href="#todayTimeline">查看行程</a>
+            <a id="todayRainAction" class="ghost-button" href="#rainDecisionCard">雨天備案</a>
+            <a id="todayNextStopAction" class="ghost-button" href="#todayTimeline">下一站導航</a>
+          </div>
+        </section>
+        <aside id="tripSummaryCard" class="summary-card" aria-label="旅程摘要"></aside>
+      </div>
+    </div>
+  </header>
+
+  <main id="appContent" class="dashboard-main">
+    <section class="status-strip" aria-label="旅程重點">
+      <div>
+        <span>航班</span>
+        <strong>NU302 / NU301</strong>
+      </div>
+      <div>
+        <span>租車</span>
+        <strong>5/31 開始</strong>
+      </div>
+      <div>
+        <span>雨天核心</span>
+        <strong>水族館・文化王國・Costco</strong>
+      </div>
+    </section>
+
+    <section class="tools-bar" aria-label="行程篩選">
+      <label class="search-box">
+        <span>搜尋</span>
+        <input id="searchInput" type="search" placeholder="輸入地點、餐廳、日期">
+      </label>
+    </section>
+
+    <section id="todayTimeline" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Today Timeline</p>
+        <h2>今天行程</h2>
+      </div>
+      <div id="dayList" class="timeline-list"></div>
+    </section>
+
+    <section class="section support-grid" aria-label="支援資訊">
+      <article id="mealCard" class="support-card" aria-label="餐食與採買"></article>
+      <article id="rainDecisionCard" class="support-card" aria-label="雨天切換"></article>
+    </section>
+
+  </main>
+
+  <footer class="app-footer">
+    <p>資料版本：2026-05-12。餐廳營業時間與公休請出發前用 Google Maps 再確認。</p>
+  </footer>
+
+  <nav id="bottomTabs" class="bottom-tabs" aria-label="日期頁簽">
+    <div id="dayTabs" class="day-tabs" role="tablist" aria-label="日期頁簽"></div>
+  </nav>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
