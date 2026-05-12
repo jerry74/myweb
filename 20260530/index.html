@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1f6f78">
+  <meta name="description" content="2026 沖繩親子自由行 PWA 行程表">
+  <title>2026 沖繩親子行程</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon.svg">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <div class="header-media" aria-hidden="true"></div>
+    <div class="header-content">
+      <div class="hero-kicker">
+        <p class="eyebrow">Travel Itinerary</p>
+        <span>2026/05/30 - 2026/06/06</span>
+      </div>
+      <h1>沖繩親子自由行</h1>
+      <p class="lead">2 大 1 小，名護先、殘波岬後，最後回那霸收尾。離線可看，地圖與攻略一鍵開。</p>
+      <div id="activeDaySummary" class="active-day-summary" aria-live="polite"></div>
+      <div class="header-actions">
+        <button id="installButton" class="primary-button" type="button" hidden>安裝到手機</button>
+        <a class="ghost-button" href="#today">查看行程</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="status-strip" aria-label="旅程重點">
+      <div>
+        <span>航班</span>
+        <strong>NU302 / NU301</strong>
+      </div>
+      <div>
+        <span>租車</span>
+        <strong>5/31 開始</strong>
+      </div>
+      <div>
+        <span>雨天核心</span>
+        <strong>水族館・文化王國・Costco</strong>
+      </div>
+    </section>
+
+    <section class="tools-bar" aria-label="行程篩選">
+      <label class="search-box">
+        <span>搜尋</span>
+        <input id="searchInput" type="search" placeholder="輸入地點、餐廳、日期">
+      </label>
+    </section>
+
+    <section id="today" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Daily Route</p>
+        <h2>逐日行程</h2>
+      </div>
+      <div id="dayList" class="day-list"></div>
+    </section>
+
+    <section class="section two-column">
+      <article class="panel">
+        <h2>住宿總覽</h2>
+        <div id="stayList" class="compact-list"></div>
+      </article>
+      <article class="panel">
+        <h2>早餐採買規則</h2>
+        <div id="breakfastList" class="compact-list"></div>
+      </article>
+    </section>
+
+    <section class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Weather Switch</p>
+        <h2>雨天切換</h2>
+      </div>
+      <div id="rainList" class="rain-grid"></div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>資料版本：2026-05-12。餐廳營業時間與公休請出發前用 Google Maps 再確認。</p>
+  </footer>
+
+  <nav class="bottom-tabs" aria-label="日期頁簽">
+    <div id="dayTabs" class="day-tabs" role="tablist" aria-label="日期頁簽"></div>
+  </nav>
+
+  <script src="./app.js" defer></script>
+</body>
+</html>
