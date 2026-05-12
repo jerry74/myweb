@@ -1,4 +1,4 @@
-const CACHE_NAME = "okinawa-trip-v9";
+const CACHE_NAME = "okinawa-trip-v10";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -26,14 +26,31 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+
+  const requestUrl = new URL(event.request.url);
+  const isSameOrigin = requestUrl.origin === self.location.origin;
+  const isAppShellRequest = isSameOrigin && (
+    event.request.mode === "navigate"
+    || APP_ASSETS.some((asset) => requestUrl.pathname.endsWith(asset.replace("./", "/")))
+  );
+
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        const clone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
-        return response;
-      }).catch(() => caches.match("./index.html"));
-    })
+    (isAppShellRequest
+      ? fetch(event.request).then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          return response;
+        }).catch(async () => {
+          const cached = await caches.match(event.request);
+          return cached || caches.match("./index.html");
+        })
+      : caches.match(event.request).then((cached) => {
+          if (cached) return cached;
+          return fetch(event.request).then((response) => {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+            return response;
+          }).catch(() => caches.match("./index.html"));
+        }))
   );
 });
