@@ -24,7 +24,7 @@
       </div>
       <div class="state-actions">
         <button id="countdownInstallButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
-        <a id="previewTripButton" class="ghost-button" href="#today">預覽完整行程</a>
+        <a id="previewTripButton" class="ghost-button" href="#todayTimeline">預覽完整行程</a>
       </div>
     </div>
   </section>
@@ -35,30 +35,40 @@
       <h1>沖繩行程已結束</h1>
       <p class="lead">這份行程可以繼續當作回顧與下次規劃參考。住宿、餐廳、雨天備案與地圖連結都保留下來。</p>
       <div class="state-actions">
-        <a class="primary-button" href="#today" id="revisitTripButton">重新查看完整行程</a>
+        <a id="revisitTripButton" class="primary-button" href="#todayTimeline">重新查看完整行程</a>
       </div>
     </div>
   </section>
 
   <header id="appHeader" class="app-header">
     <div class="header-media" aria-hidden="true"></div>
-    <div class="header-content">
+    <div class="header-content dashboard-header">
       <div class="hero-kicker">
-        <p class="eyebrow">Travel Itinerary</p>
-        <span>2026/05/30 - 2026/06/06</span>
+        <p class="eyebrow">Okinawa Family Trip</p>
+        <span id="tripDateRange">2026/05/30 - 2026/06/06</span>
       </div>
-      <h1>沖繩親子自由行</h1>
-      <p class="lead">2 大 1 小，名護先、殘波岬後，最後回那霸收尾。離線可看，地圖與攻略一鍵開。</p>
-      <div id="activeDaySummary" class="active-day-summary" aria-live="polite"></div>
-      <div id="activeTripSummary" class="trip-progress-summary" aria-live="polite"></div>
-      <div class="header-actions">
-        <button id="installButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
-        <a class="ghost-button" href="#today">查看行程</a>
+      <div class="hero-grid">
+        <section id="todayHero" class="hero-card" aria-live="polite" aria-labelledby="todayHeroTitle">
+          <div class="hero-card-copy">
+            <p class="eyebrow">Today First</p>
+            <h1 id="todayHeroTitle">沖繩親子自由行</h1>
+            <p id="todayHeroLead" class="lead">2 大 1 小，名護先、殘波岬後，最後回那霸收尾。離線可看，地圖與攻略一鍵開。</p>
+            <div id="todayHeroMeta" class="hero-meta"></div>
+            <div id="todayHeroNextStop" class="hero-next-stop"></div>
+          </div>
+          <div id="todayHeroActions" class="hero-actions">
+            <button id="installButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
+            <a id="todayTimelineAction" class="ghost-button" href="#todayTimeline">查看行程</a>
+            <a id="todayRainAction" class="ghost-button" href="#rainDecisionCard">雨天備案</a>
+            <a id="todayNextStopAction" class="ghost-button" href="#todayTimeline">下一站導航</a>
+          </div>
+        </section>
+        <aside id="tripSummaryCard" class="summary-card" aria-label="旅程摘要"></aside>
       </div>
     </div>
   </header>
 
-  <main id="appContent">
+  <main id="appContent" class="dashboard-main">
     <section class="status-strip" aria-label="旅程重點">
       <div>
         <span>航班</span>
@@ -81,32 +91,19 @@
       </label>
     </section>
 
-    <section id="today" class="section">
+    <section id="todayTimeline" class="section">
       <div class="section-heading">
-        <p class="eyebrow">Daily Route</p>
-        <h2>逐日行程</h2>
+        <p class="eyebrow">Today Timeline</p>
+        <h2>今天行程</h2>
       </div>
-      <div id="dayList" class="day-list"></div>
+      <div id="dayList" class="timeline-list"></div>
     </section>
 
-    <section class="section two-column">
-      <article class="panel">
-        <h2>住宿總覽</h2>
-        <div id="stayList" class="compact-list"></div>
-      </article>
-      <article class="panel">
-        <h2>早餐採買規則</h2>
-        <div id="breakfastList" class="compact-list"></div>
-      </article>
+    <section class="section support-grid" aria-label="支援資訊">
+      <article id="mealCard" class="support-card" aria-label="餐食與採買"></article>
+      <article id="rainDecisionCard" class="support-card" aria-label="雨天切換"></article>
     </section>
 
-    <section class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Weather Switch</p>
-        <h2>雨天切換</h2>
-      </div>
-      <div id="rainList" class="rain-grid"></div>
-    </section>
   </main>
 
   <footer class="app-footer">

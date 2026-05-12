@@ -203,13 +203,6 @@ const days = [
   },
 ];
 
-const stays = [
-  ["5/30", "東急 Stay 沖繩那霸（Tokyu Stay Okinawa Naha / 東急ステイ沖縄那覇）", mapUrl("Tokyu Stay Okinawa Naha")],
-  ["5/31-6/1", "名護／幸喜住宿（Nago / Kouki / 名護・幸喜）", mapUrl("Kouki Beach Nago Okinawa")],
-  ["6/2-6/3", "沖繩殘波岬美爵度假酒店（Grand Mercure Okinawa Cape Zanpa Resort / グランドメルキュール沖縄残波岬リゾート）", mapUrl("Grand Mercure Okinawa Cape Zanpa Resort")],
-  ["6/4-6/5", "那霸單軌沿線，建議旭橋／縣廳前／小祿／赤嶺", mapUrl("Asahibashi Station Naha")],
-];
-
 const breakfasts = [
   ["5/31", "5/30 那霸便利店買好。"],
   ["6/1", "5/31 AEON 名護或便利店買好。"],
@@ -227,21 +220,58 @@ const rainRules = [
   ["6/5", "知念岬取消，文化王國縮短，Costco 保留。"],
 ];
 
+const breakfastMap = new Map(breakfasts);
+const stayDetailsMap = new Map([
+  ["5/30", {
+    name: "東急 Stay 沖繩那霸（Tokyu Stay Okinawa Naha / 東急ステイ沖縄那覇）",
+    mapUrl: mapUrl("Tokyu Stay Okinawa Naha"),
+  }],
+  ["5/31", {
+    name: "名護／幸喜住宿（Nago / Kouki / 名護・幸喜）",
+    mapUrl: mapUrl("Kouki Beach Nago Okinawa"),
+  }],
+  ["6/1", {
+    name: "名護／幸喜住宿（Nago / Kouki / 名護・幸喜）",
+    mapUrl: mapUrl("Kouki Beach Nago Okinawa"),
+  }],
+  ["6/2", {
+    name: "沖繩殘波岬美爵度假酒店（Grand Mercure Okinawa Cape Zanpa Resort / グランドメルキュール沖縄残波岬リゾート）",
+    mapUrl: mapUrl("Grand Mercure Okinawa Cape Zanpa Resort"),
+  }],
+  ["6/3", {
+    name: "沖繩殘波岬美爵度假酒店（Grand Mercure Okinawa Cape Zanpa Resort / グランドメルキュール沖縄残波岬リゾート）",
+    mapUrl: mapUrl("Grand Mercure Okinawa Cape Zanpa Resort"),
+  }],
+  ["6/4", {
+    name: "那霸單軌沿線住宿（建議旭橋／縣廳前／小祿／赤嶺）",
+    mapUrl: mapUrl("Asahibashi Station Naha"),
+  }],
+  ["6/5", {
+    name: "那霸單軌沿線住宿（建議旭橋／縣廳前／小祿／赤嶺）",
+    mapUrl: mapUrl("Asahibashi Station Naha"),
+  }],
+  ["6/6", {
+    name: "回程日",
+    mapUrl: mapUrl("Naha Airport"),
+  }],
+]);
 const tripConfig = {
   startAt: "2026-05-30T00:00:00+08:00",
   departureAt: "2026-05-30T12:00:00+08:00",
   endAt: "2026-06-06T23:59:59+08:00",
-  totalDays: days.length,
 };
 
 const dayList = document.querySelector("#dayList");
 const dayTabs = document.querySelector("#dayTabs");
-const stayList = document.querySelector("#stayList");
-const breakfastList = document.querySelector("#breakfastList");
-const rainList = document.querySelector("#rainList");
 const searchInput = document.querySelector("#searchInput");
-const activeDaySummary = document.querySelector("#activeDaySummary");
-const activeTripSummary = document.querySelector("#activeTripSummary");
+const todayHeroTitle = document.querySelector("#todayHeroTitle");
+const todayHeroLead = document.querySelector("#todayHeroLead");
+const todayHeroMeta = document.querySelector("#todayHeroMeta");
+const todayHeroNextStop = document.querySelector("#todayHeroNextStop");
+const tripSummaryCard = document.querySelector("#tripSummaryCard");
+const mealCard = document.querySelector("#mealCard");
+const rainDecisionCard = document.querySelector("#rainDecisionCard");
+const todayNextStopAction = document.querySelector("#todayNextStopAction");
 const countdownView = document.querySelector("#countdownView");
 const endedView = document.querySelector("#endedView");
 const appHeader = document.querySelector("#appHeader");
@@ -254,6 +284,23 @@ const previewTripButton = document.querySelector("#previewTripButton");
 const revisitTripButton = document.querySelector("#revisitTripButton");
 let activeDayIndex = 0;
 let forceShowItinerary = false;
+
+function linkPills(links) {
+  if (!links.length) return "";
+  return `<div class="link-row">${links.map(([label, url]) => `<a class="link-pill" href="${url}" target="_blank" rel="noreferrer">${label}</a>`).join("")}</div>`;
+}
+
+function getEntryMeta(entry) {
+  const text = entry.text || "";
+  const isWeatherSwitch = entry.time.includes("雨天") || text.includes("若雨") || text.includes("下雨") || text.includes("取消");
+  const isOptional = text.includes("視天氣") || text.includes("若 ") || text.includes("若雨") || text.includes("短停") || text.includes("補");
+
+  return {
+    weatherSensitive: isWeatherSwitch || text.includes("戶外") || text.includes("景觀") || text.includes("散步"),
+    optional: isOptional,
+    isWeatherSwitch,
+  };
+}
 
 function getPreviewDate() {
   const value = new URLSearchParams(window.location.search).get("previewDate");
@@ -273,7 +320,7 @@ function getTripState(currentDate) {
   return "active";
 }
 
-function getActiveDayIndex(currentDate) {
+function getActiveTripDayIndex(currentDate) {
   const start = new Date(tripConfig.startAt);
   const day = Math.floor((currentDate - start) / (1000 * 60 * 60 * 24));
   return Math.min(Math.max(day, 0), days.length - 1);
@@ -293,68 +340,217 @@ function setHidden(element, hidden) {
   element.classList.toggle("is-hidden", hidden);
 }
 
-function linkPills(links) {
-  if (!links.length) return "";
-  return `<div class="link-row">${links.map(([label, url]) => `<a class="link-pill" href="${url}" target="_blank" rel="noreferrer">${label}</a>`).join("")}</div>`;
+function getTimelineCards(day) {
+  return day.schedule.map((entry, index) => {
+    const meta = getEntryMeta(entry);
+    const badges = [];
+
+    if (index === 0) {
+      badges.push("下一步");
+    }
+
+    if (meta.isWeatherSwitch) {
+      badges.push("雨天切換");
+    } else if (meta.weatherSensitive) {
+      badges.push("雨天敏感");
+    }
+
+    badges.push(meta.optional ? "可彈性調整" : "固定行程");
+
+    return {
+      ...entry,
+      isNext: index === 0,
+      badges,
+    };
+  });
+}
+
+function getActiveDayViewModel() {
+  const day = days[activeDayIndex];
+  const timelineCards = getTimelineCards(day);
+  const nextStop = timelineCards.find((entry) => entry.isNext) || timelineCards[0];
+
+  return {
+    dayNumber: activeDayIndex + 1,
+    totalDays: days.length,
+    dateLabel: `${day.date}（${day.weekday}）`,
+    title: day.title,
+    stay: day.stay,
+    lead: `${day.date}（${day.weekday}）｜住宿：${day.stay}`,
+    nextStop,
+  };
+}
+
+function getTodayMealViewModel(day) {
+  return {
+    spotlight: day.food.slice(0, 2),
+    support: day.food.slice(2),
+  };
+}
+
+function getTripSummaryViewModel(day) {
+  const stayDetails = stayDetailsMap.get(day.date);
+
+  return {
+    dayLabel: `Day ${activeDayIndex + 1} / ${days.length}`,
+    stay: stayDetails?.name || day.stay,
+    remainingDays: Math.max(days.length - activeDayIndex - 1, 0),
+    transferLabel: day.tags.includes("drive") ? "今天有移動" : "今天定點活動",
+  };
+}
+
+function getRainDecisionViewModel(day) {
+  const tags = [];
+
+  if (day.tags.includes("rain")) {
+    tags.push("保留部分室內點", "戶外可取消", "視天氣延後");
+  } else {
+    tags.push("照原行程", "低天氣風險");
+  }
+
+  return {
+    title: "雨天切換",
+    summary: day.rainPlan,
+    decisionTags: tags,
+  };
+}
+
+function getDaySupportDetails(day) {
+  const stayDetails = stayDetailsMap.get(day.date);
+
+  return {
+    stay: day.stay,
+    stayName: stayDetails?.name || day.stay,
+    stayMapUrl: stayDetails?.mapUrl || mapUrl(day.stay),
+    breakfast: breakfastMap.get(day.date) || "依照當天住宿與前一站行程彈性準備早餐。",
+  };
+}
+
+function renderTodayHero() {
+  const model = getActiveDayViewModel();
+  const nextStopLink = model.nextStop && model.nextStop.links.length ? model.nextStop.links[0][1] : "#todayTimeline";
+
+  todayHeroTitle.textContent = model.title;
+  todayHeroLead.textContent = model.lead;
+  todayHeroMeta.innerHTML = `
+    <span>Day ${model.dayNumber} / ${model.totalDays}</span>
+    <strong>${model.dateLabel}</strong>
+    <small>今天主題：${model.title}</small>
+  `;
+  todayHeroNextStop.innerHTML = `
+    <span>下一站</span>
+    <strong>${model.nextStop ? model.nextStop.text : "今天自由調整"}</strong>
+  `;
+  todayNextStopAction.href = nextStopLink;
+  todayNextStopAction.target = nextStopLink.startsWith("http") ? "_blank" : "_self";
+  todayNextStopAction.rel = nextStopLink.startsWith("http") ? "noreferrer" : "";
+}
+
+function renderTripSummary() {
+  const day = days[activeDayIndex];
+  const model = getTripSummaryViewModel(day);
+
+  tripSummaryCard.innerHTML = `
+    <p class="eyebrow">Trip Summary</p>
+    <h2>${model.dayLabel}</h2>
+    <div class="summary-metrics">
+      <div class="summary-item">
+        <span>今天節奏</span>
+        <strong>${model.transferLabel}</strong>
+      </div>
+      <div class="summary-item">
+        <span>目前住宿</span>
+        <strong>${model.stay}</strong>
+      </div>
+      <div class="summary-item">
+        <span>距離返程</span>
+        <strong>${model.remainingDays} 天</strong>
+      </div>
+    </div>
+  `;
+}
+
+function renderSupportCards() {
+  const day = days[activeDayIndex];
+  const mealModel = getTodayMealViewModel(day);
+  const rainModel = getRainDecisionViewModel(day);
+
+  mealCard.innerHTML = `
+    <p class="eyebrow">Meals & Supply</p>
+    <h2>今天吃什麼</h2>
+    <div class="support-stack">
+      ${mealModel.spotlight.map((entry) => `
+        <div class="support-item">
+          <span class="compact-meta">${entry.title}</span>
+          <strong>${entry.text}</strong>
+          ${linkPills(entry.links)}
+        </div>
+      `).join("")}
+      ${mealModel.support.length ? `
+        <div class="support-note">
+          ${mealModel.support.map((entry) => `
+            <div class="support-note-row">
+              <span>${entry.title}</span>
+              <strong>${entry.text}</strong>
+            </div>
+          `).join("")}
+        </div>
+      ` : ""}
+    </div>
+  `;
+
+  rainDecisionCard.innerHTML = `
+    <p class="eyebrow">Weather Switch</p>
+    <h2>${rainModel.title}</h2>
+    <p class="support-copy">${rainModel.summary}</p>
+    <div class="decision-tags">
+      ${rainModel.decisionTags.map((tag) => `<span class="decision-tag">${tag}</span>`).join("")}
+    </div>
+  `;
 }
 
 function renderDays() {
   const query = searchInput.value.trim().toLowerCase();
-  dayList.innerHTML = "";
-
   const visibleDays = query
     ? days.filter((day) => JSON.stringify(day).toLowerCase().includes(query))
     : [days[activeDayIndex]];
 
-  visibleDays
-    .forEach((day) => {
-      const card = document.createElement("article");
-      card.className = "day-card";
-      card.innerHTML = `
-        <div class="day-top">
-          <div class="date-badge">
-            <span class="tag">${day.weekday}</span>
-            <strong>${day.date}</strong>
-          </div>
-          <div>
-            <h3>${day.title}</h3>
-            <span class="compact-meta">住宿：${day.stay}</span>
-          </div>
+  dayList.innerHTML = visibleDays.map((day) => `
+    <article class="timeline-day">
+      <header class="timeline-day-header">
+        <div>
+          <p class="eyebrow">Day Focus</p>
+          <h3>${day.date}（${day.weekday}）${day.title}</h3>
+          <p class="compact-meta">住宿：${day.stay}</p>
         </div>
-        <div class="day-body">
-          <div class="schedule">
-            <div class="rain-note">
-              <strong>雨天切換</strong>
-              <p>${day.rainPlan}</p>
-            </div>
-            ${day.schedule.map((entry) => `
-              <div class="time-row">
-                <b>${entry.time}</b>
-                <div>
-                  <div class="row-copy">
-                    <span>${entry.text}</span>
-                  </div>
-                  ${linkPills(entry.links)}
-                </div>
+      </header>
+      <div class="day-support-strip">
+        <div class="day-support-card">
+          <span class="compact-meta">今晚住宿</span>
+          <strong>${getDaySupportDetails(day).stayName}</strong>
+          <a class="support-link" href="${getDaySupportDetails(day).stayMapUrl}" target="_blank" rel="noreferrer">Google Maps</a>
+        </div>
+        <div class="day-support-card">
+          <span class="compact-meta">早餐準備</span>
+          <strong>${getDaySupportDetails(day).breakfast}</strong>
+        </div>
+      </div>
+      <div class="timeline-cards">
+        ${getTimelineCards(day).map((entry) => `
+          <section class="timeline-card">
+            <div class="timeline-card-top">
+              <b>${entry.time}</b>
+              <div class="timeline-badges">
+                ${entry.badges.map((badge) => `<span class="timeline-badge">${badge}</span>`).join("")}
               </div>
-            `).join("")}
-          </div>
-          <aside class="food-panel">
-            <h3>三餐與採買</h3>
-            <div class="food-list">
-              ${day.food.map((entry) => `
-                <div class="food-item">
-                  <strong>${entry.title}</strong>
-                  <p>${entry.text}</p>
-                  ${linkPills(entry.links)}
-                </div>
-              `).join("")}
             </div>
-          </aside>
-        </div>
-      `;
-      dayList.appendChild(card);
-    });
+            <p>${entry.text}</p>
+            ${linkPills(entry.links)}
+          </section>
+        `).join("")}
+      </div>
+    </article>
+  `).join("");
 }
 
 function renderTabs() {
@@ -368,65 +564,51 @@ function renderTabs() {
     >
       <span class="day-label">Day ${index + 1}</span>
       <strong>${day.date}</strong>
-      <span>${day.weekday}｜${day.stay}</span>
+      <span>${day.weekday}｜${day.title}</span>
     </button>
   `).join("");
-
-  const activeDay = days[activeDayIndex];
-  activeDaySummary.innerHTML = `
-    <span>Day ${activeDayIndex + 1} / ${days.length}</span>
-    <strong>${activeDay.date}（${activeDay.weekday}）${activeDay.title}</strong>
-    <small>住宿：${activeDay.stay}</small>
-  `;
-  if (activeTripSummary) {
-    activeTripSummary.textContent = `旅程第 ${activeDayIndex + 1} 天，距離返程還有 ${Math.max(days.length - activeDayIndex - 1, 0)} 天`;
-  }
 
   dayTabs.querySelectorAll(".day-tab").forEach((button) => {
     button.addEventListener("click", () => {
       activeDayIndex = Number(button.dataset.dayIndex);
       searchInput.value = "";
-      renderTabs();
-      renderDays();
+      renderDashboard();
     });
   });
 }
 
-function renderCompactLists() {
-  stayList.innerHTML = stays.map(([date, text, url]) => `
-    <div class="compact-item">
-      <span class="compact-meta">${date}</span>
-      <strong>${text}</strong>
-      <a href="${url}" target="_blank" rel="noreferrer">Google Maps</a>
-    </div>
-  `).join("");
-
-  breakfastList.innerHTML = breakfasts.map(([date, text]) => `
-    <div class="compact-item">
-      <span class="compact-meta">${date}</span>
-      <strong>${text}</strong>
-    </div>
-  `).join("");
-
-  rainList.innerHTML = rainRules.map(([date, text]) => `
-    <article class="rain-card">
-      <strong>${date}</strong>
-      <p>${text}</p>
-    </article>
-  `).join("");
+function renderDashboard() {
+  renderTodayHero();
+  renderTripSummary();
+  renderSupportCards();
+  renderTabs();
+  renderDays();
 }
 
-searchInput.addEventListener("input", renderDays);
+searchInput.addEventListener("input", () => {
+  renderDays();
+});
 
 let deferredPrompt;
 const installButtons = document.querySelectorAll(".install-button");
+const isIosDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+  || (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function updateInstallButtons() {
+  const canUseInstallPrompt = Boolean(deferredPrompt) && !isIosDevice && !isStandaloneMode();
+  installButtons.forEach((button) => {
+    button.hidden = !canUseInstallPrompt;
+  });
+}
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredPrompt = event;
-  installButtons.forEach((button) => {
-    button.hidden = false;
-  });
+  updateInstallButtons();
 });
 
 installButtons.forEach((button) => {
@@ -435,11 +617,16 @@ installButtons.forEach((button) => {
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
-    installButtons.forEach((installButton) => {
-      installButton.hidden = true;
-    });
+    updateInstallButtons();
   });
 });
+
+window.addEventListener("appinstalled", () => {
+  deferredPrompt = null;
+  updateInstallButtons();
+});
+
+updateInstallButtons();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -450,6 +637,7 @@ if ("serviceWorker" in navigator) {
 function renderTripState() {
   const now = getCurrentDate();
   const state = getTripState(now);
+
   if (forceShowItinerary) {
     setHidden(countdownView, true);
     setHidden(endedView, true);
@@ -478,26 +666,34 @@ function renderTripState() {
   }
 
   if (state === "active") {
-    activeDayIndex = getActiveDayIndex(now);
+    activeDayIndex = getActiveTripDayIndex(now);
+  }
+
+  if (state === "ended") {
+    activeDayIndex = days.length - 1;
   }
 }
 
-function showItineraryFromStatePage() {
+function showItineraryFromStatePage(event) {
+  event.preventDefault();
   forceShowItinerary = true;
   renderTripState();
-  renderTabs();
-  renderDays();
+  renderDashboard();
+  const timeline = document.querySelector("#todayTimeline");
+  if (timeline) {
+    timeline.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 
 previewTripButton.addEventListener("click", showItineraryFromStatePage);
 revisitTripButton.addEventListener("click", showItineraryFromStatePage);
 
 renderTripState();
-renderCompactLists();
-renderTabs();
-renderDays();
+renderDashboard();
 setInterval(() => {
   renderTripState();
-  renderTabs();
-  renderDays();
+  if (!countdownView.classList.contains("is-hidden") || !endedView.classList.contains("is-hidden")) {
+    return;
+  }
+  renderDashboard();
 }, 60000);

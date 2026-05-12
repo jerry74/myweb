@@ -26,7 +26,7 @@ const sites = [
       'rel="manifest"',
       "countdownView",
       "endedView",
-      "activeTripSummary",
+      "tripSummaryCard",
     ],
   },
 ];
