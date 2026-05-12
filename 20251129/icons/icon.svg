@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="富國島旅行圖示">
+  <rect width="512" height="512" rx="112" fill="#0f766e"/>
+  <path d="M92 326c52-34 98-48 139-42 39 6 72 31 108 37 32 6 58-7 81-25v72H92v-42Z" fill="#fef3c7"/>
+  <path d="M86 365h340v44H86z" fill="#0c4a6e"/>
+  <circle cx="365" cy="139" r="54" fill="#fde68a"/>
+  <path d="M160 301c38-80 82-128 132-144 17-5 36-6 56-2-35 15-65 43-91 84-18 28-32 60-43 96l-54-34Z" fill="#ecfeff"/>
+  <path d="M235 226c-6 42 2 91 25 146" stroke="#064e3b" stroke-width="24" stroke-linecap="round"/>
+  <path d="M226 229c-28-31-59-47-94-48 31-23 71-22 116 4l-22 44Z" fill="#bbf7d0"/>
+  <path d="M234 221c19-38 49-62 90-71-18 39-48 66-90 71Z" fill="#86efac"/>
+  <path d="M240 232c44-9 83 1 116 31-44 7-83-3-116-31Z" fill="#22c55e"/>
+</svg>

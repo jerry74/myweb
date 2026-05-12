@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Okinawa trip icon">
+  <rect width="512" height="512" rx="92" fill="#1f6f78"/>
+  <path d="M74 326c48-42 91-43 137-6 47 38 90 39 142 3 34-24 62-28 85-19v74H74z" fill="#f0b84f"/>
+  <path d="M72 366c48-34 96-35 145-1 47 32 90 32 139 0 34-22 61-25 84-17v92H72z" fill="#fbf8f0"/>
+  <circle cx="356" cy="146" r="56" fill="#ffd98a"/>
+  <path d="M150 252c48-83 101-123 160-119-25 29-38 68-38 117 0 35 8 67 24 96-57-16-106-48-146-94z" fill="#ffffff" opacity=".94"/>
+  <path d="M155 251c40 22 83 33 130 34 6 22 16 42 30 61-60-13-113-45-160-95z" fill="#d76745"/>
+</svg>
