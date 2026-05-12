@@ -1,9 +1,7 @@
-const CACHE_NAME = "okinawa-trip-v9";
+const CACHE_NAME = "phu-quoc-trip-v1";
 const APP_ASSETS = [
   "./",
   "./index.html",
-  "./styles.css",
-  "./app.js",
   "./manifest.webmanifest",
   "./icons/icon.svg"
 ];

@@ -49,6 +49,84 @@ input {
   font: inherit;
 }
 
+.is-hidden {
+  display: none !important;
+}
+
+.state-view {
+  min-height: 100vh;
+  display: grid;
+  align-items: center;
+  color: white;
+  background:
+    linear-gradient(180deg, rgba(15, 23, 42, 0.18), rgba(15, 23, 42, 0.78)),
+    url("https://images.unsplash.com/photo-1583051044002-9f1bd609f9a7?auto=format&fit=crop&w=1800&q=80");
+  background-size: cover;
+  background-position: center;
+  padding: 48px 16px;
+}
+
+.state-inner {
+  width: min(920px, 100%);
+  margin: 0 auto;
+}
+
+.state-inner h1 {
+  margin-top: 14px;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(86px, 1fr));
+  gap: 12px;
+  width: min(520px, 100%);
+  margin: 28px 0 0;
+}
+
+.countdown-grid div {
+  min-height: 104px;
+  display: grid;
+  place-items: center;
+  gap: 2px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(14px);
+}
+
+.countdown-grid strong {
+  font-size: clamp(2.2rem, 9vw, 4.2rem);
+  line-height: 1;
+}
+
+.countdown-grid span {
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 900;
+}
+
+.state-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.trip-progress-summary {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  margin-top: 12px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.13);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88rem;
+  font-weight: 850;
+  backdrop-filter: blur(12px);
+}
+
 .app-header {
   position: relative;
   min-height: 460px;
@@ -628,6 +706,25 @@ main,
 @media (max-width: 560px) {
   body {
     padding-bottom: calc(98px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .state-view {
+    align-items: end;
+    min-height: 100svh;
+    padding-bottom: 44px;
+  }
+
+  .countdown-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .countdown-grid div {
+    min-height: 88px;
+    border-radius: 18px;
+  }
+
+  .trip-progress-summary {
+    border-radius: 18px;
   }
 
   .app-header {

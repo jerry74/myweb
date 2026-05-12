@@ -227,6 +227,13 @@ const rainRules = [
   ["6/5", "知念岬取消，文化王國縮短，Costco 保留。"],
 ];
 
+const tripConfig = {
+  startAt: "2026-05-30T00:00:00+08:00",
+  departureAt: "2026-05-30T12:00:00+08:00",
+  endAt: "2026-06-06T23:59:59+08:00",
+  totalDays: days.length,
+};
+
 const dayList = document.querySelector("#dayList");
 const dayTabs = document.querySelector("#dayTabs");
 const stayList = document.querySelector("#stayList");
@@ -234,7 +241,57 @@ const breakfastList = document.querySelector("#breakfastList");
 const rainList = document.querySelector("#rainList");
 const searchInput = document.querySelector("#searchInput");
 const activeDaySummary = document.querySelector("#activeDaySummary");
+const activeTripSummary = document.querySelector("#activeTripSummary");
+const countdownView = document.querySelector("#countdownView");
+const endedView = document.querySelector("#endedView");
+const appHeader = document.querySelector("#appHeader");
+const appContent = document.querySelector("#appContent");
+const bottomTabs = document.querySelector("#bottomTabs");
+const countdownDays = document.querySelector("#countdownDays");
+const countdownHours = document.querySelector("#countdownHours");
+const countdownMinutes = document.querySelector("#countdownMinutes");
+const previewTripButton = document.querySelector("#previewTripButton");
+const revisitTripButton = document.querySelector("#revisitTripButton");
 let activeDayIndex = 0;
+let forceShowItinerary = false;
+
+function getPreviewDate() {
+  const value = new URLSearchParams(window.location.search).get("previewDate");
+  const previewDate = value ? new Date(value) : null;
+  return previewDate && !Number.isNaN(previewDate.getTime()) ? previewDate : null;
+}
+
+function getCurrentDate() {
+  return getPreviewDate() || new Date();
+}
+
+function getTripState(currentDate) {
+  const start = new Date(tripConfig.startAt);
+  const end = new Date(tripConfig.endAt);
+  if (currentDate < start) return "countdown";
+  if (currentDate > end) return "ended";
+  return "active";
+}
+
+function getActiveDayIndex(currentDate) {
+  const start = new Date(tripConfig.startAt);
+  const day = Math.floor((currentDate - start) / (1000 * 60 * 60 * 24));
+  return Math.min(Math.max(day, 0), days.length - 1);
+}
+
+function getCountdownParts(targetDate, currentDate) {
+  const diff = Math.max(targetDate - currentDate, 0);
+  return {
+    days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+    minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),
+  };
+}
+
+function setHidden(element, hidden) {
+  if (!element) return;
+  element.classList.toggle("is-hidden", hidden);
+}
 
 function linkPills(links) {
   if (!links.length) return "";
@@ -321,6 +378,9 @@ function renderTabs() {
     <strong>${activeDay.date}（${activeDay.weekday}）${activeDay.title}</strong>
     <small>住宿：${activeDay.stay}</small>
   `;
+  if (activeTripSummary) {
+    activeTripSummary.textContent = `旅程第 ${activeDayIndex + 1} 天，距離返程還有 ${Math.max(days.length - activeDayIndex - 1, 0)} 天`;
+  }
 
   dayTabs.querySelectorAll(".day-tab").forEach((button) => {
     button.addEventListener("click", () => {
@@ -359,20 +419,26 @@ function renderCompactLists() {
 searchInput.addEventListener("input", renderDays);
 
 let deferredPrompt;
-const installButton = document.querySelector("#installButton");
+const installButtons = document.querySelectorAll(".install-button");
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredPrompt = event;
-  installButton.hidden = false;
+  installButtons.forEach((button) => {
+    button.hidden = false;
+  });
 });
 
-installButton.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  installButton.hidden = true;
+installButtons.forEach((button) => {
+  button.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installButtons.forEach((installButton) => {
+      installButton.hidden = true;
+    });
+  });
 });
 
 if ("serviceWorker" in navigator) {
@@ -381,6 +447,57 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+function renderTripState() {
+  const now = getCurrentDate();
+  const state = getTripState(now);
+  if (forceShowItinerary) {
+    setHidden(countdownView, true);
+    setHidden(endedView, true);
+    setHidden(appHeader, false);
+    setHidden(appContent, false);
+    setHidden(bottomTabs, false);
+    if (state === "ended") {
+      activeDayIndex = days.length - 1;
+    } else if (state === "countdown") {
+      activeDayIndex = 0;
+    }
+    return;
+  }
+
+  setHidden(countdownView, state !== "countdown");
+  setHidden(endedView, state !== "ended");
+  setHidden(appHeader, state !== "active");
+  setHidden(appContent, state !== "active");
+  setHidden(bottomTabs, state !== "active");
+
+  if (state === "countdown") {
+    const parts = getCountdownParts(new Date(tripConfig.departureAt), now);
+    countdownDays.textContent = parts.days;
+    countdownHours.textContent = parts.hours;
+    countdownMinutes.textContent = parts.minutes;
+  }
+
+  if (state === "active") {
+    activeDayIndex = getActiveDayIndex(now);
+  }
+}
+
+function showItineraryFromStatePage() {
+  forceShowItinerary = true;
+  renderTripState();
+  renderTabs();
+  renderDays();
+}
+
+previewTripButton.addEventListener("click", showItineraryFromStatePage);
+revisitTripButton.addEventListener("click", showItineraryFromStatePage);
+
+renderTripState();
 renderCompactLists();
 renderTabs();
 renderDays();
+setInterval(() => {
+  renderTripState();
+  renderTabs();
+  renderDays();
+}, 60000);

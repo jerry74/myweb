@@ -12,7 +12,35 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <header class="app-header">
+  <section id="countdownView" class="state-view countdown-view is-hidden" aria-live="polite">
+    <div class="state-inner">
+      <p class="eyebrow">Before Departure</p>
+      <h1>沖繩親子自由行</h1>
+      <p class="lead">行程、住宿、三餐與雨天切換都已整理好。出發前可先安裝到手機，旅途中離線也能快速查看。</p>
+      <div class="countdown-grid" aria-label="出發倒數">
+        <div><strong id="countdownDays">0</strong><span>天</span></div>
+        <div><strong id="countdownHours">0</strong><span>時</span></div>
+        <div><strong id="countdownMinutes">0</strong><span>分</span></div>
+      </div>
+      <div class="state-actions">
+        <button id="countdownInstallButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
+        <a id="previewTripButton" class="ghost-button" href="#today">預覽完整行程</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="endedView" class="state-view ended-view is-hidden" aria-live="polite">
+    <div class="state-inner">
+      <p class="eyebrow">Trip Completed</p>
+      <h1>沖繩行程已結束</h1>
+      <p class="lead">這份行程可以繼續當作回顧與下次規劃參考。住宿、餐廳、雨天備案與地圖連結都保留下來。</p>
+      <div class="state-actions">
+        <a class="primary-button" href="#today" id="revisitTripButton">重新查看完整行程</a>
+      </div>
+    </div>
+  </section>
+
+  <header id="appHeader" class="app-header">
     <div class="header-media" aria-hidden="true"></div>
     <div class="header-content">
       <div class="hero-kicker">
@@ -22,14 +50,15 @@
       <h1>沖繩親子自由行</h1>
       <p class="lead">2 大 1 小，名護先、殘波岬後，最後回那霸收尾。離線可看，地圖與攻略一鍵開。</p>
       <div id="activeDaySummary" class="active-day-summary" aria-live="polite"></div>
+      <div id="activeTripSummary" class="trip-progress-summary" aria-live="polite"></div>
       <div class="header-actions">
-        <button id="installButton" class="primary-button" type="button" hidden>安裝到手機</button>
+        <button id="installButton" class="primary-button install-button" type="button" hidden>安裝到手機</button>
         <a class="ghost-button" href="#today">查看行程</a>
       </div>
     </div>
   </header>
 
-  <main>
+  <main id="appContent">
     <section class="status-strip" aria-label="旅程重點">
       <div>
         <span>航班</span>
@@ -84,7 +113,7 @@
     <p>資料版本：2026-05-12。餐廳營業時間與公休請出發前用 Google Maps 再確認。</p>
   </footer>
 
-  <nav class="bottom-tabs" aria-label="日期頁簽">
+  <nav id="bottomTabs" class="bottom-tabs" aria-label="日期頁簽">
     <div id="dayTabs" class="day-tabs" role="tablist" aria-label="日期頁簽"></div>
   </nav>
 
