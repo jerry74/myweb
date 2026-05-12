@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+
+.superpowers/
+GOOGLE_MY_MAPS_IMPORT.md
+okinawa_mymaps_daily.csv
+okinawa_mymaps_stays.csv
+pdf_extract.json
+tabirai.html
+tabirai_ja.html
+tabirai_tc.html
+trip.html
