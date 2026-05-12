@@ -591,13 +591,24 @@ searchInput.addEventListener("input", () => {
 
 let deferredPrompt;
 const installButtons = document.querySelectorAll(".install-button");
+const isIosDevice = /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+  || (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+
+function isStandaloneMode() {
+  return window.matchMedia("(display-mode: standalone)").matches || window.navigator.standalone === true;
+}
+
+function updateInstallButtons() {
+  const canUseInstallPrompt = Boolean(deferredPrompt) && !isIosDevice && !isStandaloneMode();
+  installButtons.forEach((button) => {
+    button.hidden = !canUseInstallPrompt;
+  });
+}
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
   deferredPrompt = event;
-  installButtons.forEach((button) => {
-    button.hidden = false;
-  });
+  updateInstallButtons();
 });
 
 installButtons.forEach((button) => {
@@ -606,11 +617,16 @@ installButtons.forEach((button) => {
     deferredPrompt.prompt();
     await deferredPrompt.userChoice;
     deferredPrompt = null;
-    installButtons.forEach((installButton) => {
-      installButton.hidden = true;
-    });
+    updateInstallButtons();
   });
 });
+
+window.addEventListener("appinstalled", () => {
+  deferredPrompt = null;
+  updateInstallButtons();
+});
+
+updateInstallButtons();
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
