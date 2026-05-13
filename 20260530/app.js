@@ -51,7 +51,7 @@ const item = (time, text, links = []) => ({
 
 const foodItem = (title, text, links = []) => ({ title, text, links });
 
-const days = [
+let days = [
   {
     date: "5/30",
     weekday: "六",
@@ -203,7 +203,7 @@ const days = [
   },
 ];
 
-const breakfasts = [
+let breakfasts = [
   ["5/31", "5/30 那霸便利店買好。"],
   ["6/1", "5/31 AEON 名護或便利店買好。"],
   ["6/2", "6/1 名護超市或便利店買好。"],
@@ -213,15 +213,15 @@ const breakfasts = [
   ["6/6", "6/5 Costco 或便利店留好。"],
 ];
 
-const rainRules = [
+let rainRules = [
   ["5/31", "美國村縮短或取消，改到 6/3 傍晚補。"],
   ["6/2", "古宇利島取消或短停，Neo Park 保留。"],
   ["6/3", "飯店室內設施與餐廳為主，美國村只作補位。"],
   ["6/5", "知念岬取消，文化王國縮短，Costco 保留。"],
 ];
 
-const breakfastMap = new Map(breakfasts);
-const stayDetailsMap = new Map([
+let breakfastMap = new Map(breakfasts);
+let stayDetailsMap = new Map([
   ["5/30", {
     name: "東急 Stay 沖繩那霸（Tokyu Stay Okinawa Naha / 東急ステイ沖縄那覇）",
     mapUrl: mapUrl("Tokyu Stay Okinawa Naha"),
@@ -255,7 +255,7 @@ const stayDetailsMap = new Map([
     mapUrl: mapUrl("Naha Airport"),
   }],
 ]);
-const tripConfig = {
+let tripConfig = {
   startAt: "2026-05-30T00:00:00+08:00",
   departureAt: "2026-05-30T12:00:00+08:00",
   endAt: "2026-06-06T23:59:59+08:00",
@@ -272,6 +272,7 @@ const tripSummaryCard = document.querySelector("#tripSummaryCard");
 const mealCard = document.querySelector("#mealCard");
 const rainDecisionCard = document.querySelector("#rainDecisionCard");
 const todayNextStopAction = document.querySelector("#todayNextStopAction");
+const tripDateRange = document.querySelector("#tripDateRange");
 const countdownView = document.querySelector("#countdownView");
 const endedView = document.querySelector("#endedView");
 const appHeader = document.querySelector("#appHeader");
@@ -634,6 +635,32 @@ if ("serviceWorker" in navigator) {
   });
 }
 
+async function loadGeneratedTripData() {
+  try {
+    const response = await fetch("./data.generated.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const data = await response.json();
+    const trip = data.trip || {};
+
+    days = data.days || days;
+    breakfasts = Object.entries(data.breakfasts || {});
+    rainRules = Object.entries(data.rainRules || {});
+    breakfastMap = new Map(breakfasts);
+    stayDetailsMap = new Map(Object.entries(data.stays || {}));
+    tripConfig = {
+      startAt: trip.startAt || tripConfig.startAt,
+      departureAt: trip.departureAt || tripConfig.departureAt,
+      endAt: trip.endAt || tripConfig.endAt,
+    };
+
+    if (tripDateRange && trip.dateRange) {
+      tripDateRange.textContent = trip.dateRange;
+    }
+  } catch (error) {
+    console.warn("Using bundled trip fallback data.", error);
+  }
+}
+
 function renderTripState() {
   const now = getCurrentDate();
   const state = getTripState(now);
@@ -688,12 +715,18 @@ function showItineraryFromStatePage(event) {
 previewTripButton.addEventListener("click", showItineraryFromStatePage);
 revisitTripButton.addEventListener("click", showItineraryFromStatePage);
 
-renderTripState();
-renderDashboard();
-setInterval(() => {
+async function initApp() {
+  await loadGeneratedTripData();
   renderTripState();
-  if (!countdownView.classList.contains("is-hidden") || !endedView.classList.contains("is-hidden")) {
-    return;
-  }
   renderDashboard();
-}, 60000);
+  setInterval(() => {
+    renderTripState();
+    if (!countdownView.classList.contains("is-hidden") || !endedView.classList.contains("is-hidden")) {
+      return;
+    }
+    renderDashboard();
+  }, 60000);
+}
+
+initApp();
+

@@ -1,9 +1,10 @@
-const CACHE_NAME = "okinawa-trip-v10";
+const CACHE_NAME = "okinawa-trip-v11";
 const APP_ASSETS = [
   "./",
   "./index.html",
   "./styles.css",
   "./app.js",
+  "./data.generated.json",
   "./manifest.webmanifest",
   "./icons/icon.svg"
 ];

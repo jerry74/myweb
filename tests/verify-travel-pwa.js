@@ -68,6 +68,14 @@ for (const site of sites) {
     assert(serviceWorker.includes("./index.html"), `${site.dir}: service worker should cache index.html`);
     assert(serviceWorker.includes("./manifest.webmanifest"), `${site.dir}: service worker should cache manifest`);
     assert(serviceWorker.includes("./icons/icon.svg"), `${site.dir}: service worker should cache icon`);
+
+    if (site.dir === "20260530") {
+      assert(fs.existsSync(path.join(siteRoot, "data.generated.json")), `${site.dir}: missing data.generated.json`);
+      assert(serviceWorker.includes("./data.generated.json"), `${site.dir}: service worker should cache generated data`);
+      const generatedData = JSON.parse(read(`${site.dir}/data.generated.json`));
+      assert(Array.isArray(generatedData.days) && generatedData.days.length > 0, `${site.dir}: generated data missing days`);
+      assert(generatedData.trip?.id === "20260530-okinawa", `${site.dir}: generated trip id mismatch`);
+    }
   } catch (error) {
     failures.push(error.message);
   }
