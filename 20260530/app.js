@@ -278,6 +278,7 @@ const endedView = document.querySelector("#endedView");
 const appHeader = document.querySelector("#appHeader");
 const appContent = document.querySelector("#appContent");
 const bottomTabs = document.querySelector("#bottomTabs");
+const searchMeta = document.querySelector("#searchMeta");
 const countdownDays = document.querySelector("#countdownDays");
 const countdownHours = document.querySelector("#countdownHours");
 const countdownMinutes = document.querySelector("#countdownMinutes");
@@ -442,6 +443,7 @@ function renderTodayHero() {
     <span>下一站</span>
     <strong>${model.nextStop ? model.nextStop.text : "今天自由調整"}</strong>
   `;
+  todayHeroNextStop.classList.toggle("has-map-link", nextStopLink.startsWith("http"));
   todayNextStopAction.href = nextStopLink;
   todayNextStopAction.target = nextStopLink.startsWith("http") ? "_blank" : "_self";
   todayNextStopAction.rel = nextStopLink.startsWith("http") ? "noreferrer" : "";
@@ -515,6 +517,24 @@ function renderDays() {
   const visibleDays = query
     ? days.filter((day) => JSON.stringify(day).toLowerCase().includes(query))
     : [days[activeDayIndex]];
+  const resultLabel = query
+    ? `找到 ${visibleDays.length} 天與「${searchInput.value.trim()}」相關`
+    : `目前顯示 Day ${activeDayIndex + 1} / ${days.length}`;
+
+  if (searchMeta) {
+    searchMeta.textContent = resultLabel;
+  }
+
+  if (query && visibleDays.length === 0) {
+    dayList.innerHTML = `
+      <article class="empty-state">
+        <p class="eyebrow">No Match</p>
+        <h3>沒有找到相關行程</h3>
+        <p>試試輸入「雨天」、「Costco」、「美國村」、「那霸」或日期，例如 6/5。</p>
+      </article>
+    `;
+    return;
+  }
 
   dayList.innerHTML = visibleDays.map((day) => `
     <article class="timeline-day">
@@ -538,7 +558,7 @@ function renderDays() {
       </div>
       <div class="timeline-cards">
         ${getTimelineCards(day).map((entry) => `
-          <section class="timeline-card">
+          <section class="timeline-card ${entry.isNext && !query ? "is-next" : ""}">
             <div class="timeline-card-top">
               <b>${entry.time}</b>
               <div class="timeline-badges">
