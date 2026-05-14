@@ -25,6 +25,7 @@ links:
   kapuka: https://fupo.tw/blog/post/wagyu-cafe-kapuka
   califKitchen: https://gogojp.tw/the-calif-kitchen-r/
   hamaya: https://mimigo.tw/okinawa-americanvillage/
+  kitchenBin: https://tiffanyscafe.pixnet.net/blog/post/42199858
   aeonNago: https://world.aeon-ryukyu.jp/en/store/aeon/aeon_nago/
   matsuKominka: https://twobunny.tw/matsu-no-kominka/
   nagoSteak: https://www.tripadvisor.com/Restaurant_Review-g1023465-d15710026-Reviews-Nago_Steak-Nago_Okinawa_Prefecture_Kyushu.html
@@ -120,7 +121,7 @@ days:
     text: 前一晚便利店早餐。
     links: []
   - title: 午餐
-    text: 和牛咖啡 Kapuka、加州廚房、濱屋沖繩麵。
+    text: 和牛咖啡 Kapuka、加州廚房、濱屋沖繩麵、Ishigakijima Kitchen Bin 石垣牛漢堡。
     links:
     - - Kapuka 地圖
       - https://www.google.com/maps/search/?api=1&query=WaGyu%20Cafe%20Kapuka
@@ -134,6 +135,10 @@ days:
       - https://www.google.com/maps/search/?api=1&query=Hamaya%20Soba%20Okinawa
     - - 濱屋介紹
       - https://mimigo.tw/okinawa-americanvillage/
+    - - Kitchen Bin 地圖
+      - https://www.google.com/maps/search/?api=1&query=Ishigakijima%20Kitchen%20Bin%20Chatan
+    - - Kitchen Bin 介紹
+      - https://tiffanyscafe.pixnet.net/blog/post/42199858
   - title: 晚餐
     text: AEON 名護購物中心或名護市區簡餐，順便補貨。
     links:
