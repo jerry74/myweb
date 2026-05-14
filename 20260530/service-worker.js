@@ -1,4 +1,4 @@
-const CACHE_NAME = "okinawa-trip-v15";
+const CACHE_NAME = "okinawa-trip-v16";
 const APP_ASSETS = [
   "./",
   "./index.html",
@@ -6,7 +6,10 @@ const APP_ASSETS = [
   "./app.js",
   "./data.generated.json",
   "./manifest.webmanifest",
-  "./icons/icon.svg"
+  "./icons/icon.svg",
+  "./icons/apple-touch-icon.png",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

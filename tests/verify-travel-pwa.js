@@ -79,7 +79,16 @@ for (const site of sites) {
 
     if (site.dir === "20260530") {
       assert(fs.existsSync(path.join(siteRoot, "data.generated.json")), `${site.dir}: missing data.generated.json`);
+      assert(fs.existsSync(path.join(siteRoot, "icons", "apple-touch-icon.png")), `${site.dir}: missing apple-touch-icon.png`);
+      assert(fs.existsSync(path.join(siteRoot, "icons", "icon-192.png")), `${site.dir}: missing icon-192.png`);
+      assert(fs.existsSync(path.join(siteRoot, "icons", "icon-512.png")), `${site.dir}: missing icon-512.png`);
       assert(serviceWorker.includes("./data.generated.json"), `${site.dir}: service worker should cache generated data`);
+      assert(serviceWorker.includes("./icons/apple-touch-icon.png"), `${site.dir}: service worker should cache apple touch icon`);
+      assert(serviceWorker.includes("./icons/icon-192.png"), `${site.dir}: service worker should cache 192px icon`);
+      assert(serviceWorker.includes("./icons/icon-512.png"), `${site.dir}: service worker should cache 512px icon`);
+      assert(indexHtml.includes('rel="apple-touch-icon" href="./icons/apple-touch-icon.png"'), `${site.dir}: index should use PNG apple touch icon`);
+      assert(manifest.icons.some((icon) => icon.src === "./icons/icon-192.png" && icon.sizes === "192x192"), `${site.dir}: manifest missing 192px PNG icon`);
+      assert(manifest.icons.some((icon) => icon.src === "./icons/icon-512.png" && icon.sizes === "512x512"), `${site.dir}: manifest missing 512px PNG icon`);
       const stylesheet = read(`${site.dir}/styles.css`);
       assert(/\[hidden\]\s*\{[^}]*display:\s*none\s*!important\s*;?[^}]*\}/.test(stylesheet), `${site.dir}: stylesheet should preserve hidden attribute display behavior`);
       const generatedData = JSON.parse(read(`${site.dir}/data.generated.json`));
