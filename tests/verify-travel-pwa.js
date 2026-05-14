@@ -55,6 +55,14 @@ for (const site of sites) {
     for (const marker of site.requiredIndexMarkers) {
       assert(indexHtml.includes(marker), `${site.dir}: index.html missing marker "${marker}"`);
     }
+    assert(
+      indexHtml.includes("isIosDevice") || fs.existsSync(path.join(siteRoot, "app.js")) && read(`${site.dir}/app.js`).includes("isIosDevice"),
+      `${site.dir}: install button should explicitly detect iOS Safari`
+    );
+    assert(
+      indexHtml.includes("!isIosDevice") || fs.existsSync(path.join(siteRoot, "app.js")) && read(`${site.dir}/app.js`).includes("!isIosDevice"),
+      `${site.dir}: install button should be hidden on iOS Safari`
+    );
 
     const manifest = JSON.parse(read(`${site.dir}/manifest.webmanifest`));
     assert(manifest.name === site.name, `${site.dir}: manifest name mismatch`);
@@ -72,6 +80,8 @@ for (const site of sites) {
     if (site.dir === "20260530") {
       assert(fs.existsSync(path.join(siteRoot, "data.generated.json")), `${site.dir}: missing data.generated.json`);
       assert(serviceWorker.includes("./data.generated.json"), `${site.dir}: service worker should cache generated data`);
+      const stylesheet = read(`${site.dir}/styles.css`);
+      assert(/\[hidden\]\s*\{[^}]*display:\s*none\s*!important\s*;?[^}]*\}/.test(stylesheet), `${site.dir}: stylesheet should preserve hidden attribute display behavior`);
       const generatedData = JSON.parse(read(`${site.dir}/data.generated.json`));
       assert(Array.isArray(generatedData.days) && generatedData.days.length > 0, `${site.dir}: generated data missing days`);
       assert(generatedData.trip?.id === "20260530-okinawa", `${site.dir}: generated trip id mismatch`);

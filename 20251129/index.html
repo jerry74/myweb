@@ -880,6 +880,10 @@
         };
 
         const getCurrentDate = () => getPreviewDate() || new Date();
+        const isIosDevice = () => /iPad|iPhone|iPod/.test(window.navigator.userAgent)
+          || (window.navigator.platform === "MacIntel" && window.navigator.maxTouchPoints > 1);
+        const isStandaloneMode = () => window.matchMedia("(display-mode: standalone)").matches
+          || window.navigator.standalone === true;
 
         const getTripState = (currentDate) => {
           const start = new Date(tripConfig.startAt);
@@ -919,11 +923,19 @@
 
           useEffect(() => {
             const handleBeforeInstallPrompt = (event) => {
+              if (isIosDevice() || isStandaloneMode()) return;
               event.preventDefault();
               setInstallPrompt(event);
             };
+            const handleAppInstalled = () => {
+              setInstallPrompt(null);
+            };
             window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
-            return () => window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+            window.addEventListener("appinstalled", handleAppInstalled);
+            return () => {
+              window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+              window.removeEventListener("appinstalled", handleAppInstalled);
+            };
           }, []);
 
           useEffect(() => {
@@ -954,7 +966,7 @@
           };
 
           if (showWelcome) {
-              return <WelcomeScreen onStart={handleStart} onInstall={handleInstall} canInstall={!!installPrompt} countdownText={countdown} status={welcomeStatus} />;
+              return <WelcomeScreen onStart={handleStart} onInstall={handleInstall} canInstall={!!installPrompt && !isIosDevice() && !isStandaloneMode()} countdownText={countdown} status={welcomeStatus} />;
           }
 
           return (
