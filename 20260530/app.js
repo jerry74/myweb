@@ -263,7 +263,6 @@ let tripConfig = {
 
 const dayList = document.querySelector("#dayList");
 const dayTabs = document.querySelector("#dayTabs");
-const searchInput = document.querySelector("#searchInput");
 const todayHeroTitle = document.querySelector("#todayHeroTitle");
 const todayHeroLead = document.querySelector("#todayHeroLead");
 const todayHeroMeta = document.querySelector("#todayHeroMeta");
@@ -278,7 +277,6 @@ const endedView = document.querySelector("#endedView");
 const appHeader = document.querySelector("#appHeader");
 const appContent = document.querySelector("#appContent");
 const bottomTabs = document.querySelector("#bottomTabs");
-const searchMeta = document.querySelector("#searchMeta");
 const countdownDays = document.querySelector("#countdownDays");
 const countdownHours = document.querySelector("#countdownHours");
 const countdownMinutes = document.querySelector("#countdownMinutes");
@@ -342,12 +340,75 @@ function setHidden(element, hidden) {
   element.classList.toggle("is-hidden", hidden);
 }
 
-function getTimelineCards(day) {
+function getEntryStartMinutes(entry) {
+  const time = entry.time || "";
+  const clockMatch = time.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (clockMatch) {
+    return Number(clockMatch[1]) * 60 + Number(clockMatch[2]);
+  }
+
+  const timeSlots = [
+    ["清晨", 5 * 60],
+    ["上午", 9 * 60],
+    ["中午", 12 * 60],
+    ["下午後段", 16 * 60],
+    ["下午", 14 * 60],
+    ["傍晚", 17 * 60 + 30],
+    ["晚上", 19 * 60],
+  ];
+  const matchedSlot = timeSlots.find(([label]) => time.includes(label));
+  return matchedSlot ? matchedSlot[1] : null;
+}
+
+function getCurrentMinutes(currentDate) {
+  return currentDate.getHours() * 60 + currentDate.getMinutes();
+}
+
+function getNavigableEntries(day) {
+  return day.schedule
+    .map((entry, index) => ({
+      entry,
+      index,
+      startMinutes: getEntryStartMinutes(entry),
+    }))
+    .filter(({ startMinutes }) => startMinutes !== null)
+    .sort((a, b) => a.startMinutes - b.startMinutes || a.index - b.index);
+}
+
+function getNextStopForCurrentTime(day, currentDate) {
+  const timedEntries = getNavigableEntries(day);
+  if (!timedEntries.length) return day.schedule[0];
+
+  const nowMinutes = getCurrentMinutes(currentDate);
+  const upcoming = timedEntries.find(({ startMinutes }) => startMinutes >= nowMinutes);
+  return (upcoming || timedEntries[timedEntries.length - 1]).entry;
+}
+
+function getPlaceNameFromText(text) {
+  return (text || "")
+    .split(/[（(，,。]/)[0]
+    .replace(/^(晴天短停|若.+補|視天氣|單軌或短程交通前往)/, "")
+    .trim();
+}
+
+function getNavigationDestination(entry) {
+  if (!entry || !entry.links?.length) return "查看行程細節";
+  const [label, url] = entry.links[0];
+  if (!url.startsWith("http")) return "查看行程細節";
+  if (label.includes("地圖") || label.includes("Google Maps")) {
+    return getPlaceNameFromText(entry.text) || label;
+  }
+  return label;
+}
+
+function getTimelineCards(day, currentDate = getCurrentDate()) {
+  const nextStop = getNextStopForCurrentTime(day, currentDate);
   return day.schedule.map((entry, index) => {
     const meta = getEntryMeta(entry);
     const badges = [];
 
-    if (index === 0) {
+    if (entry === nextStop) {
       badges.push("下一步");
     }
 
@@ -361,7 +422,7 @@ function getTimelineCards(day) {
 
     return {
       ...entry,
-      isNext: index === 0,
+      isNext: entry === nextStop,
       badges,
     };
   });
@@ -380,6 +441,7 @@ function getActiveDayViewModel() {
     stay: day.stay,
     lead: `${day.date}（${day.weekday}）｜住宿：${day.stay}`,
     nextStop,
+    navigationDestination: getNavigationDestination(nextStop),
   };
 }
 
@@ -440,8 +502,9 @@ function renderTodayHero() {
     <small>今天主題：${model.title}</small>
   `;
   todayHeroNextStop.innerHTML = `
-    <span>下一站</span>
+    <span>下一站｜${model.nextStop ? model.nextStop.time : "自由調整"}</span>
     <strong>${model.nextStop ? model.nextStop.text : "今天自由調整"}</strong>
+    <small>導航到：${model.navigationDestination}</small>
   `;
   todayHeroNextStop.classList.toggle("has-map-link", nextStopLink.startsWith("http"));
   todayNextStopAction.href = nextStopLink;
@@ -513,28 +576,7 @@ function renderSupportCards() {
 }
 
 function renderDays() {
-  const query = searchInput.value.trim().toLowerCase();
-  const visibleDays = query
-    ? days.filter((day) => JSON.stringify(day).toLowerCase().includes(query))
-    : [days[activeDayIndex]];
-  const resultLabel = query
-    ? `找到 ${visibleDays.length} 天與「${searchInput.value.trim()}」相關`
-    : `目前顯示 Day ${activeDayIndex + 1} / ${days.length}`;
-
-  if (searchMeta) {
-    searchMeta.textContent = resultLabel;
-  }
-
-  if (query && visibleDays.length === 0) {
-    dayList.innerHTML = `
-      <article class="empty-state">
-        <p class="eyebrow">No Match</p>
-        <h3>沒有找到相關行程</h3>
-        <p>試試輸入「雨天」、「Costco」、「美國村」、「那霸」或日期，例如 6/5。</p>
-      </article>
-    `;
-    return;
-  }
+  const visibleDays = [days[activeDayIndex]];
 
   dayList.innerHTML = visibleDays.map((day) => `
     <article class="timeline-day">
@@ -558,7 +600,7 @@ function renderDays() {
       </div>
       <div class="timeline-cards">
         ${getTimelineCards(day).map((entry) => `
-          <section class="timeline-card ${entry.isNext && !query ? "is-next" : ""}">
+          <section class="timeline-card ${entry.isNext ? "is-next" : ""}">
             <div class="timeline-card-top">
               <b>${entry.time}</b>
               <div class="timeline-badges">
@@ -592,7 +634,6 @@ function renderTabs() {
   dayTabs.querySelectorAll(".day-tab").forEach((button) => {
     button.addEventListener("click", () => {
       activeDayIndex = Number(button.dataset.dayIndex);
-      searchInput.value = "";
       renderDashboard();
     });
   });
@@ -605,10 +646,6 @@ function renderDashboard() {
   renderTabs();
   renderDays();
 }
-
-searchInput.addEventListener("input", () => {
-  renderDays();
-});
 
 let deferredPrompt;
 const installButtons = document.querySelectorAll(".install-button");

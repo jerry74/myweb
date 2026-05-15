@@ -201,7 +201,6 @@ p {
 .hero-kicker,
 .hero-actions,
 .section-heading,
-.tools-bar,
 .timeline-card-top,
 .link-row,
 .decision-tags {
@@ -309,7 +308,8 @@ p {
   font-size: 1.1rem;
 }
 
-.hero-meta small {
+.hero-meta small,
+.hero-next-stop small {
   color: rgba(255, 255, 255, 0.74);
   font-size: 0.88rem;
 }
@@ -454,52 +454,6 @@ p {
   display: block;
   margin-top: 4px;
   font-size: 0.98rem;
-}
-
-.tools-bar {
-  align-items: end;
-  justify-content: space-between;
-  margin-bottom: 24px;
-}
-
-.search-box {
-  display: grid;
-  gap: 6px;
-  flex: 1;
-  color: var(--muted);
-  font-size: 0.82rem;
-  font-weight: 800;
-}
-
-.search-box input {
-  width: 100%;
-  min-height: 50px;
-  padding: 10px 16px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: var(--shadow-sm);
-}
-
-.search-box input:focus {
-  border-color: rgba(46, 168, 199, 0.46);
-  box-shadow: 0 0 0 5px rgba(46, 168, 199, 0.12), var(--shadow-sm);
-}
-
-.search-meta {
-  flex: 0 0 auto;
-  min-height: 38px;
-  display: inline-flex;
-  align-items: center;
-  padding: 8px 13px;
-  border: 1px solid rgba(46, 168, 199, 0.16);
-  border-radius: 999px;
-  color: var(--sea-deep);
-  background: rgba(241, 252, 255, 0.86);
-  font-size: 0.82rem;
-  font-weight: 900;
-  box-shadow: var(--shadow-sm);
 }
 
 .section {
@@ -842,27 +796,6 @@ p {
   color: white;
 }
 
-.empty-state {
-  padding: 28px;
-  border: 1px dashed rgba(46, 168, 199, 0.34);
-  border-radius: 28px;
-  background: rgba(255, 255, 255, 0.76);
-  box-shadow: var(--shadow-sm);
-  text-align: center;
-}
-
-.empty-state h3 {
-  margin-top: 6px;
-  font-size: clamp(1.35rem, 4vw, 1.9rem);
-  letter-spacing: -0.04em;
-}
-
-.empty-state p:last-child {
-  max-width: 520px;
-  margin: 8px auto 0;
-  color: var(--muted);
-}
-
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -899,14 +832,9 @@ p {
   }
 
   .hero-kicker,
-  .section-heading,
-  .tools-bar {
+  .section-heading {
     align-items: stretch;
     flex-direction: column;
-  }
-
-  .search-meta {
-    justify-content: center;
   }
 
   .status-strip {

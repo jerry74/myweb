@@ -89,6 +89,10 @@ for (const site of sites) {
       assert(indexHtml.includes('rel="apple-touch-icon" href="./icons/apple-touch-icon.png"'), `${site.dir}: index should use PNG apple touch icon`);
       assert(manifest.icons.some((icon) => icon.src === "./icons/icon-192.png" && icon.sizes === "192x192"), `${site.dir}: manifest missing 192px PNG icon`);
       assert(manifest.icons.some((icon) => icon.src === "./icons/icon-512.png" && icon.sizes === "512x512"), `${site.dir}: manifest missing 512px PNG icon`);
+      const appJs = read(`${site.dir}/app.js`);
+      assert(appJs.includes("getEntryStartMinutes"), `${site.dir}: app should derive schedule time for next-stop routing`);
+      assert(appJs.includes("getNextStopForCurrentTime"), `${site.dir}: app should choose the next unfinished stop by current time`);
+      assert(appJs.includes("導航到："), `${site.dir}: hero should show the navigation destination`);
       const stylesheet = read(`${site.dir}/styles.css`);
       assert(/\[hidden\]\s*\{[^}]*display:\s*none\s*!important\s*;?[^}]*\}/.test(stylesheet), `${site.dir}: stylesheet should preserve hidden attribute display behavior`);
       const generatedData = JSON.parse(read(`${site.dir}/data.generated.json`));
