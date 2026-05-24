@@ -24,10 +24,26 @@
     "sandsDiner": "https://twobunny.tw/sands-diner/",
     "yataimura": "https://mimigo.tw/okinawa-yatai/",
     "potama": "https://www.gltjp.com/zh-hant/article/item/21034/",
+    "makishiMarket": "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha",
+    "ichiranNaha": "https://ichiran.com/shop/kyushu/naha-kokusaidori/",
+    "danboOkinawa": "https://ramendanbo.okinawa/locations-2/",
+    "ryukyaKokusai": "https://www.google.com/maps/search/?api=1&query=Ramen%20Ryukya%20Kokusai%20Dori%20Naha",
+    "yakinikuKing": "https://www.yakiniku-king.jp/shop/",
+    "yakinikuKingNahaShintoshin": "https://www.yakiniku-king.jp/shop/2107/",
+    "yakinikuKingNahaKumoji": "https://www.yakiniku-king.jp/shop/2212/",
+    "yakinikuKingChatan": "https://www.yakiniku-king.jp/shop/2131/",
+    "yakinikuKingIchinichibashi": "https://www.yakiniku-king.jp/shop/13/",
+    "yakinikuKingNago": "https://www.yakiniku-king.jp/shop/243/",
+    "yakinikuKingMisato": "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Okinawa%20Misato",
+    "motobuFarmMotobu": "https://motobu-farm.com/pages/store-motobu",
+    "captainKangaroo": "https://www.facebook.com/captainkangaroo84",
+    "kouriShrimp": "https://www.gltjp.com/ja/directory/item/14833/",
+    "ishigufuMinatogawa": "https://www.urasoenavi.jp/tokushu/2020042400048/",
     "kapuka": "https://fupo.tw/blog/post/wagyu-cafe-kapuka",
     "califKitchen": "https://gogojp.tw/the-calif-kitchen-r/",
     "hamaya": "https://mimigo.tw/okinawa-americanvillage/",
     "kitchenBin": "https://tiffanyscafe.pixnet.net/blog/post/42199858",
+    "aeonChatan": "https://www.google.com/maps/search/?api=1&query=AEON%20Chatan%20Okinawa",
     "aeonNago": "https://world.aeon-ryukyu.jp/en/store/aeon/aeon_nago/",
     "matsuKominka": "https://twobunny.tw/matsu-no-kominka/",
     "nagoSteak": "https://www.tripadvisor.com/Restaurant_Review-g1023465-d15710026-Reviews-Nago_Steak-Nago_Okinawa_Prefecture_Kyushu.html",
@@ -37,6 +53,10 @@
     "shogunBurger": "https://www.markting.com.tw/577/",
     "garlicShrimp": "https://www.markting.com.tw/564/",
     "konazu": "https://www.google.com/maps/search/?api=1&query=Konazu+Coffee+Naha+Shintoshin",
+    "iiasToyosaki": "https://www.google.com/maps/search/?api=1&query=iias%20Okinawa%20Toyosaki",
+    "rycom": "https://www.google.com/maps/search/?api=1&query=AEON%20MALL%20Okinawa%20Rycom",
+    "sanAMainPlace": "https://www.google.com/maps/search/?api=1&query=San-A%20Naha%20Main%20Place",
+    "parcoCity": "https://www.google.com/maps/search/?api=1&query=San-A%20Urasoe%20West%20Coast%20PARCO%20CITY",
     "kurukuma": "https://rocky.tw/cafe-kurukuma/",
     "yabusachi": "https://www.totalokinawa.com/cafe-yabusachi/"
   },
@@ -63,7 +83,7 @@
         },
         {
           "time": "傍晚",
-          "text": "國際通（Kokusai Street / 国際通り）散步、晚餐、採買隔天早餐。",
+          "text": "國際通（Kokusai Street / 国際通り）散步，可順路看第一牧志公設市場，再晚餐與採買隔天早餐。",
           "links": [
             [
               "地圖",
@@ -72,6 +92,10 @@
             [
               "中文攻略",
               "https://edgechen.photography/kokusai-dori/"
+            ],
+            [
+              "第一牧志公設市場",
+              "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
             ]
           ]
         },
@@ -99,7 +123,7 @@
         },
         {
           "title": "晚餐",
-          "text": "牛排館 88 國際通店、山地沙丘餐酒館或國際通屋台村。",
+          "text": "牛排館 88 國際通店、山地沙丘餐酒館、國際通屋台村、一蘭那霸國際通店、暖暮那霸牧志店、琉家拉麵國際通本店。",
           "links": [
             [
               "牛排館88地圖",
@@ -124,6 +148,26 @@
             [
               "屋台村介紹",
               "https://mimigo.tw/okinawa-yatai/"
+            ],
+            [
+              "一蘭那霸國際通店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ichiran%20Naha%20Kokusai%20Dori"
+            ],
+            [
+              "一蘭那霸國際通店 介紹",
+              "https://ichiran.com/shop/kyushu/naha-kokusaidori/"
+            ],
+            [
+              "暖暮那霸牧志店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Naha%20Makishi"
+            ],
+            [
+              "暖暮那霸牧志店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "琉家拉麵國際通本店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Ryukya%20Kokusai%20Dori%20Naha"
             ]
           ]
         },
@@ -167,7 +211,7 @@
         },
         {
           "time": "下午",
-          "text": "視天氣散步、購物，之後北上名護／幸喜入住。",
+          "text": "視天氣在美國村散步、購物，之後北上名護／幸喜入住。",
           "links": [
             [
               "幸喜海灘",
@@ -189,7 +233,7 @@
         },
         {
           "title": "午餐",
-          "text": "和牛咖啡 Kapuka、加州廚房、濱屋沖繩麵、Ishigakijima Kitchen Bin 石垣牛漢堡。",
+          "text": "和牛咖啡 Kapuka、加州廚房、濱屋沖繩麵、Ishigakijima Kitchen Bin 石垣牛漢堡、暖暮北谷砂辺店、燒肉王北谷店。",
           "links": [
             [
               "Kapuka 地圖",
@@ -222,15 +266,83 @@
             [
               "Kitchen Bin 介紹",
               "https://tiffanyscafe.pixnet.net/blog/post/42199858"
+            ],
+            [
+              "暖暮北谷砂辺店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Chatan%20Sunabe"
+            ],
+            [
+              "暖暮北谷砂辺店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "燒肉王北谷店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Chatan"
+            ],
+            [
+              "燒肉王北谷店 介紹",
+              "https://www.yakiniku-king.jp/shop/2131/"
             ]
           ]
         },
         {
           "title": "晚餐",
-          "text": "AEON 名護購物中心或名護市區簡餐，順便補貨。",
+          "text": "AEON 名護購物中心、名護市區簡餐、暖暮名護店或燒肉王名護店，順便補貨。",
           "links": [
             [
               "AEON 名護地圖",
+              "https://www.google.com/maps/search/?api=1&query=AEON%20Nago%20Shopping%20Center"
+            ],
+            [
+              "官方資訊",
+              "https://world.aeon-ryukyu.jp/en/store/aeon/aeon_nago/"
+            ],
+            [
+              "暖暮名護店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Nago"
+            ],
+            [
+              "暖暮名護店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "燒肉王名護店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Nago"
+            ],
+            [
+              "燒肉王名護店 介紹",
+              "https://www.yakiniku-king.jp/shop/243/"
+            ]
+          ]
+        }
+      ],
+      "shoppingBackup": [
+        {
+          "name": "AEON 北谷店",
+          "note": "美國村順路，天氣不穩時可改成室內採買與用餐。",
+          "tags": [
+            "超市補貨",
+            "雨天備案",
+            "餐廳多"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=AEON%20Chatan%20Okinawa"
+            ]
+          ]
+        },
+        {
+          "name": "AEON 名護",
+          "note": "抵達名護後補早餐、零食與生活用品最順手。",
+          "tags": [
+            "超市補貨",
+            "餐廳多",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
               "https://www.google.com/maps/search/?api=1&query=AEON%20Nago%20Shopping%20Center"
             ],
             [
@@ -284,7 +396,7 @@
         },
         {
           "time": "晚上",
-          "text": "回名護／幸喜晚餐與休息。",
+          "text": "回名護／幸喜晚餐、休息。",
           "links": []
         }
       ],
@@ -296,12 +408,29 @@
         },
         {
           "title": "午餐",
-          "text": "園區或周邊簡單吃。",
-          "links": []
+          "text": "園區或周邊簡單吃；若想專程吃好一點，可選燒肉本部牧場本部總店或 Captain Kangaroo Hamburger。",
+          "links": [
+            [
+              "燒肉本部牧場本部總店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20Motobu%20Farm%20Motobu"
+            ],
+            [
+              "燒肉本部牧場本部總店 介紹",
+              "https://motobu-farm.com/pages/store-motobu"
+            ],
+            [
+              "Captain Kangaroo 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Captain%20Kangaroo%20Hamburger%20Motobu"
+            ],
+            [
+              "Captain Kangaroo 介紹",
+              "https://www.facebook.com/captainkangaroo84"
+            ]
+          ]
         },
         {
           "title": "晚餐",
-          "text": "松之古民家、名護牛排、法蘭彼餐廳，或 AEON 名護。",
+          "text": "松之古民家、名護牛排、法蘭彼餐廳、AEON 名護、暖暮名護店或燒肉王名護店。",
           "links": [
             [
               "松之古民家地圖",
@@ -326,6 +455,43 @@
             [
               "Flipper 評價",
               "https://www.tripadvisor.com/Restaurant_Review-g1023465-d1179034-Reviews-Restaurant_Flipper-Nago_Okinawa_Prefecture_Kyushu.html"
+            ],
+            [
+              "暖暮名護店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Nago"
+            ],
+            [
+              "暖暮名護店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "燒肉王名護店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Nago"
+            ],
+            [
+              "燒肉王名護店 介紹",
+              "https://www.yakiniku-king.jp/shop/243/"
+            ]
+          ]
+        }
+      ],
+      "shoppingBackup": [
+        {
+          "name": "AEON 名護",
+          "note": "回住宿區前最後補貨點，適合隔天早餐與零食一次買齊。",
+          "tags": [
+            "超市補貨",
+            "餐廳多",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=AEON%20Nago%20Shopping%20Center"
+            ],
+            [
+              "官方資訊",
+              "https://world.aeon-ryukyu.jp/en/store/aeon/aeon_nago/"
             ]
           ]
         }
@@ -390,8 +556,33 @@
         },
         {
           "title": "午餐",
-          "text": "北部簡餐、沖繩麵或咖啡輕食。",
-          "links": []
+          "text": "北部簡餐、沖繩麵、咖啡輕食、古宇利蝦蝦飯、Captain Kangaroo Hamburger，或燒肉本部牧場本部總店。",
+          "links": [
+            [
+              "古宇利蝦蝦飯 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Kouri%20Shrimp%20Okinawa"
+            ],
+            [
+              "古宇利蝦蝦飯 介紹",
+              "https://www.gltjp.com/ja/directory/item/14833/"
+            ],
+            [
+              "Captain Kangaroo 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Captain%20Kangaroo%20Hamburger%20Motobu"
+            ],
+            [
+              "Captain Kangaroo 介紹",
+              "https://www.facebook.com/captainkangaroo84"
+            ],
+            [
+              "燒肉本部牧場本部總店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20Motobu%20Farm%20Motobu"
+            ],
+            [
+              "燒肉本部牧場本部總店 介紹",
+              "https://motobu-farm.com/pages/store-motobu"
+            ]
+          ]
         },
         {
           "title": "晚餐",
@@ -475,7 +666,7 @@
         },
         {
           "title": "午餐",
-          "text": "蒜香蝦餐廳、金月沖繩麵，或飯店內解決。",
+          "text": "蒜香蝦餐廳、金月沖繩麵、暖暮北谷砂辺店、雞湯拉麵屋 いしぐふー 港川店，或飯店內解決。",
           "links": [
             [
               "蒜香蝦地圖",
@@ -492,12 +683,28 @@
             [
               "金月介紹",
               "https://tw.ecob.okinawa/okinawa-noodle-kinchichi-onna-tw/"
+            ],
+            [
+              "暖暮北谷砂辺店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Chatan%20Sunabe"
+            ],
+            [
+              "暖暮北谷砂辺店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "いしぐふー 港川店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ishigufu%20Torisoba%20Minatogawa"
+            ],
+            [
+              "いしぐふー 港川店 介紹",
+              "https://www.urasoenavi.jp/tokushu/2020042400048/"
             ]
           ]
         },
         {
           "title": "晚餐",
-          "text": "飯店餐廳；若補美國村，選加州廚房或和牛咖啡 Kapuka。",
+          "text": "飯店餐廳；若補美國村，選加州廚房、和牛咖啡 Kapuka、暖暮北谷砂辺店或燒肉王北谷店。",
           "links": [
             [
               "加州廚房地圖",
@@ -514,6 +721,39 @@
             [
               "Kapuka 介紹",
               "https://fupo.tw/blog/post/wagyu-cafe-kapuka"
+            ],
+            [
+              "暖暮北谷砂辺店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Chatan%20Sunabe"
+            ],
+            [
+              "暖暮北谷砂辺店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "燒肉王北谷店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Chatan"
+            ],
+            [
+              "燒肉王北谷店 介紹",
+              "https://www.yakiniku-king.jp/shop/2131/"
+            ]
+          ]
+        }
+      ],
+      "shoppingBackup": [
+        {
+          "name": "AEON 北谷店",
+          "note": "如果補美國村或想找室內購物點，這裡比純戶外步行更穩。",
+          "tags": [
+            "雨天備案",
+            "親子放風",
+            "餐廳多"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=AEON%20Chatan%20Okinawa"
             ]
           ]
         }
@@ -537,7 +777,7 @@
         },
         {
           "time": "下午",
-          "text": "新都心（Omoromachi / おもろまち）、DFS 沖繩或國際通擇一。",
+          "text": "新都心（Omoromachi / おもろまち）、DFS 沖繩、國際通或第一牧志公設市場擇一到兩個點。",
           "links": [
             [
               "新都心",
@@ -550,6 +790,10 @@
             [
               "國際通",
               "https://www.google.com/maps/search/?api=1&query=Kokusai%20Dori%20Naha"
+            ],
+            [
+              "第一牧志公設市場",
+              "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
             ]
           ]
         },
@@ -567,7 +811,7 @@
         },
         {
           "title": "午餐",
-          "text": "可納滋咖啡新都心店或商場簡餐。",
+          "text": "可納滋咖啡新都心店、商場簡餐、雞湯拉麵屋 いしぐふー 港川店，或燒肉王那霸新都心店。",
           "links": [
             [
               "Konazu 地圖",
@@ -576,12 +820,28 @@
             [
               "Konazu 參考",
               "https://www.google.com/maps/search/?api=1&query=Konazu+Coffee+Naha+Shintoshin"
+            ],
+            [
+              "いしぐふー 港川店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ishigufu%20Torisoba%20Minatogawa"
+            ],
+            [
+              "いしぐふー 港川店 介紹",
+              "https://www.urasoenavi.jp/tokushu/2020042400048/"
+            ],
+            [
+              "燒肉王那霸新都心店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Naha%20Shintoshin"
+            ],
+            [
+              "燒肉王那霸新都心店 介紹",
+              "https://www.yakiniku-king.jp/shop/2107/"
             ]
           ]
         },
         {
           "title": "晚餐",
-          "text": "國際通屋台村、牛排館 88、豬肉蛋飯糰牧志市場店。",
+          "text": "國際通屋台村、牛排館 88、豬肉蛋飯糰牧志市場店、第一牧志公設市場周邊、一蘭那霸國際通店、暖暮那霸牧志店、琉家拉麵國際通本店、燒肉王那霸久茂地店。",
           "links": [
             [
               "屋台村地圖",
@@ -606,6 +866,178 @@
             [
               "Potama 介紹",
               "https://www.gltjp.com/zh-hant/article/item/21034/"
+            ],
+            [
+              "第一牧志公設市場",
+              "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ],
+            [
+              "一蘭那霸國際通店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ichiran%20Naha%20Kokusai%20Dori"
+            ],
+            [
+              "一蘭那霸國際通店 介紹",
+              "https://ichiran.com/shop/kyushu/naha-kokusaidori/"
+            ],
+            [
+              "暖暮那霸牧志店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Naha%20Makishi"
+            ],
+            [
+              "暖暮那霸牧志店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "琉家拉麵國際通本店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Ryukya%20Kokusai%20Dori%20Naha"
+            ],
+            [
+              "燒肉王那霸久茂地店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Naha%20Kumoji"
+            ],
+            [
+              "燒肉王那霸久茂地店 介紹",
+              "https://www.yakiniku-king.jp/shop/2212/"
+            ]
+          ]
+        }
+      ],
+      "shoppingBackup": [
+        {
+          "name": "第一牧志公設市場",
+          "note": "國際通、平和通周邊順路，適合看市場、找小吃與伴手禮。",
+          "tags": [
+            "市區散步",
+            "小吃",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ]
+          ]
+        },
+        {
+          "name": "暖暮拉麵沖繩六間分店",
+          "note": "六間店分布在那霸、北谷、名護、中城、沖縄市、糸滿，可依當天位置當拉麵備案。",
+          "tags": [
+            "拉麵",
+            "雨天備案",
+            "快速用餐"
+          ],
+          "links": [
+            [
+              "那霸牧志店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Naha%20Makishi"
+            ],
+            [
+              "北谷砂辺店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Chatan%20Sunabe"
+            ],
+            [
+              "名護店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Nago"
+            ],
+            [
+              "中城店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Nakagusuku"
+            ],
+            [
+              "沖縄美原店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Okinawa%20Mihara"
+            ],
+            [
+              "糸滿店",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Itoman"
+            ],
+            [
+              "官方店鋪資訊",
+              "https://ramendanbo.okinawa/locations-2/"
+            ]
+          ]
+        },
+        {
+          "name": "San-A 那霸 Main Place",
+          "note": "那霸市區最好插入的補貨點，和新都心、午餐安排最好搭配。",
+          "tags": [
+            "市區補貨",
+            "超市補貨",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=San-A%20Naha%20Main%20Place"
+            ]
+          ]
+        },
+        {
+          "name": "燒肉王沖繩分店",
+          "note": "家庭友善燒肉吃到飽；那霸新都心、那霸久茂地、北谷、一日橋、名護、沖縄美里可依當天位置選。",
+          "tags": [
+            "餐廳多",
+            "親子放風",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "那霸新都心",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Naha%20Shintoshin"
+            ],
+            [
+              "那霸久茂地",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Naha%20Kumoji"
+            ],
+            [
+              "北谷",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Chatan"
+            ],
+            [
+              "一日橋",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Ichinichibashi"
+            ],
+            [
+              "名護",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Nago"
+            ],
+            [
+              "沖縄美里",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Okinawa%20Misato"
+            ],
+            [
+              "官方店鋪搜尋",
+              "https://www.yakiniku-king.jp/shop/"
+            ]
+          ]
+        },
+        {
+          "name": "AEON MALL Okinawa Rycom",
+          "note": "規模大、餐廳選擇多，適合留一個半天給親子放風。",
+          "tags": [
+            "親子放風",
+            "餐廳多",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=AEON%20MALL%20Okinawa%20Rycom"
+            ]
+          ]
+        },
+        {
+          "name": "San-A 浦添西海岸 PARCO CITY",
+          "note": "浦添沿線順路可插入，想逛商場加吃飯時很好用。",
+          "tags": [
+            "親子放風",
+            "餐廳多",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=San-A%20Urasoe%20West%20Coast%20PARCO%20CITY"
             ]
           ]
         }
@@ -692,7 +1124,7 @@
         },
         {
           "title": "午餐",
-          "text": "海景香料餐廳 Kurukuma 或海景咖啡 Yabusachi。",
+          "text": "海景香料餐廳 Kurukuma、海景咖啡 Yabusachi、暖暮糸滿店，或燒肉王一日橋店。",
           "links": [
             [
               "Kurukuma 地圖",
@@ -709,6 +1141,22 @@
             [
               "Yabusachi 介紹",
               "https://www.totalokinawa.com/cafe-yabusachi/"
+            ],
+            [
+              "暖暮糸滿店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ramen%20Danbo%20Itoman"
+            ],
+            [
+              "暖暮糸滿店 介紹",
+              "https://ramendanbo.okinawa/locations-2/"
+            ],
+            [
+              "燒肉王一日橋店 地圖",
+              "https://www.google.com/maps/search/?api=1&query=Yakiniku%20King%20Ichinichibashi"
+            ],
+            [
+              "燒肉王一日橋店 介紹",
+              "https://www.yakiniku-king.jp/shop/13/"
             ]
           ]
         },
@@ -723,6 +1171,23 @@
             [
               "Costco 遊記",
               "https://ksk.tw/okinawa-costco/"
+            ]
+          ]
+        }
+      ],
+      "shoppingBackup": [
+        {
+          "name": "iias 沖繩豐崎",
+          "note": "南部收尾日若不想只跑 Costco，可改成商場採買加用餐。",
+          "tags": [
+            "南部順路",
+            "餐廳多",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=iias%20Okinawa%20Toyosaki"
             ]
           ]
         }

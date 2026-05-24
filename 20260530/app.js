@@ -270,6 +270,7 @@ const todayHeroNextStop = document.querySelector("#todayHeroNextStop");
 const tripSummaryCard = document.querySelector("#tripSummaryCard");
 const mealCard = document.querySelector("#mealCard");
 const rainDecisionCard = document.querySelector("#rainDecisionCard");
+const shoppingBackupCard = document.querySelector("#shoppingBackupCard");
 const todayNextStopAction = document.querySelector("#todayNextStopAction");
 const tripDateRange = document.querySelector("#tripDateRange");
 const countdownView = document.querySelector("#countdownView");
@@ -288,6 +289,68 @@ let forceShowItinerary = false;
 function linkPills(links) {
   if (!links.length) return "";
   return `<div class="link-row">${links.map(([label, url]) => `<a class="link-pill" href="${url}" target="_blank" rel="noreferrer">${label}</a>`).join("")}</div>`;
+}
+
+function isMapLink(label) {
+  return label.includes("地圖") || label.includes("Google Maps") || label === "Costco";
+}
+
+function mealLinkType(label) {
+  return isMapLink(label) ? "map" : "reference";
+}
+
+function mealPlaceName(label, fallbackName = "相關資訊") {
+  return label
+    .replace(/Google Maps/g, fallbackName)
+    .replace(/地圖|介紹|評價|參考|遊記|官方資訊/g, "")
+    .trim() || fallbackName;
+}
+
+function mealLinkPill([label, url]) {
+  const type = mealLinkType(label);
+  const buttonLabel = type === "map" ? "地圖" : label.replace(/^.+?(介紹|評價|參考|遊記|官方資訊)$/, "$1");
+
+  return `<a class="link-pill meal-link-pill ${type === "map" ? "map-link" : "reference-link"}" href="${url}" target="_blank" rel="noreferrer">${buttonLabel}</a>`;
+}
+
+function groupedMealLinks(links) {
+  if (!links.length) return "";
+  const places = [];
+
+  links.forEach((link) => {
+    const [label] = link;
+    const placeName = mealPlaceName(label, places[places.length - 1]?.name);
+    let place = places.find((entry) => entry.name === placeName);
+
+    if (!place) {
+      place = { name: placeName, map: null, reference: null, extras: [] };
+      places.push(place);
+    }
+
+    const type = mealLinkType(label);
+    if (type === "map" && !place.map) {
+      place.map = link;
+    } else if (type === "reference" && !place.reference) {
+      place.reference = link;
+    } else {
+      place.extras.push(link);
+    }
+  });
+
+  return `
+    <div class="meal-link-places">
+      ${places.map((place) => `
+        <div class="meal-link-place">
+          <span class="meal-link-place-name">${place.name}</span>
+          <div class="meal-link-actions">
+            ${place.map ? mealLinkPill(place.map) : ""}
+            ${place.reference ? mealLinkPill(place.reference) : ""}
+            ${place.extras.map((link) => mealLinkPill(link)).join("")}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function getEntryMeta(entry) {
@@ -382,7 +445,12 @@ function getNextStopForCurrentTime(day, currentDate) {
 
   const nowMinutes = getCurrentMinutes(currentDate);
   const upcoming = timedEntries.find(({ startMinutes }) => startMinutes >= nowMinutes);
-  return (upcoming || timedEntries[timedEntries.length - 1]).entry;
+  return upcoming ? upcoming.entry : null;
+}
+
+function shouldUseTimeBasedNextStop(day, currentDate) {
+  return getTripState(currentDate) === "active"
+    && days.indexOf(day) === getActiveTripDayIndex(currentDate);
 }
 
 function getPlaceNameFromText(text) {
@@ -403,7 +471,9 @@ function getNavigationDestination(entry) {
 }
 
 function getTimelineCards(day, currentDate = getCurrentDate()) {
-  const nextStop = getNextStopForCurrentTime(day, currentDate);
+  const nextStop = shouldUseTimeBasedNextStop(day, currentDate)
+    ? getNextStopForCurrentTime(day, currentDate)
+    : day.schedule[0];
   return day.schedule.map((entry, index) => {
     const meta = getEntryMeta(entry);
     const badges = [];
@@ -431,7 +501,7 @@ function getTimelineCards(day, currentDate = getCurrentDate()) {
 function getActiveDayViewModel() {
   const day = days[activeDayIndex];
   const timelineCards = getTimelineCards(day);
-  const nextStop = timelineCards.find((entry) => entry.isNext) || timelineCards[0];
+  const nextStop = timelineCards.find((entry) => entry.isNext) || null;
 
   return {
     dayNumber: activeDayIndex + 1,
@@ -447,8 +517,7 @@ function getActiveDayViewModel() {
 
 function getTodayMealViewModel(day) {
   return {
-    spotlight: day.food.slice(0, 2),
-    support: day.food.slice(2),
+    entries: day.food,
   };
 }
 
@@ -477,6 +546,10 @@ function getRainDecisionViewModel(day) {
     summary: day.rainPlan,
     decisionTags: tags,
   };
+}
+
+function getShoppingBackupViewModel(day) {
+  return day.shoppingBackup || [];
 }
 
 function getDaySupportDetails(day) {
@@ -540,28 +613,19 @@ function renderSupportCards() {
   const day = days[activeDayIndex];
   const mealModel = getTodayMealViewModel(day);
   const rainModel = getRainDecisionViewModel(day);
+  const shoppingModel = getShoppingBackupViewModel(day);
 
   mealCard.innerHTML = `
     <p class="eyebrow">Meals & Supply</p>
     <h2>今天吃什麼</h2>
     <div class="support-stack">
-      ${mealModel.spotlight.map((entry) => `
+      ${mealModel.entries.map((entry) => `
         <div class="support-item">
           <span class="compact-meta">${entry.title}</span>
           <strong>${entry.text}</strong>
-          ${linkPills(entry.links)}
+          ${groupedMealLinks(entry.links)}
         </div>
       `).join("")}
-      ${mealModel.support.length ? `
-        <div class="support-note">
-          ${mealModel.support.map((entry) => `
-            <div class="support-note-row">
-              <span>${entry.title}</span>
-              <strong>${entry.text}</strong>
-            </div>
-          `).join("")}
-        </div>
-      ` : ""}
     </div>
   `;
 
@@ -572,6 +636,29 @@ function renderSupportCards() {
     <div class="decision-tags">
       ${rainModel.decisionTags.map((tag) => `<span class="decision-tag">${tag}</span>`).join("")}
     </div>
+  `;
+
+  shoppingBackupCard.innerHTML = `
+    <p class="eyebrow">Shopping Backup</p>
+    <h2>購物備案</h2>
+    ${shoppingModel.length ? `
+      <div class="support-stack">
+        ${shoppingModel.map((entry) => `
+          <div class="support-item shopping-support-item">
+            <div class="shopping-support-top">
+              <strong>${entry.name}</strong>
+              <div class="shopping-tag-row">
+                ${(entry.tags || []).map((tag) => `<span class="shopping-tag">${tag}</span>`).join("")}
+              </div>
+            </div>
+            <p class="support-copy">${entry.note || ""}</p>
+            ${linkPills(entry.links || [])}
+          </div>
+        `).join("")}
+      </div>
+    ` : `
+      <p class="support-copy">這一天沒有特別整理大型商場備案，維持主行程或附近便利店採買即可。</p>
+    `}
   `;
 }
 
@@ -598,6 +685,18 @@ function renderDays() {
           <strong>${getDaySupportDetails(day).breakfast}</strong>
         </div>
       </div>
+      ${day.shoppingBackup?.length ? `
+        <section class="shopping-backup-panel" aria-label="購物備案">
+          <span class="compact-meta">購物備案</span>
+          <div class="shopping-backup-grid">
+            ${day.shoppingBackup.map((entry) => `
+              <div class="shopping-backup-item">
+                <strong>${entry.name}</strong>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      ` : ""}
       <div class="timeline-cards">
         ${getTimelineCards(day).map((entry) => `
           <section class="timeline-card ${entry.isNext ? "is-next" : ""}">

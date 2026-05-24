@@ -92,6 +92,10 @@ for (const site of sites) {
       const appJs = read(`${site.dir}/app.js`);
       assert(appJs.includes("getEntryStartMinutes"), `${site.dir}: app should derive schedule time for next-stop routing`);
       assert(appJs.includes("getNextStopForCurrentTime"), `${site.dir}: app should choose the next unfinished stop by current time`);
+      assert(appJs.includes("shouldUseTimeBasedNextStop"), `${site.dir}: app should gate time-based routing to the current trip day`);
+      assert(appJs.includes('getTripState(currentDate) === "active"'), `${site.dir}: next-stop routing should only use the clock during the active trip`);
+      assert(appJs.includes("upcoming ? upcoming.entry : null"), `${site.dir}: next-stop routing should clear after the day schedule ends`);
+      assert(appJs.includes("timelineCards.find((entry) => entry.isNext) || null"), `${site.dir}: hero should not fall back to the final completed stop`);
       assert(appJs.includes("導航到："), `${site.dir}: hero should show the navigation destination`);
       const stylesheet = read(`${site.dir}/styles.css`);
       assert(/\[hidden\]\s*\{[^}]*display:\s*none\s*!important\s*;?[^}]*\}/.test(stylesheet), `${site.dir}: stylesheet should preserve hidden attribute display behavior`);
