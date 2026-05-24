@@ -263,7 +263,6 @@ let tripConfig = {
 
 const dayList = document.querySelector("#dayList");
 const dayTabs = document.querySelector("#dayTabs");
-const searchInput = document.querySelector("#searchInput");
 const todayHeroTitle = document.querySelector("#todayHeroTitle");
 const todayHeroLead = document.querySelector("#todayHeroLead");
 const todayHeroMeta = document.querySelector("#todayHeroMeta");
@@ -271,6 +270,7 @@ const todayHeroNextStop = document.querySelector("#todayHeroNextStop");
 const tripSummaryCard = document.querySelector("#tripSummaryCard");
 const mealCard = document.querySelector("#mealCard");
 const rainDecisionCard = document.querySelector("#rainDecisionCard");
+const shoppingBackupCard = document.querySelector("#shoppingBackupCard");
 const todayNextStopAction = document.querySelector("#todayNextStopAction");
 const tripDateRange = document.querySelector("#tripDateRange");
 const countdownView = document.querySelector("#countdownView");
@@ -278,7 +278,6 @@ const endedView = document.querySelector("#endedView");
 const appHeader = document.querySelector("#appHeader");
 const appContent = document.querySelector("#appContent");
 const bottomTabs = document.querySelector("#bottomTabs");
-const searchMeta = document.querySelector("#searchMeta");
 const countdownDays = document.querySelector("#countdownDays");
 const countdownHours = document.querySelector("#countdownHours");
 const countdownMinutes = document.querySelector("#countdownMinutes");
@@ -290,6 +289,68 @@ let forceShowItinerary = false;
 function linkPills(links) {
   if (!links.length) return "";
   return `<div class="link-row">${links.map(([label, url]) => `<a class="link-pill" href="${url}" target="_blank" rel="noreferrer">${label}</a>`).join("")}</div>`;
+}
+
+function isMapLink(label) {
+  return label.includes("地圖") || label.includes("Google Maps") || label === "Costco";
+}
+
+function mealLinkType(label) {
+  return isMapLink(label) ? "map" : "reference";
+}
+
+function mealPlaceName(label, fallbackName = "相關資訊") {
+  return label
+    .replace(/Google Maps/g, fallbackName)
+    .replace(/地圖|介紹|評價|參考|遊記|官方資訊/g, "")
+    .trim() || fallbackName;
+}
+
+function mealLinkPill([label, url]) {
+  const type = mealLinkType(label);
+  const buttonLabel = type === "map" ? "地圖" : label.replace(/^.+?(介紹|評價|參考|遊記|官方資訊)$/, "$1");
+
+  return `<a class="link-pill meal-link-pill ${type === "map" ? "map-link" : "reference-link"}" href="${url}" target="_blank" rel="noreferrer">${buttonLabel}</a>`;
+}
+
+function groupedMealLinks(links) {
+  if (!links.length) return "";
+  const places = [];
+
+  links.forEach((link) => {
+    const [label] = link;
+    const placeName = mealPlaceName(label, places[places.length - 1]?.name);
+    let place = places.find((entry) => entry.name === placeName);
+
+    if (!place) {
+      place = { name: placeName, map: null, reference: null, extras: [] };
+      places.push(place);
+    }
+
+    const type = mealLinkType(label);
+    if (type === "map" && !place.map) {
+      place.map = link;
+    } else if (type === "reference" && !place.reference) {
+      place.reference = link;
+    } else {
+      place.extras.push(link);
+    }
+  });
+
+  return `
+    <div class="meal-link-places">
+      ${places.map((place) => `
+        <div class="meal-link-place">
+          <span class="meal-link-place-name">${place.name}</span>
+          <div class="meal-link-actions">
+            ${place.map ? mealLinkPill(place.map) : ""}
+            ${place.reference ? mealLinkPill(place.reference) : ""}
+            ${place.extras.map((link) => mealLinkPill(link)).join("")}
+          </div>
+        </div>
+      `).join("")}
+    </div>
+  `;
 }
 
 function getEntryMeta(entry) {
@@ -342,12 +403,82 @@ function setHidden(element, hidden) {
   element.classList.toggle("is-hidden", hidden);
 }
 
-function getTimelineCards(day) {
+function getEntryStartMinutes(entry) {
+  const time = entry.time || "";
+  const clockMatch = time.match(/^(\d{1,2}):(\d{2})$/);
+
+  if (clockMatch) {
+    return Number(clockMatch[1]) * 60 + Number(clockMatch[2]);
+  }
+
+  const timeSlots = [
+    ["清晨", 5 * 60],
+    ["上午", 9 * 60],
+    ["中午", 12 * 60],
+    ["下午後段", 16 * 60],
+    ["下午", 14 * 60],
+    ["傍晚", 17 * 60 + 30],
+    ["晚上", 19 * 60],
+  ];
+  const matchedSlot = timeSlots.find(([label]) => time.includes(label));
+  return matchedSlot ? matchedSlot[1] : null;
+}
+
+function getCurrentMinutes(currentDate) {
+  return currentDate.getHours() * 60 + currentDate.getMinutes();
+}
+
+function getNavigableEntries(day) {
+  return day.schedule
+    .map((entry, index) => ({
+      entry,
+      index,
+      startMinutes: getEntryStartMinutes(entry),
+    }))
+    .filter(({ startMinutes }) => startMinutes !== null)
+    .sort((a, b) => a.startMinutes - b.startMinutes || a.index - b.index);
+}
+
+function getNextStopForCurrentTime(day, currentDate) {
+  const timedEntries = getNavigableEntries(day);
+  if (!timedEntries.length) return day.schedule[0];
+
+  const nowMinutes = getCurrentMinutes(currentDate);
+  const upcoming = timedEntries.find(({ startMinutes }) => startMinutes >= nowMinutes);
+  return upcoming ? upcoming.entry : null;
+}
+
+function shouldUseTimeBasedNextStop(day, currentDate) {
+  return getTripState(currentDate) === "active"
+    && days.indexOf(day) === getActiveTripDayIndex(currentDate);
+}
+
+function getPlaceNameFromText(text) {
+  return (text || "")
+    .split(/[（(，,。]/)[0]
+    .replace(/^(晴天短停|若.+補|視天氣|單軌或短程交通前往)/, "")
+    .trim();
+}
+
+function getNavigationDestination(entry) {
+  if (!entry || !entry.links?.length) return "查看行程細節";
+  const [label, url] = entry.links[0];
+  if (!url.startsWith("http")) return "查看行程細節";
+  if (label.includes("地圖") || label.includes("Google Maps")) {
+    return getPlaceNameFromText(entry.text) || label;
+  }
+  return label;
+}
+
+function getTimelineCards(day, currentDate = getCurrentDate()) {
+  const nextStop = shouldUseTimeBasedNextStop(day, currentDate)
+    ? getNextStopForCurrentTime(day, currentDate)
+    : day.schedule[0];
   return day.schedule.map((entry, index) => {
     const meta = getEntryMeta(entry);
     const badges = [];
 
-    if (index === 0) {
+    if (entry === nextStop) {
       badges.push("下一步");
     }
 
@@ -361,7 +492,7 @@ function getTimelineCards(day) {
 
     return {
       ...entry,
-      isNext: index === 0,
+      isNext: entry === nextStop,
       badges,
     };
   });
@@ -370,7 +501,7 @@ function getTimelineCards(day) {
 function getActiveDayViewModel() {
   const day = days[activeDayIndex];
   const timelineCards = getTimelineCards(day);
-  const nextStop = timelineCards.find((entry) => entry.isNext) || timelineCards[0];
+  const nextStop = timelineCards.find((entry) => entry.isNext) || null;
 
   return {
     dayNumber: activeDayIndex + 1,
@@ -380,13 +511,13 @@ function getActiveDayViewModel() {
     stay: day.stay,
     lead: `${day.date}（${day.weekday}）｜住宿：${day.stay}`,
     nextStop,
+    navigationDestination: getNavigationDestination(nextStop),
   };
 }
 
 function getTodayMealViewModel(day) {
   return {
-    spotlight: day.food.slice(0, 2),
-    support: day.food.slice(2),
+    entries: day.food,
   };
 }
 
@@ -417,6 +548,10 @@ function getRainDecisionViewModel(day) {
   };
 }
 
+function getShoppingBackupViewModel(day) {
+  return day.shoppingBackup || [];
+}
+
 function getDaySupportDetails(day) {
   const stayDetails = stayDetailsMap.get(day.date);
 
@@ -440,8 +575,9 @@ function renderTodayHero() {
     <small>今天主題：${model.title}</small>
   `;
   todayHeroNextStop.innerHTML = `
-    <span>下一站</span>
+    <span>下一站｜${model.nextStop ? model.nextStop.time : "自由調整"}</span>
     <strong>${model.nextStop ? model.nextStop.text : "今天自由調整"}</strong>
+    <small>導航到：${model.navigationDestination}</small>
   `;
   todayHeroNextStop.classList.toggle("has-map-link", nextStopLink.startsWith("http"));
   todayNextStopAction.href = nextStopLink;
@@ -477,28 +613,19 @@ function renderSupportCards() {
   const day = days[activeDayIndex];
   const mealModel = getTodayMealViewModel(day);
   const rainModel = getRainDecisionViewModel(day);
+  const shoppingModel = getShoppingBackupViewModel(day);
 
   mealCard.innerHTML = `
     <p class="eyebrow">Meals & Supply</p>
     <h2>今天吃什麼</h2>
     <div class="support-stack">
-      ${mealModel.spotlight.map((entry) => `
+      ${mealModel.entries.map((entry) => `
         <div class="support-item">
           <span class="compact-meta">${entry.title}</span>
           <strong>${entry.text}</strong>
-          ${linkPills(entry.links)}
+          ${groupedMealLinks(entry.links)}
         </div>
       `).join("")}
-      ${mealModel.support.length ? `
-        <div class="support-note">
-          ${mealModel.support.map((entry) => `
-            <div class="support-note-row">
-              <span>${entry.title}</span>
-              <strong>${entry.text}</strong>
-            </div>
-          `).join("")}
-        </div>
-      ` : ""}
     </div>
   `;
 
@@ -510,31 +637,33 @@ function renderSupportCards() {
       ${rainModel.decisionTags.map((tag) => `<span class="decision-tag">${tag}</span>`).join("")}
     </div>
   `;
+
+  shoppingBackupCard.innerHTML = `
+    <p class="eyebrow">Shopping Backup</p>
+    <h2>購物備案</h2>
+    ${shoppingModel.length ? `
+      <div class="support-stack">
+        ${shoppingModel.map((entry) => `
+          <div class="support-item shopping-support-item">
+            <div class="shopping-support-top">
+              <strong>${entry.name}</strong>
+              <div class="shopping-tag-row">
+                ${(entry.tags || []).map((tag) => `<span class="shopping-tag">${tag}</span>`).join("")}
+              </div>
+            </div>
+            <p class="support-copy">${entry.note || ""}</p>
+            ${linkPills(entry.links || [])}
+          </div>
+        `).join("")}
+      </div>
+    ` : `
+      <p class="support-copy">這一天沒有特別整理大型商場備案，維持主行程或附近便利店採買即可。</p>
+    `}
+  `;
 }
 
 function renderDays() {
-  const query = searchInput.value.trim().toLowerCase();
-  const visibleDays = query
-    ? days.filter((day) => JSON.stringify(day).toLowerCase().includes(query))
-    : [days[activeDayIndex]];
-  const resultLabel = query
-    ? `找到 ${visibleDays.length} 天與「${searchInput.value.trim()}」相關`
-    : `目前顯示 Day ${activeDayIndex + 1} / ${days.length}`;
-
-  if (searchMeta) {
-    searchMeta.textContent = resultLabel;
-  }
-
-  if (query && visibleDays.length === 0) {
-    dayList.innerHTML = `
-      <article class="empty-state">
-        <p class="eyebrow">No Match</p>
-        <h3>沒有找到相關行程</h3>
-        <p>試試輸入「雨天」、「Costco」、「美國村」、「那霸」或日期，例如 6/5。</p>
-      </article>
-    `;
-    return;
-  }
+  const visibleDays = [days[activeDayIndex]];
 
   dayList.innerHTML = visibleDays.map((day) => `
     <article class="timeline-day">
@@ -556,9 +685,21 @@ function renderDays() {
           <strong>${getDaySupportDetails(day).breakfast}</strong>
         </div>
       </div>
+      ${day.shoppingBackup?.length ? `
+        <section class="shopping-backup-panel" aria-label="購物備案">
+          <span class="compact-meta">購物備案</span>
+          <div class="shopping-backup-grid">
+            ${day.shoppingBackup.map((entry) => `
+              <div class="shopping-backup-item">
+                <strong>${entry.name}</strong>
+              </div>
+            `).join("")}
+          </div>
+        </section>
+      ` : ""}
       <div class="timeline-cards">
         ${getTimelineCards(day).map((entry) => `
-          <section class="timeline-card ${entry.isNext && !query ? "is-next" : ""}">
+          <section class="timeline-card ${entry.isNext ? "is-next" : ""}">
             <div class="timeline-card-top">
               <b>${entry.time}</b>
               <div class="timeline-badges">
@@ -592,7 +733,6 @@ function renderTabs() {
   dayTabs.querySelectorAll(".day-tab").forEach((button) => {
     button.addEventListener("click", () => {
       activeDayIndex = Number(button.dataset.dayIndex);
-      searchInput.value = "";
       renderDashboard();
     });
   });
@@ -605,10 +745,6 @@ function renderDashboard() {
   renderTabs();
   renderDays();
 }
-
-searchInput.addEventListener("input", () => {
-  renderDays();
-});
 
 let deferredPrompt;
 const installButtons = document.querySelectorAll(".install-button");
