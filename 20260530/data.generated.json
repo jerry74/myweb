@@ -18,6 +18,7 @@
     "kouri": "https://www.jeepe.jp/zh_TW/articles/kouri-island-travel-guide-1477",
     "neoPark": "https://twobunny.tw/neo-park/",
     "okinawaWorld": "https://okinawa.letsgojp.com/archives/757370/",
+    "ryukyuGlassVillage": "https://www.google.com/maps/search/?api=1&query=Ryukyu%20Glass%20Village%20Itoman",
     "chinen": "https://mimihan.tw/chinenmisaki-park/",
     "costco": "https://ksk.tw/okinawa-costco/",
     "steak88": "https://twobunny.tw/steak-house-88/",
@@ -25,6 +26,7 @@
     "yataimura": "https://mimigo.tw/okinawa-yatai/",
     "potama": "https://www.gltjp.com/zh-hant/article/item/21034/",
     "makishiMarket": "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha",
+    "tomariFishMarket": "https://www.google.com/maps/search/?api=1&query=Tomari%20Iyumachi%20Fish%20Market%20Naha",
     "ichiranNaha": "https://ichiran.com/shop/kyushu/naha-kokusaidori/",
     "danboOkinawa": "https://ramendanbo.okinawa/locations-2/",
     "ryukyaKokusai": "https://www.google.com/maps/search/?api=1&query=Ramen%20Ryukya%20Kokusai%20Dori%20Naha",
@@ -83,7 +85,7 @@
         },
         {
           "time": "傍晚",
-          "text": "國際通（Kokusai Street / 国際通り）散步，可順路看第一牧志公設市場，再晚餐與採買隔天早餐。",
+          "text": "國際通（Kokusai Street / 国際通り）散步，可順路看第一牧志公設市場；若想吃海鮮可改泊港漁市場，再晚餐與採買隔天早餐。",
           "links": [
             [
               "地圖",
@@ -96,6 +98,10 @@
             [
               "第一牧志公設市場",
               "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ],
+            [
+              "泊港漁市場",
+              "https://www.google.com/maps/search/?api=1&query=Tomari%20Iyumachi%20Fish%20Market%20Naha"
             ]
           ]
         },
@@ -777,7 +783,7 @@
         },
         {
           "time": "下午",
-          "text": "新都心（Omoromachi / おもろまち）、DFS 沖繩、國際通或第一牧志公設市場擇一到兩個點。",
+          "text": "新都心（Omoromachi / おもろまち）、DFS 沖繩、國際通、第一牧志公設市場或泊港漁市場擇一到兩個點。",
           "links": [
             [
               "新都心",
@@ -794,6 +800,10 @@
             [
               "第一牧志公設市場",
               "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ],
+            [
+              "泊港漁市場",
+              "https://www.google.com/maps/search/?api=1&query=Tomari%20Iyumachi%20Fish%20Market%20Naha"
             ]
           ]
         },
@@ -841,7 +851,7 @@
         },
         {
           "title": "晚餐",
-          "text": "國際通屋台村、牛排館 88、豬肉蛋飯糰牧志市場店、第一牧志公設市場周邊、一蘭那霸國際通店、暖暮那霸牧志店、琉家拉麵國際通本店、燒肉王那霸久茂地店。",
+          "text": "國際通屋台村、牛排館 88、豬肉蛋飯糰牧志市場店、第一牧志公設市場周邊、泊港漁市場、一蘭那霸國際通店、暖暮那霸牧志店、琉家拉麵國際通本店、燒肉王那霸久茂地店。",
           "links": [
             [
               "屋台村地圖",
@@ -870,6 +880,10 @@
             [
               "第一牧志公設市場",
               "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ],
+            [
+              "泊港漁市場",
+              "https://www.google.com/maps/search/?api=1&query=Tomari%20Iyumachi%20Fish%20Market%20Naha"
             ],
             [
               "一蘭那霸國際通店 地圖",
@@ -915,6 +929,21 @@
             [
               "Google Maps",
               "https://www.google.com/maps/search/?api=1&query=Makishi%20Public%20Market%20Naha"
+            ]
+          ]
+        },
+        {
+          "name": "泊港漁市場",
+          "note": "那霸港邊海鮮市場，適合想吃海鮮、買魚貨或雨天改室內短停。",
+          "tags": [
+            "海鮮",
+            "市區散步",
+            "雨天備案"
+          ],
+          "links": [
+            [
+              "Google Maps",
+              "https://www.google.com/maps/search/?api=1&query=Tomari%20Iyumachi%20Fish%20Market%20Naha"
             ]
           ]
         },
@@ -1046,14 +1075,14 @@
     {
       "date": "6/5",
       "weekday": "五",
-      "title": "南部收尾，文化王國，知念岬，Costco",
+      "title": "南部收尾，文化王國，琉球玻璃村，Costco",
       "stay": "那霸市區",
       "tags": [
         "drive",
         "rain",
         "food"
       ],
-      "rainPlan": "小雨保留文化王國與 Costco，知念岬縮短；大雨取消知念岬，文化王國只跑玉泉洞與室內區。",
+      "rainPlan": "小雨保留文化王國、琉球玻璃村與 Costco，知念岬縮短；大雨取消知念岬，文化王國只跑玉泉洞與室內區，再補琉球玻璃村。",
       "schedule": [
         {
           "time": "上午",
@@ -1073,6 +1102,16 @@
           "time": "中午",
           "text": "南城市景觀午餐。",
           "links": []
+        },
+        {
+          "time": "下午前段",
+          "text": "琉球玻璃村（Ryukyu Glass Village / 琉球ガラス村）看玻璃工藝與伴手禮，雨天也適合。",
+          "links": [
+            [
+              "地圖",
+              "https://www.google.com/maps/search/?api=1&query=Ryukyu%20Glass%20Village%20Itoman"
+            ]
+          ]
         },
         {
           "time": "下午",
@@ -1112,7 +1151,7 @@
         },
         {
           "time": "雨天",
-          "text": "知念岬取消；文化王國縮短成玉泉洞與室內區；Costco 保留。",
+          "text": "知念岬取消；文化王國縮短成玉泉洞與室內區；琉球玻璃村與 Costco 保留。",
           "links": []
         }
       ],
