@@ -558,6 +558,8 @@ function getDaySupportDetails(day) {
   return {
     stay: day.stay,
     stayName: stayDetails?.name || day.stay,
+    stayAddress: stayDetails?.address || "",
+    stayPhone: stayDetails?.phone || "",
     stayMapUrl: stayDetails?.mapUrl || mapUrl(day.stay),
     breakfast: breakfastMap.get(day.date) || "依照當天住宿與前一站行程彈性準備早餐。",
   };
@@ -677,8 +679,15 @@ function renderDays() {
       <div class="day-support-strip">
         <div class="day-support-card">
           <span class="compact-meta">今晚住宿</span>
-          <strong>${getDaySupportDetails(day).stayName}</strong>
-          <a class="support-link" href="${getDaySupportDetails(day).stayMapUrl}" target="_blank" rel="noreferrer">Google Maps</a>
+          ${(() => {
+            const details = getDaySupportDetails(day);
+            return `
+              <strong>${details.stayName}</strong>
+              ${details.stayAddress ? `<small>${details.stayAddress}</small>` : ""}
+              ${details.stayPhone ? `<small>${details.stayPhone}</small>` : ""}
+              <a class="support-link" href="${details.stayMapUrl}" target="_blank" rel="noreferrer">Google Maps</a>
+            `;
+          })()}
         </div>
         <div class="day-support-card">
           <span class="compact-meta">早餐準備</span>
@@ -785,9 +794,49 @@ window.addEventListener("appinstalled", () => {
 
 updateInstallButtons();
 
+const appUpdatePrompt = document.querySelector("#appUpdatePrompt");
+const appUpdateButton = document.querySelector("#appUpdateButton");
+let waitingServiceWorker = null;
+let updateReloadRequested = false;
+
+function showAppUpdatePrompt(worker) {
+  waitingServiceWorker = worker;
+  if (appUpdatePrompt) {
+    appUpdatePrompt.hidden = false;
+  }
+}
+
+if (appUpdateButton) {
+  appUpdateButton.addEventListener("click", () => {
+    if (!waitingServiceWorker) return;
+    updateReloadRequested = true;
+    waitingServiceWorker.postMessage({ type: "SKIP_WAITING" });
+  });
+}
+
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
+    navigator.serviceWorker.register("./service-worker.js").then((registration) => {
+      if (registration.waiting && navigator.serviceWorker.controller) {
+        showAppUpdatePrompt(registration.waiting);
+      }
+
+      registration.addEventListener("updatefound", () => {
+        const installingWorker = registration.installing;
+        if (!installingWorker) return;
+
+        installingWorker.addEventListener("statechange", () => {
+          if (installingWorker.state === "installed" && navigator.serviceWorker.controller) {
+            showAppUpdatePrompt(installingWorker);
+          }
+        });
+      });
+    });
+  });
+
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (!updateReloadRequested) return;
+    window.location.reload();
   });
 }
 

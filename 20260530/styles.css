@@ -370,6 +370,34 @@ p {
   text-decoration: none;
 }
 
+.app-update-prompt {
+  position: fixed;
+  z-index: 50;
+  right: 16px;
+  bottom: calc(96px + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: min(360px, calc(100% - 32px));
+  padding: 12px 14px;
+  border: 1px solid rgba(46, 168, 199, 0.22);
+  border-radius: 18px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
+}
+
+.app-update-prompt span {
+  font-weight: 900;
+}
+
+.app-update-prompt .primary-button {
+  min-height: 38px;
+  padding: 8px 13px;
+  white-space: nowrap;
+}
+
 .summary-card {
   padding: 22px;
   box-shadow: 0 16px 36px rgba(70, 114, 173, 0.18);
@@ -512,6 +540,13 @@ p {
 .day-support-card strong {
   display: block;
   margin-top: 4px;
+}
+
+.day-support-card small {
+  display: block;
+  margin-top: 6px;
+  color: var(--muted);
+  line-height: 1.5;
 }
 
 .support-link {
@@ -1027,6 +1062,14 @@ p {
 
   .day-tab {
     min-width: 96px;
+  }
+
+  .app-update-prompt {
+    right: 12px;
+    bottom: calc(108px + env(safe-area-inset-bottom, 0px));
+    left: 12px;
+    justify-content: space-between;
+    max-width: none;
   }
 }
 

@@ -67,7 +67,7 @@
       "date": "5/30",
       "weekday": "六",
       "title": "抵達那霸，不租車",
-      "stay": "那霸市區",
+      "stay": "沖繩那霸柔婕閣酒店",
       "tags": [
         "food"
       ],
@@ -188,7 +188,7 @@
       "date": "5/31",
       "weekday": "日",
       "title": "取車，美國村，北上名護",
-      "stay": "名護／幸喜",
+      "stay": "沖繩名護海灘貝斯特韋斯特飯店",
       "tags": [
         "drive",
         "rain",
@@ -363,7 +363,7 @@
       "date": "6/1",
       "weekday": "一",
       "title": "水族館與海洋博公園",
-      "stay": "名護／幸喜",
+      "stay": "沖繩名護海灘貝斯特韋斯特飯店",
       "tags": [
         "drive",
         "rain",
@@ -507,7 +507,7 @@
       "date": "6/2",
       "weekday": "二",
       "title": "古宇利島，Neo Park，南下殘波岬",
-      "stay": "讀谷／殘波岬",
+      "stay": "沖繩殘波岬美爵度假酒店",
       "tags": [
         "drive",
         "rain",
@@ -626,7 +626,7 @@
       "date": "6/3",
       "weekday": "三",
       "title": "渡假飯店放空，美國村補位",
-      "stay": "讀谷／殘波岬",
+      "stay": "沖繩殘波岬美爵度假酒店",
       "tags": [
         "rain",
         "food"
@@ -769,7 +769,7 @@
       "date": "6/4",
       "weekday": "四",
       "title": "回那霸，市區採買",
-      "stay": "那霸市區",
+      "stay": "沖繩那霸柔婕閣酒店",
       "tags": [
         "drive",
         "food"
@@ -1076,7 +1076,7 @@
       "date": "6/5",
       "weekday": "五",
       "title": "南部收尾，文化王國，琉球玻璃村，Costco",
-      "stay": "那霸市區",
+      "stay": "沖繩那霸柔婕閣酒店",
       "tags": [
         "drive",
         "rain",
@@ -1289,16 +1289,18 @@
   },
   "stays": {
     "5/30": {
-      "name": "東急 Stay 沖繩那霸（Tokyu Stay Okinawa Naha / 東急ステイ沖縄那覇）",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Tokyu%20Stay%20Okinawa%20Naha"
+      "name": "沖繩那霸柔婕閣酒店（La'gent Hotel Okinawa Naha）",
+      "address": "2-2-9 Matsuyama, Naha, Okinawa 900-0032, Japan",
+      "phone": "+81-98-8945600",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=La%27gent%20Hotel%20Okinawa%20Naha%202-2-9%20Matsuyama"
     },
     "5/31": {
-      "name": "名護／幸喜住宿（Nago / Kouki / 名護・幸喜）",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kouki%20Beach%20Nago%20Okinawa"
+      "name": "沖繩名護海灘貝斯特韋斯特飯店（Best Western Okinawa Kouki Beach）",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Best%20Western%20Okinawa%20Kouki%20Beach"
     },
     "6/1": {
-      "name": "名護／幸喜住宿（Nago / Kouki / 名護・幸喜）",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Kouki%20Beach%20Nago%20Okinawa"
+      "name": "沖繩名護海灘貝斯特韋斯特飯店（Best Western Okinawa Kouki Beach）",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Best%20Western%20Okinawa%20Kouki%20Beach"
     },
     "6/2": {
       "name": "沖繩殘波岬美爵度假酒店（Grand Mercure Okinawa Cape Zanpa Resort / グランドメルキュール沖縄残波岬リゾート）",
@@ -1309,12 +1311,16 @@
       "mapUrl": "https://www.google.com/maps/search/?api=1&query=Grand%20Mercure%20Okinawa%20Cape%20Zanpa%20Resort"
     },
     "6/4": {
-      "name": "那霸單軌沿線住宿（建議旭橋／縣廳前／小祿／赤嶺）",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Asahibashi%20Station%20Naha"
+      "name": "沖繩那霸柔婕閣酒店（La'gent Hotel Okinawa Naha）",
+      "address": "2-2-9 Matsuyama, Naha, Okinawa 900-0032, Japan",
+      "phone": "+81-98-8945600",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=La%27gent%20Hotel%20Okinawa%20Naha%202-2-9%20Matsuyama"
     },
     "6/5": {
-      "name": "那霸單軌沿線住宿（建議旭橋／縣廳前／小祿／赤嶺）",
-      "mapUrl": "https://www.google.com/maps/search/?api=1&query=Asahibashi%20Station%20Naha"
+      "name": "沖繩那霸柔婕閣酒店（La'gent Hotel Okinawa Naha）",
+      "address": "2-2-9 Matsuyama, Naha, Okinawa 900-0032, Japan",
+      "phone": "+81-98-8945600",
+      "mapUrl": "https://www.google.com/maps/search/?api=1&query=La%27gent%20Hotel%20Okinawa%20Naha%202-2-9%20Matsuyama"
     },
     "6/6": {
       "name": "回程日",
