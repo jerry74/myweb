@@ -745,6 +745,14 @@ function renderTabs() {
       renderDashboard();
     });
   });
+
+  scrollActiveDayTabIntoView();
+}
+
+function scrollActiveDayTabIntoView() {
+  const activeTab = dayTabs.querySelector(".day-tab.active");
+  if (!activeTab) return;
+  activeTab.scrollIntoView({ block: "nearest", inline: "center" });
 }
 
 function renderDashboard() {

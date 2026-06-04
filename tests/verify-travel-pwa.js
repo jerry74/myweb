@@ -99,6 +99,8 @@ for (const site of sites) {
       assert(appJs.includes("upcoming ? upcoming.entry : null"), `${site.dir}: next-stop routing should clear after the day schedule ends`);
       assert(appJs.includes("timelineCards.find((entry) => entry.isNext) || null"), `${site.dir}: hero should not fall back to the final completed stop`);
       assert(appJs.includes("導航到："), `${site.dir}: hero should show the navigation destination`);
+      assert(appJs.includes("scrollActiveDayTabIntoView"), `${site.dir}: active day tab should scroll into view after rendering`);
+      assert(appJs.includes('inline: "center"'), `${site.dir}: active day tab should be centered in the horizontal tab list`);
       assert(appJs.includes("registration.waiting"), `${site.dir}: app should detect a waiting service worker update`);
       assert(appJs.includes("updatefound"), `${site.dir}: app should listen for service worker updates`);
       assert(appJs.includes('postMessage({ type: "SKIP_WAITING" })'), `${site.dir}: update action should activate the waiting service worker`);

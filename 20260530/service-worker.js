@@ -1,4 +1,4 @@
-const CACHE_NAME = "okinawa-trip-v21";
+const CACHE_NAME = "okinawa-trip-v22";
 const APP_ASSETS = [
   "./",
   "./index.html",
