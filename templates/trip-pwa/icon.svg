@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">TripHelper 指南針圖示</title>
+  <desc id="desc">鈷藍底色上的米白指南針與橘色方向標記</desc>
+  <rect width="512" height="512" rx="116" fill="#2457d6"/>
+  <circle cx="256" cy="256" r="150" fill="none" stroke="#f3f0e8" stroke-width="24"/>
+  <path d="M256 76 306 206 436 256 306 306 256 436 206 306 76 256 206 206 256 76Z" fill="#f3f0e8"/>
+  <path d="m256 126 37 93-37 37-37-37 37-93Z" fill="#e7522c"/>
+  <circle cx="256" cy="256" r="34" fill="#171717"/>
+</svg>

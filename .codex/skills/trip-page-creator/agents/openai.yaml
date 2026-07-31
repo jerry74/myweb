@@ -1,0 +1,4 @@
+interface:
+  display_name: "Trip Page Creator"
+  short_description: "快速建立、更新、驗證可離線使用的 TripHelper 新行程頁面"
+  default_prompt: "Use $trip-page-creator to create and verify a new TripHelper itinerary page."
