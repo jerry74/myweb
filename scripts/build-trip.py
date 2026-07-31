@@ -34,6 +34,12 @@ def link_list(links: list[dict | list]) -> str:
     return " / ".join(f"[{link_label(link)}]({link_url(link)})" for link in links)
 
 
+def tag_list(tags: list[str]) -> str:
+    if not tags:
+        return ""
+    return " / ".join(tags)
+
+
 def render_markdown(trip: dict) -> str:
     meta = trip["trip"]
     lines = [
@@ -74,11 +80,27 @@ def render_markdown(trip: dict) -> str:
             suffix = f"（{links}）" if links else ""
             lines.append(f"- **{entry['title']}**：{entry['text']}{suffix}")
 
+        shopping_backup = day.get("shoppingBackup", [])
+        if shopping_backup:
+            lines.extend(["", "#### 購物備案", ""])
+            for entry in shopping_backup:
+                tags = tag_list(entry.get("tags", []))
+                tag_prefix = f"適合：{tags}。" if tags else ""
+                links = link_list(entry.get("links", []))
+                suffix = f"（{links}）" if links else ""
+                lines.append(f"- **{entry['name']}**：{tag_prefix}{entry.get('note', '')}{suffix}")
+
         lines.append("")
 
     lines.extend(["## 住宿整理", ""])
     for date, stay in trip["stays"].items():
-        lines.append(f"- **{date}**：{stay['name']}（[Google Maps]({stay['mapUrl']})）")
+        details = []
+        if stay.get("address"):
+            details.append(f"地址：{stay['address']}")
+        if stay.get("phone"):
+            details.append(f"電話：{stay['phone']}")
+        detail_text = f"，{'，'.join(details)}" if details else ""
+        lines.append(f"- **{date}**：{stay['name']}{detail_text}（[Google Maps]({stay['mapUrl']})）")
 
     lines.extend(["", "## 早餐準備整理", ""])
     for date, text in trip["breakfasts"].items():

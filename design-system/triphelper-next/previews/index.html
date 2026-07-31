@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TripHelper Next 24 套行程頁面風格預覽目錄。">
+  <title>TripHelper 風格預覽目錄</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --page: #f4f0e8;
+      --surface: #fffdf8;
+      --ink: #181716;
+      --muted: #67615a;
+      --line: #d5cec3;
+      --accent: #2457d6;
+      --shadow: 0 18px 45px rgb(28 31 38 / 12%);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: "Segoe UI Variable", "Noto Sans TC", "Microsoft JhengHei UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible {
+      outline: 3px solid #d86b21;
+      outline-offset: 3px;
+    }
+
+    main {
+      width: min(1360px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 56px 0 80px;
+    }
+
+    .hero {
+      display: grid;
+      gap: 16px;
+      max-width: 820px;
+      margin-bottom: 42px;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.6rem, 8vw, 6rem);
+      letter-spacing: -0.06em;
+      line-height: 0.95;
+    }
+
+    .hero > p:last-child {
+      max-width: 680px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .catalog {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 24px;
+    }
+
+    .style-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .preview-link {
+      display: block;
+      height: 390px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+      background: #ece8df;
+    }
+
+    .preview-link img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: opacity 180ms ease-out;
+    }
+
+    .preview-link:hover img { opacity: 0.9; }
+
+    .card-copy { padding: 20px; }
+
+    .style-id {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--accent) 10%, transparent);
+      color: var(--accent);
+      font-family: Consolas, monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 1.45rem;
+      letter-spacing: -0.03em;
+    }
+
+    .card-copy p {
+      min-height: 3.2em;
+      margin: 8px 0 18px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .links a {
+      padding: 7px 10px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    footer {
+      margin-top: 42px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --page: #111318;
+        --surface: #1a1d24;
+        --ink: #f5f1e9;
+        --muted: #c3bdb3;
+        --line: #373c46;
+        --accent: #91adff;
+        --shadow: 0 18px 45px rgb(0 0 0 / 28%);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="hero">
+      <p class="eyebrow">TripHelper Next · 24 Styles</p>
+      <h1>挑一套適合這趟旅程的樣子</h1>
+      <p>每張圖都是共享範本的實際瀏覽器截圖。點縮圖查看完整手機畫面，選定後把 style ID 傳給 <code>trip-page.py create --style</code>。</p>
+    </header>
+
+    <section class="catalog" aria-label="行程頁面風格">
+      <article class="style-card">
+        <a class="preview-link" href="./editorial-wayfinder/mobile-light.png"><img src="./editorial-wayfinder/mobile-light.png" width="375" height="812" alt="城市編輯風手機預覽"></a>
+        <div class="card-copy"><span class="style-id">editorial-wayfinder</span><h2>城市編輯風</h2><p>城市散步、跨區交通與資訊密集的綜合行程。</p><div class="links"><a href="./editorial-wayfinder/mobile-light.png">手機</a><a href="./editorial-wayfinder/desktop-light.png">桌機</a><a href="./editorial-wayfinder/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./coastal-breeze/mobile-light.png"><img src="./coastal-breeze/mobile-light.png" width="375" height="812" loading="lazy" alt="海島微風手機預覽"></a>
+        <div class="card-copy"><span class="style-id">coastal-breeze</span><h2>海島微風</h2><p>海島、海灘、渡假村與親子放鬆行程。</p><div class="links"><a href="./coastal-breeze/mobile-light.png">手機</a><a href="./coastal-breeze/desktop-light.png">桌機</a><a href="./coastal-breeze/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./alpine-field-notes/mobile-light.png"><img src="./alpine-field-notes/mobile-light.png" width="375" height="812" loading="lazy" alt="山野手帳手機預覽"></a>
+        <div class="card-copy"><span class="style-id">alpine-field-notes</span><h2>山野手帳</h2><p>自駕、登山、露營、健行與自然觀察。</p><div class="links"><a href="./alpine-field-notes/mobile-light.png">手機</a><a href="./alpine-field-notes/desktop-light.png">桌機</a><a href="./alpine-field-notes/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./neon-metro/mobile-light.png"><img src="./neon-metro/mobile-light.png" width="375" height="812" loading="lazy" alt="都會霓虹手機預覽"></a>
+        <div class="card-copy"><span class="style-id">neon-metro</span><h2>都會霓虹</h2><p>夜間城市、購物、美食、展演與大眾運輸。</p><div class="links"><a href="./neon-metro/mobile-light.png">手機</a><a href="./neon-metro/desktop-light.png">桌機</a><a href="./neon-metro/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./heritage-ink/mobile-light.png"><img src="./heritage-ink/mobile-light.png" width="375" height="812" loading="lazy" alt="文化紙本手機預覽"></a>
+        <div class="card-copy"><span class="style-id">heritage-ink</span><h2>文化紙本</h2><p>古城、寺社、博物館、歷史街區與慢旅行。</p><div class="links"><a href="./heritage-ink/mobile-light.png">手機</a><a href="./heritage-ink/desktop-light.png">桌機</a><a href="./heritage-ink/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./candy-postcard/mobile-light.png"><img src="./candy-postcard/mobile-light.png" width="375" height="812" loading="lazy" alt="糖果明信片手機預覽"></a>
+        <div class="card-copy"><span class="style-id">candy-postcard</span><h2>糖果明信片</h2><p>咖啡甜點、閨蜜旅行、購物與拍照景點。</p><div class="links"><a href="./candy-postcard/mobile-light.png">手機</a><a href="./candy-postcard/desktop-light.png">桌機</a><a href="./candy-postcard/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./cloud-storybook/mobile-light.png"><img src="./cloud-storybook/mobile-light.png" width="375" height="812" loading="lazy" alt="雲朵繪本手機預覽"></a>
+        <div class="card-copy"><span class="style-id">cloud-storybook</span><h2>雲朵繪本</h2><p>親子、主題樂園、動物園與童話小鎮。</p><div class="links"><a href="./cloud-storybook/mobile-light.png">手機</a><a href="./cloud-storybook/desktop-light.png">桌機</a><a href="./cloud-storybook/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./sticker-playground/mobile-light.png"><img src="./sticker-playground/mobile-light.png" width="375" height="812" loading="lazy" alt="貼紙玩樂手機預覽"></a>
+        <div class="card-copy"><span class="style-id">sticker-playground</span><h2>貼紙玩樂</h2><p>樂園、追星、動漫、快閃店與青春城市旅行。</p><div class="links"><a href="./sticker-playground/mobile-light.png">手機</a><a href="./sticker-playground/desktop-light.png">桌機</a><a href="./sticker-playground/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./berry-picnic/mobile-light.png"><img src="./berry-picnic/mobile-light.png" width="375" height="812" loading="lazy" alt="莓果野餐手機預覽"></a>
+        <div class="card-copy"><span class="style-id">berry-picnic</span><h2>莓果野餐</h2><p>花季、農場、野餐、鄉村與春日輕旅行。</p><div class="links"><a href="./berry-picnic/mobile-light.png">手機</a><a href="./berry-picnic/desktop-light.png">桌機</a><a href="./berry-picnic/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./comic-panel/mobile-light.png"><img src="./comic-panel/mobile-light.png" width="375" height="812" loading="lazy" alt="漫畫分鏡手機預覽"></a>
+        <div class="card-copy"><span class="style-id">comic-panel</span><h2>漫畫分鏡</h2><p>樂園、城市闖關、運動賽事與節奏快速的親子冒險。</p><div class="links"><a href="./comic-panel/mobile-light.png">手機</a><a href="./comic-panel/desktop-light.png">桌機</a><a href="./comic-panel/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./cel-adventure/mobile-light.png"><img src="./cel-adventure/mobile-light.png" width="375" height="812" loading="lazy" alt="動畫冒險手機預覽"></a>
+        <div class="card-copy"><span class="style-id">cel-adventure</span><h2>動畫冒險</h2><p>自駕、戶外探索、家庭旅行與海陸移動。</p><div class="links"><a href="./cel-adventure/mobile-light.png">手機</a><a href="./cel-adventure/desktop-light.png">桌機</a><a href="./cel-adventure/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./retro-toon/mobile-light.png"><img src="./retro-toon/mobile-light.png" width="375" height="812" loading="lazy" alt="復古卡通手機預覽"></a>
+        <div class="card-copy"><span class="style-id">retro-toon</span><h2>復古卡通</h2><p>老街、鐵道、懷舊餐廳與溫暖公路旅行。</p><div class="links"><a href="./retro-toon/mobile-light.png">手機</a><a href="./retro-toon/desktop-light.png">桌機</a><a href="./retro-toon/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./doodle-notebook/mobile-light.png"><img src="./doodle-notebook/mobile-light.png" width="375" height="812" loading="lazy" alt="塗鴉手帳手機預覽"></a>
+        <div class="card-copy"><span class="style-id">doodle-notebook</span><h2>塗鴉手帳</h2><p>校外旅行、市集、DIY 與隨性的親子自由行。</p><div class="links"><a href="./doodle-notebook/mobile-light.png">手機</a><a href="./doodle-notebook/desktop-light.png">桌機</a><a href="./doodle-notebook/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./travel-toon-cards/mobile-light.png"><img src="./travel-toon-cards/mobile-light.png" width="375" height="812" loading="lazy" alt="旅行繪本卡手機預覽"></a>
+        <div class="card-copy"><span class="style-id">travel-toon-cards</span><h2>旅行繪本卡</h2><p>參考活潑旅行卡構圖，適合海島、賞花、親子、美食與多主題城市旅行。</p><div class="links"><a href="./travel-toon-cards/mobile-light.png">手機</a><a href="./travel-toon-cards/desktop-light.png">桌機</a><a href="./travel-toon-cards/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./aurora-frost/mobile-light.png"><img src="./aurora-frost/mobile-light.png" width="375" height="812" loading="lazy" alt="極光冰原手機預覽"></a>
+        <div class="card-copy"><span class="style-id">aurora-frost</span><h2>極光冰原</h2><p>冰島、雪地、溫泉與極光追尋；清冷通透的冰雪冒險。</p><div class="links"><a href="./aurora-frost/mobile-light.png">手機</a><a href="./aurora-frost/desktop-light.png">桌機</a><a href="./aurora-frost/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./savanna-safari/mobile-light.png"><img src="./savanna-safari/mobile-light.png" width="375" height="812" loading="lazy" alt="草原遊獵手機預覽"></a>
+        <div class="card-copy"><span class="style-id">savanna-safari</span><h2>草原遊獵</h2><p>非洲草原、野生動物觀察、越野與親子探險。</p><div class="links"><a href="./savanna-safari/mobile-light.png">手機</a><a href="./savanna-safari/desktop-light.png">桌機</a><a href="./savanna-safari/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./ancient-odyssey/mobile-light.png"><img src="./ancient-odyssey/mobile-light.png" width="375" height="812" loading="lazy" alt="古文明漫遊手機預覽"></a>
+        <div class="card-copy"><span class="style-id">ancient-odyssey</span><h2>古文明漫遊</h2><p>古羅馬、希臘、考古遺址、博物館與文明巡禮。</p><div class="links"><a href="./ancient-odyssey/mobile-light.png">手機</a><a href="./ancient-odyssey/desktop-light.png">桌機</a><a href="./ancient-odyssey/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./tokyo-pulse/mobile-light.png"><img src="./tokyo-pulse/mobile-light.png" width="375" height="812" loading="lazy" alt="東京潮流手機預覽"></a>
+        <div class="card-copy"><span class="style-id">tokyo-pulse</span><h2>東京潮流</h2><p>東京夜景、動漫、購物、科技與高密度美食旅行。</p><div class="links"><a href="./tokyo-pulse/mobile-light.png">手機</a><a href="./tokyo-pulse/desktop-light.png">桌機</a><a href="./tokyo-pulse/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./coral-dive/mobile-light.png"><img src="./coral-dive/mobile-light.png" width="375" height="812" loading="lazy" alt="珊瑚潛旅手機預覽"></a>
+        <div class="card-copy"><span class="style-id">coral-dive</span><h2>珊瑚潛旅</h2><p>潛水、浮潛、珊瑚礁、海洋生態與海島探險。</p><div class="links"><a href="./coral-dive/mobile-light.png">手機</a><a href="./coral-dive/desktop-light.png">桌機</a><a href="./coral-dive/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./sakura-promenade/mobile-light.png"><img src="./sakura-promenade/mobile-light.png" width="375" height="812" loading="lazy" alt="櫻花漫遊手機預覽"></a>
+        <div class="card-copy"><span class="style-id">sakura-promenade</span><h2>櫻花漫遊</h2><p>賞櫻、寺社、春日街區與和風步道散步。</p><div class="links"><a href="./sakura-promenade/mobile-light.png">手機</a><a href="./sakura-promenade/desktop-light.png">桌機</a><a href="./sakura-promenade/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./tropical-lagoon/mobile-light.png"><img src="./tropical-lagoon/mobile-light.png" width="375" height="812" loading="lazy" alt="熱帶潟湖手機預覽"></a>
+        <div class="card-copy"><span class="style-id">tropical-lagoon</span><h2>熱帶潟湖</h2><p>峇里島、衝浪、沙灘、渡假村與熱帶放鬆行程。</p><div class="links"><a href="./tropical-lagoon/mobile-light.png">手機</a><a href="./tropical-lagoon/desktop-light.png">桌機</a><a href="./tropical-lagoon/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./golden-boulevard/mobile-light.png"><img src="./golden-boulevard/mobile-light.png" width="375" height="812" loading="lazy" alt="金色街廓手機預覽"></a>
+        <div class="card-copy"><span class="style-id">golden-boulevard</span><h2>金色街廓</h2><p>巴黎、歐洲古都、咖啡館、建築與藝術散步。</p><div class="links"><a href="./golden-boulevard/mobile-light.png">手機</a><a href="./golden-boulevard/desktop-light.png">桌機</a><a href="./golden-boulevard/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./alpine-railway/mobile-light.png"><img src="./alpine-railway/mobile-light.png" width="375" height="812" loading="lazy" alt="高山鐵道手機預覽"></a>
+        <div class="card-copy"><span class="style-id">alpine-railway</span><h2>高山鐵道</h2><p>瑞士、景觀列車、山屋、湖山健行與鐵道旅行。</p><div class="links"><a href="./alpine-railway/mobile-light.png">手機</a><a href="./alpine-railway/desktop-light.png">桌機</a><a href="./alpine-railway/mobile-dark.png">深色</a></div></div>
+      </article>
+      <article class="style-card">
+        <a class="preview-link" href="./sunset-street-food/mobile-light.png"><img src="./sunset-street-food/mobile-light.png" width="375" height="812" loading="lazy" alt="夕陽街頭食趣手機預覽"></a>
+        <div class="card-copy"><span class="style-id">sunset-street-food</span><h2>夕陽街頭食趣</h2><p>泰國、夜市、寺廟、嘟嘟車與街頭美食探索。</p><div class="links"><a href="./sunset-street-food/mobile-light.png">手機</a><a href="./sunset-street-food/desktop-light.png">桌機</a><a href="./sunset-street-food/mobile-dark.png">深色</a></div></div>
+      </article>
+    </section>
+
+    <footer>預覽圖僅供選型，不是 PWA 執行期或 service worker cache 資產。</footer>
+  </main>
+</body>
+</html>

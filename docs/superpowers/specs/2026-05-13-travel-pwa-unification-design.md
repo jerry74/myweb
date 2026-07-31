@@ -2,7 +2,7 @@
 
 ## 背景
 
-目前 `myweb` 站內有兩個旅行子站：
+目前 `triphelper` 站內有兩個旅行子站：
 
 - `20251129/`：2025 富國島親子之旅，現況為單一 `index.html`，使用 React UMD + Babel inline script，尚未具備 PWA 基礎資源。
 - `20260530/`：2026 沖繩親子自由行，現況已具備 `manifest.webmanifest`、`service-worker.js`、`icons/icon.svg` 與靜態資產，屬於可安裝的 PWA 雛形。
@@ -28,7 +28,7 @@
 
 - 不導入後端 API、資料庫或排程系統。
 - 不把兩個子站重構成單一前端框架專案。
-- 不更動 `myweb` 根入口頁的資訊架構。
+- 不更動 `triphelper` 根入口頁的資訊架構。
 - 不新增相簿、花費統計或旅遊回顧內容，只預留結束頁入口文案與按鈕。
 
 ## 核心設計

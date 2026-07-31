@@ -380,6 +380,7 @@ async function init() {
   setupInstallPrompt();
   setupServiceWorker();
   await loadTripData();
+  document.documentElement.dataset.style = tripData.trip.style || "editorial-wayfinder";
   const now = getCurrentDate();
   activeDayIndex = getInitialDayIndex(now);
   renderTripHeader(now);

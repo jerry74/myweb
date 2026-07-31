@@ -84,14 +84,6 @@
       </div>
     </section>
 
-    <section class="tools-bar" aria-label="行程篩選">
-      <label class="search-box">
-        <span>搜尋</span>
-        <input id="searchInput" type="search" placeholder="輸入地點、餐廳、日期">
-      </label>
-      <p id="searchMeta" class="search-meta" aria-live="polite">目前顯示今天行程</p>
-    </section>
-
     <section id="todayTimeline" class="section">
       <div class="section-heading">
         <p class="eyebrow">Today Timeline</p>
@@ -103,6 +95,7 @@
     <section class="section support-grid" aria-label="支援資訊">
       <article id="mealCard" class="support-card" aria-label="餐食與採買"></article>
       <article id="rainDecisionCard" class="support-card" aria-label="雨天切換"></article>
+      <article id="shoppingBackupCard" class="support-card" aria-label="購物備案"></article>
     </section>
 
   </main>
@@ -114,6 +107,11 @@
   <nav id="bottomTabs" class="bottom-tabs" aria-label="日期頁簽">
     <div id="dayTabs" class="day-tabs" role="tablist" aria-label="日期頁簽"></div>
   </nav>
+
+  <aside id="appUpdatePrompt" class="app-update-prompt" aria-live="polite" hidden>
+    <span>新版可用</span>
+    <button id="appUpdateButton" class="primary-button" type="button">點擊更新</button>
+  </aside>
 
   <script src="./app.js" defer></script>
 </body>

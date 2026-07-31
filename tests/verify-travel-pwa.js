@@ -87,6 +87,8 @@ for (const site of sites) {
       assert(serviceWorker.includes("./icons/icon-192.png"), `${site.dir}: service worker should cache 192px icon`);
       assert(serviceWorker.includes("./icons/icon-512.png"), `${site.dir}: service worker should cache 512px icon`);
       assert(indexHtml.includes('rel="apple-touch-icon" href="./icons/apple-touch-icon.png"'), `${site.dir}: index should use PNG apple touch icon`);
+      assert(indexHtml.includes('id="appUpdatePrompt"'), `${site.dir}: index should include app update prompt`);
+      assert(indexHtml.includes('id="appUpdateButton"'), `${site.dir}: index should include app update action`);
       assert(manifest.icons.some((icon) => icon.src === "./icons/icon-192.png" && icon.sizes === "192x192"), `${site.dir}: manifest missing 192px PNG icon`);
       assert(manifest.icons.some((icon) => icon.src === "./icons/icon-512.png" && icon.sizes === "512x512"), `${site.dir}: manifest missing 512px PNG icon`);
       const appJs = read(`${site.dir}/app.js`);
@@ -97,8 +99,15 @@ for (const site of sites) {
       assert(appJs.includes("upcoming ? upcoming.entry : null"), `${site.dir}: next-stop routing should clear after the day schedule ends`);
       assert(appJs.includes("timelineCards.find((entry) => entry.isNext) || null"), `${site.dir}: hero should not fall back to the final completed stop`);
       assert(appJs.includes("導航到："), `${site.dir}: hero should show the navigation destination`);
+      assert(appJs.includes("scrollActiveDayTabIntoView"), `${site.dir}: active day tab should scroll into view after rendering`);
+      assert(appJs.includes('inline: "center"'), `${site.dir}: active day tab should be centered in the horizontal tab list`);
+      assert(appJs.includes("registration.waiting"), `${site.dir}: app should detect a waiting service worker update`);
+      assert(appJs.includes("updatefound"), `${site.dir}: app should listen for service worker updates`);
+      assert(appJs.includes('postMessage({ type: "SKIP_WAITING" })'), `${site.dir}: update action should activate the waiting service worker`);
+      assert(serviceWorker.includes('event.data?.type === "SKIP_WAITING"'), `${site.dir}: service worker should handle SKIP_WAITING messages`);
       const stylesheet = read(`${site.dir}/styles.css`);
       assert(/\[hidden\]\s*\{[^}]*display:\s*none\s*!important\s*;?[^}]*\}/.test(stylesheet), `${site.dir}: stylesheet should preserve hidden attribute display behavior`);
+      assert(stylesheet.includes(".app-update-prompt"), `${site.dir}: stylesheet should style the app update prompt`);
       const generatedData = JSON.parse(read(`${site.dir}/data.generated.json`));
       assert(Array.isArray(generatedData.days) && generatedData.days.length > 0, `${site.dir}: generated data missing days`);
       assert(generatedData.trip?.id === "20260530-okinawa", `${site.dir}: generated trip id mismatch`);

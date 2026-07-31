@@ -18,6 +18,129 @@ TRIP_ID_PATTERN = re.compile(r"^(?P<date>\d{8})-(?P<slug>[a-z0-9]+(?:-[a-z0-9]+)
 WEEKDAYS = "一二三四五六日"
 CARD_START = "<!-- TRIP-PAGES:START -->"
 CARD_END = "<!-- TRIP-PAGES:END -->"
+DEFAULT_STYLE = "editorial-wayfinder"
+STYLE_PROFILES = {
+    "editorial-wayfinder": {
+        "label": "城市編輯風",
+        "background_color": "#f3f0e8",
+        "theme_color": "#2457d6",
+    },
+    "coastal-breeze": {
+        "label": "海島微風",
+        "background_color": "#edf8fa",
+        "theme_color": "#087e9b",
+    },
+    "alpine-field-notes": {
+        "label": "山野手帳",
+        "background_color": "#f0f2e7",
+        "theme_color": "#2f6845",
+    },
+    "neon-metro": {
+        "label": "都會霓虹",
+        "background_color": "#f3f0ff",
+        "theme_color": "#6038d5",
+    },
+    "heritage-ink": {
+        "label": "文化紙本",
+        "background_color": "#f1e8d8",
+        "theme_color": "#76523b",
+    },
+    "candy-postcard": {
+        "label": "糖果明信片",
+        "background_color": "#fff3f8",
+        "theme_color": "#9d2c67",
+    },
+    "cloud-storybook": {
+        "label": "雲朵繪本",
+        "background_color": "#f0f8ff",
+        "theme_color": "#2369a8",
+    },
+    "sticker-playground": {
+        "label": "貼紙玩樂",
+        "background_color": "#fff8d9",
+        "theme_color": "#cf2862",
+    },
+    "berry-picnic": {
+        "label": "莓果野餐",
+        "background_color": "#fff8f0",
+        "theme_color": "#7f2d4f",
+    },
+    "comic-panel": {
+        "label": "漫畫分鏡",
+        "background_color": "#fff6d8",
+        "theme_color": "#b7242a",
+    },
+    "cel-adventure": {
+        "label": "動畫冒險",
+        "background_color": "#eaf8f4",
+        "theme_color": "#147d82",
+    },
+    "retro-toon": {
+        "label": "復古卡通",
+        "background_color": "#f8eed8",
+        "theme_color": "#146b70",
+    },
+    "doodle-notebook": {
+        "label": "塗鴉手帳",
+        "background_color": "#f7f3e7",
+        "theme_color": "#245a86",
+    },
+    "travel-toon-cards": {
+        "label": "旅行繪本卡",
+        "background_color": "#fff8ea",
+        "theme_color": "#0f766e",
+    },
+    "aurora-frost": {
+        "label": "極光冰原",
+        "background_color": "#eaf5f8",
+        "theme_color": "#18547a",
+    },
+    "savanna-safari": {
+        "label": "草原遊獵",
+        "background_color": "#fff4d9",
+        "theme_color": "#81510f",
+    },
+    "ancient-odyssey": {
+        "label": "古文明漫遊",
+        "background_color": "#fff3d8",
+        "theme_color": "#825316",
+    },
+    "tokyo-pulse": {
+        "label": "東京潮流",
+        "background_color": "#e9f7fb",
+        "theme_color": "#075d80",
+    },
+    "coral-dive": {
+        "label": "珊瑚潛旅",
+        "background_color": "#e8f9f8",
+        "theme_color": "#0b7182",
+    },
+    "sakura-promenade": {
+        "label": "櫻花漫遊",
+        "background_color": "#fff4f3",
+        "theme_color": "#9d3e5b",
+    },
+    "tropical-lagoon": {
+        "label": "熱帶潟湖",
+        "background_color": "#eaf9f6",
+        "theme_color": "#08717d",
+    },
+    "golden-boulevard": {
+        "label": "金色街廓",
+        "background_color": "#fff6e8",
+        "theme_color": "#925008",
+    },
+    "alpine-railway": {
+        "label": "高山鐵道",
+        "background_color": "#eff8f1",
+        "theme_color": "#2c6f46",
+    },
+    "sunset-street-food": {
+        "label": "夕陽街頭食趣",
+        "background_color": "#fff3e9",
+        "theme_color": "#9d3d2a",
+    },
+}
 
 
 class WorkflowError(RuntimeError):
@@ -59,6 +182,15 @@ def format_date_range(start_date: date, end_date: date) -> str:
     return f"{start_date:%Y/%m/%d} - {end_date:%Y/%m/%d}"
 
 
+def get_style_profile(style_id: str | None) -> tuple[str, dict[str, str]]:
+    resolved = style_id or DEFAULT_STYLE
+    profile = STYLE_PROFILES.get(resolved)
+    if profile is None:
+        choices = ", ".join(STYLE_PROFILES)
+        raise WorkflowError(f"未知的行程風格：{resolved}；可用值：{choices}")
+    return resolved, profile
+
+
 def make_trip_data(
     trip_id: str,
     name: str,
@@ -66,6 +198,7 @@ def make_trip_data(
     start_date: date,
     end_date: date,
     summary: str,
+    style: str = DEFAULT_STYLE,
 ) -> dict:
     days = []
     breakfasts = {}
@@ -109,6 +242,7 @@ def make_trip_data(
             "name": name,
             "shortName": short_name,
             "description": summary,
+            "style": style,
             "dateRange": format_date_range(start_date, end_date),
             "flights": "待補",
             "carRental": "待補",
@@ -154,6 +288,37 @@ def write_json(path: Path, data: dict) -> None:
     with path.open("w", encoding="utf-8", newline="\n") as file:
         json.dump(data, file, ensure_ascii=False, indent=2)
         file.write("\n")
+
+
+def make_manifest(trip: dict, style_profile: dict[str, str]) -> dict:
+    return {
+        "name": trip["name"],
+        "short_name": trip["shortName"],
+        "description": trip.get("description", "可離線使用的旅遊行程。"),
+        "start_url": "./index.html",
+        "scope": "./",
+        "display": "standalone",
+        "background_color": style_profile["background_color"],
+        "theme_color": style_profile["theme_color"],
+        "orientation": "portrait-primary",
+        "icons": [
+            {"src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+        ],
+    }
+
+
+def sync_page_style(path: Path, style: str, theme_color: str) -> None:
+    content = path.read_text(encoding="utf-8")
+    content, html_count = re.subn(r'(<html\b[^>]*\bdata-style=")[^"]*(")', rf'\g<1>{style}\2', content, count=1)
+    content, meta_count = re.subn(
+        r'(<meta\s+name="theme-color"\s+content=")[^"]*(")',
+        rf'\g<1>{theme_color}\2',
+        content,
+        count=1,
+    )
+    if html_count != 1 or meta_count != 1:
+        raise WorkflowError(f"無法同步頁面風格標記：{path}")
+    write_text(path, content)
 
 
 def build_cache_name(slug: str, site_root: Path) -> str:
@@ -203,7 +368,8 @@ def create_trip(args: argparse.Namespace) -> None:
         display = ", ".join(str(path) for path in conflicts)
         raise WorkflowError(f"拒絕覆寫既有行程：{display}")
 
-    data = make_trip_data(args.id, args.name, args.short_name, start_date, end_date, args.summary)
+    style, style_profile = get_style_profile(args.style)
+    data = make_trip_data(args.id, args.name, args.short_name, start_date, end_date, args.summary, style)
     trip = data["trip"]
     replacements = {
         "TRIP_NAME": html.escape(args.name),
@@ -211,6 +377,8 @@ def create_trip(args: argparse.Namespace) -> None:
         "SUMMARY": html.escape(args.summary),
         "DATE_RANGE": html.escape(trip["dateRange"]),
         "BUILD_DATE": datetime.now().date().isoformat(),
+        "STYLE": style,
+        "THEME_COLOR": style_profile["theme_color"],
     }
 
     write_yaml(source_path, data)
@@ -223,21 +391,7 @@ def create_trip(args: argparse.Namespace) -> None:
     write_text(site_root / "app.js", render_template("app.js", {}))
     write_text(site_root / "icons" / "icon.svg", render_template("icon.svg", {}))
 
-    manifest = {
-        "name": args.name,
-        "short_name": args.short_name,
-        "description": args.summary,
-        "start_url": "./index.html",
-        "scope": "./",
-        "display": "standalone",
-        "background_color": "#f3f0e8",
-        "theme_color": "#2457d6",
-        "orientation": "portrait-primary",
-        "icons": [
-            {"src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
-        ],
-    }
-    write_json(site_root / "manifest.webmanifest", manifest)
+    write_json(site_root / "manifest.webmanifest", make_manifest(trip, style_profile))
     cache_name = build_cache_name(slug, site_root)
     write_text(site_root / "service-worker.js", render_template("service-worker.js", {"CACHE_NAME": cache_name}))
     add_home_card(project_root, site_dir, trip, args.summary)
@@ -265,27 +419,16 @@ def build_existing_trip(args: argparse.Namespace) -> None:
     if data.get("trip", {}).get("id") != args.id:
         raise WorkflowError("YAML 的 trip.id 與 --id 不一致")
 
+    trip = data["trip"]
+    style, style_profile = get_style_profile(trip.get("style"))
+
     builder = load_trip_builder()
     builder.write_markdown(data, markdown_path)
     builder.write_json(data, site_root / "data.generated.json")
     write_text(site_root / "data.fallback.js", "window.TRIP_FALLBACK = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n")
 
-    trip = data["trip"]
-    manifest = {
-        "name": trip["name"],
-        "short_name": trip["shortName"],
-        "description": trip.get("description", "可離線使用的旅遊行程。"),
-        "start_url": "./index.html",
-        "scope": "./",
-        "display": "standalone",
-        "background_color": "#f3f0e8",
-        "theme_color": "#2457d6",
-        "orientation": "portrait-primary",
-        "icons": [
-            {"src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
-        ],
-    }
-    write_json(site_root / "manifest.webmanifest", manifest)
+    sync_page_style(site_root / "index.html", style, style_profile["theme_color"])
+    write_json(site_root / "manifest.webmanifest", make_manifest(trip, style_profile))
     cache_name = build_cache_name(slug, site_root)
     write_text(site_root / "service-worker.js", render_template("service-worker.js", {"CACHE_NAME": cache_name}))
     print(f"Built {args.id}: {site_root}")
@@ -334,12 +477,19 @@ def verify_existing_trip(args: argparse.Namespace) -> None:
         raise WorkflowError("trip.id 與檔名不一致")
     if not isinstance(source.get("days"), list) or not source["days"]:
         raise WorkflowError("行程至少需要一天")
+    style, style_profile = get_style_profile(trip.get("style"))
     if manifest.get("name") != trip.get("name") or manifest.get("short_name") != trip.get("shortName"):
         raise WorkflowError("manifest 名稱尚未與 YAML 同步")
-    if 'data-ui="trip-wayfinder"' not in page or "{{" in page:
+    if manifest.get("background_color") != style_profile["background_color"] or manifest.get("theme_color") != style_profile["theme_color"]:
+        raise WorkflowError("manifest 配色尚未與行程風格同步")
+    if 'data-ui="trip-wayfinder"' not in page or f'data-style="{style}"' not in page or "{{" in page:
         raise WorkflowError("index.html 不是完整的 Trip Wayfinder 頁面")
-    if "--color-cobalt" not in stylesheet or "prefers-reduced-motion" not in stylesheet:
+    if "--primitive-primary" not in stylesheet or "--next-stop-background" not in stylesheet or "prefers-reduced-motion" not in stylesheet:
         raise WorkflowError("styles.css 缺少設計 token 或 reduced-motion 支援")
+    if f':root[data-style="{style}"]' not in stylesheet:
+        raise WorkflowError(f"styles.css 缺少 {style} 的淺色風格 token")
+    if style != DEFAULT_STYLE and f':root[data-theme="dark"][data-style="{style}"]' not in stylesheet:
+        raise WorkflowError(f"styles.css 缺少 {style} 的深色風格 token")
     if "window.TRIP_FALLBACK" not in app or "previewDate" not in app:
         raise WorkflowError("app.js 缺少資料 fallback 或預覽日期功能")
     for asset in ("./index.html", "./styles.css", "./app.js", "./data.generated.json", "./data.fallback.js", "./manifest.webmanifest", "./icons/icon.svg"):
@@ -362,6 +512,12 @@ def build_parser() -> argparse.ArgumentParser:
     create.add_argument("--start-date", required=True)
     create.add_argument("--end-date", required=True)
     create.add_argument("--summary", default="可離線使用的旅遊行程。")
+    create.add_argument(
+        "--style",
+        choices=tuple(STYLE_PROFILES),
+        default=DEFAULT_STYLE,
+        help="Visual profile for the itinerary page.",
+    )
     create.add_argument("--project-root", default=str(ROOT), help=argparse.SUPPRESS)
     create.set_defaults(handler=create_trip)
 

@@ -28,8 +28,9 @@ TripHelper 是以 GitHub Pages 發布的靜態旅遊行程網站，包含可離�
 - `tests/`：Python pipeline 驗證與 Node.js 靜態 PWA 驗證。
 - `docs/superpowers/`：設計規格與歷史實作計畫。
 - `.codex/skills/`：此專案使用的本地 Codex skills，不是產品執行時依賴。
-- `templates/trip-pwa/`：未來行程頁面的通用 Editorial Wayfinder PWA 範本。
+- `templates/trip-pwa/`：未來行程頁面的通用 Wayfinder PWA 範本；以 `trip.style` 選擇視覺風格，不複製頁面模板。
 - `design-system/triphelper-next/`：新行程頁面的設計 token、版面、互動與無障礙規則。
+- `design-system/triphelper-next/previews/`：24 套 style ID 的瀏覽器截圖與離線選型目錄；只供設計挑選，不是 PWA 執行期資產。
 - `myweb/`：目前工作樹中的巢狀 Git 工作副本，未納入根 repo 追蹤；不可當作根 repo 的發布來源，也不可在未指定時批次修改或提交。
 - `exports/` 與根目錄的研究、匯出、暫存檔：除非任務明確要求，視為工作產物，不得加入產品提交。
 
@@ -40,7 +41,7 @@ TripHelper 是以 GitHub Pages 發布的靜態旅遊行程網站，包含可離�
 - 測試：`python tests/verify-trip-pipeline.py`；`node tests/verify-travel-pwa.js`。
 - Typecheck：不適用，本專案沒有 TypeScript。可執行語法檢查：`python -m py_compile scripts/build-trip.py tests/verify-trip-pipeline.py` 與 `node --check 20260530/app.js`。
 - Build：`python scripts/build-trip.py`。預設會重新生成 Markdown 與 `20260530/data.generated.json`。
-- 新增行程頁面：`python scripts/trip-page.py create --id YYYYMMDD-slug --name "完整名稱" --short-name "短名稱" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --summary "摘要"`。
+- 新增行程頁面：`python scripts/trip-page.py create --id YYYYMMDD-slug --name "完整名稱" --short-name "短名稱" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --style <style-id> --summary "摘要"`；style ID 見 `design-system/triphelper-next/MASTER.md`。
 - 維護新行程：先改 `data/trips/<trip-id>.yaml`，再執行 `python scripts/trip-page.py build --id <trip-id>` 與 `python scripts/trip-page.py verify --id <trip-id>`。
 - 新行程流程測試：`python tests/verify-trip-page-workflow.py`。
 - 選用地圖匯出：`python scripts/export-my-maps.py`。預設輸出到 `exports/`；此工具與輸出目前都不是發布鏈或必要完成條件。
@@ -53,7 +54,7 @@ TripHelper 是以 GitHub Pages 發布的靜態旅遊行程網站，包含可離�
 - 維持靜態 GitHub Pages 架構；除非任務明確要求，不引入後端、資料庫、bundler 或新的框架。
 - 行程資料流固定為 `YAML -> scripts/build-trip.py -> Markdown/JSON -> 20260530 PWA`。發布行程時，來源 YAML 與生成檔必須同時更新且通過同步測試。
 - 新行程資料流固定為 `create -> YAML -> trip-page.py build -> Markdown/JSON/fallback/manifest/service worker -> verify`；`create` 拒絕覆寫既有 id 或日期目錄。
-- 新行程 UI 固定使用 `templates/trip-pwa/` 與 TripHelper Next 設計系統，保留純靜態、離線 fallback、內容雜湊 cache、`previewDate`、light/dark、鍵盤操作及 reduced-motion。
+- 新行程 UI 固定使用 `templates/trip-pwa/` 與 TripHelper Next 設計系統；風格只由 `trip.style` 與三層 token 切換，並保留純靜態、離線 fallback、內容雜湊 cache、`previewDate`、light/dark、鍵盤操作及 reduced-motion。
 - 保留 `20260530/data.generated.json` 的載入與 `app.js` 內建 fallback；生成 JSON 無法取得時，PWA 仍應能離線或以 fallback 渲染。
 - 維持 `trip.id = 20260530-okinawa`、日期順序、每日行程結構與 `startAt`/`departureAt`/`endAt` 語意。若資料模型需要變更，必須同步修改 generator、PWA、測試與文件。
 - 兩個 PWA 是各自獨立的子目錄；manifest、scope、相對 URL 與 service worker cache 不得依賴另一個站點的路徑。

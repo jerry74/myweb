@@ -125,7 +125,7 @@ Expected: PASS.
 
 - [ ] **Step 2: Run local HTTP verification**
 
-Start or reuse a static server at `myweb`, then verify `/20251129/`, `/20251129/manifest.webmanifest`, `/20251129/service-worker.js`, `/20260530/`, `/20260530/manifest.webmanifest`, and `/20260530/service-worker.js` return `200`.
+Start or reuse a static server at `triphelper`, then verify `/20251129/`, `/20251129/manifest.webmanifest`, `/20251129/service-worker.js`, `/20260530/`, `/20260530/manifest.webmanifest`, and `/20260530/service-worker.js` return `200`.
 
 - [ ] **Step 3: Verify preview states**
 
