@@ -1,0 +1,19 @@
+{
+  "name": "2026 上海親子樂園行",
+  "short_name": "上海親子行",
+  "description": "九天八夜：龍之夢太湖古鎮、樂高樂園、迪士尼、科技館與外灘夜景。",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#fdf6ec",
+  "theme_color": "#1f3a73",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

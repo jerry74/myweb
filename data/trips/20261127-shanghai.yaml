@@ -1,0 +1,342 @@
+trip:
+  id: 20261127-shanghai
+  name: 2026 上海親子樂園行
+  shortName: 上海親子行
+  description: 九天八夜：龍之夢太湖古鎮、樂高樂園、迪士尼、科技館與外灘夜景。
+  style: bund-wonderland
+  dateRange: 2026/11/27 - 2026/12/05
+  flights: 去 MU5006 11/27 18:40 桃園 T2 → 浦東 T1 20:25；回 MU5097 12/05 14:10 虹橋 T1 → 台北；每人託運 1 件 23kg
+  carRental: 不租車；高鐵＋打車＋地鐵
+  rainFocus: 龍之夢演藝城・冰雪小鎮・上海科技館
+  startAt: '2026-11-27T00:00:00+08:00'
+  departureAt: '2026-11-27T18:40:00+08:00'
+  endAt: '2026-12-05T23:59:59+08:00'
+links: {}
+days:
+- date: '2026-11-27'
+  weekday: 五
+  title: 晚班機飛上海
+  stay: 上海飯店待確認
+  tags:
+  - 交通日
+  - 晚抵達
+  rainPlan: 只有移動，不受天氣影響。
+  schedule:
+  - time: '16:40'
+    text: 抵達桃園機場 T2 報到（東航 MU5006，每人託運 1 件 23kg）。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=Taoyuan%20International%20Airport%20Terminal%202
+  - time: '18:40'
+    text: MU5006 桃園 T2 起飛，20:25 抵浦東 T1。
+    links: []
+  - time: '20:25'
+    text: 浦東 T1 入境、領行李後打車到飯店。飯店待確認：隔天 08:20 虹橋出發，建議選虹橋站附近（浦東到虹橋打車約 1 小時）。
+    links:
+    - - 浦東機場
+      - https://www.google.com/maps/search/?api=1&query=Shanghai%20Pudong%20International%20Airport%20Terminal%201
+  food:
+  - title: 晚餐
+    text: 機上餐，或桃園機場先吃。
+    links: []
+  - title: 宵夜
+    text: 飯店附近便利店，順便買隔天早餐。
+    links: []
+- date: '2026-11-28'
+  weekday: 六
+  title: 高鐵到湖州，入住龍之夢
+  stay: 龍之夢太湖古鎮大酒店
+  tags:
+  - 高鐵
+  - 樂園
+  rainPlan: 下雨就入住後直接待在古鎮室內區或飯店，馬戲是室內場。
+  schedule:
+  - time: '08:20'
+    text: 高鐵 C3603 虹橋 → 湖州東（08:20–09:08，¥71）。班次待確認：11/14 13:45 開賣。
+    links:
+    - - 虹橋站
+      - https://www.google.com/maps/search/?api=1&query=Shanghai%20Hongqiao%20Railway%20Station
+  - time: '09:10'
+    text: 湖州東站出站後打車去龍之夢太湖古鎮。
+    links:
+    - - 湖州東站
+      - https://www.google.com/maps/search/?api=1&query=湖州东站
+  - time: '14:00'
+    text: 入住龍之夢太湖古鎮大酒店（套餐 4：大床房＋動物園＋冰雪小鎮＋馬戲＋演藝城、每晚早餐 2 份，¥1508）。下午逛太湖古鎮；馬戲場次待確認（今天或明天看）。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=湖州太湖龙之梦乐园古镇
+  food:
+  - title: 早餐
+    text: 虹橋站內或前一晚買好。
+    links: []
+  - title: 午餐
+    text: 龍之夢古鎮內。
+    links: []
+  - title: 晚餐
+    text: 龍之夢古鎮內。
+    links: []
+- date: '2026-11-29'
+  weekday: 日
+  title: 龍之夢動物園＋演藝城
+  stay: 龍之夢太湖古鎮大酒店
+  tags:
+  - 動物園
+  - 表演
+  rainPlan: 動物園改短一點，把時間挪到演藝城等室內場館。
+  schedule:
+  - time: '09:00'
+    text: 飯店早餐後去龍之夢動物世界（套餐含門票）。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=太湖龙之梦动物世界
+  - time: '14:00'
+    text: 下午演藝城（套餐含門票），先查好當天場次。
+    links: []
+  - time: '18:00'
+    text: 回古鎮晚餐、散步，續住龍之夢。
+    links: []
+  food:
+  - title: 早餐
+    text: 飯店早餐（套餐含 2 份）。
+    links: []
+  - title: 午餐
+    text: 動物園內。
+    links: []
+  - title: 晚餐
+    text: 龍之夢古鎮內。
+    links: []
+- date: '2026-11-30'
+  weekday: 一
+  title: 冰雪小鎮，傍晚移動到楓涇
+  stay: 上海楓涇福朋喜來登酒店
+  tags:
+  - 冰雪
+  - 高鐵
+  rainPlan: 冰雪小鎮是室內場館，不受影響；只要預留打車到湖州站的時間。
+  schedule:
+  - time: '09:00'
+    text: 飯店早餐後去冰雪小鎮（套餐含門票），中午前退房、行李寄放。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=太湖龙之梦冰雪小镇
+  - time: '16:00'
+    text: 打車去湖州站。注意是湖州站，不是來時下車的湖州東站。
+    links:
+    - - 湖州站
+      - https://www.google.com/maps/search/?api=1&query=湖州站
+  - time: '17:06'
+    text: 高鐵 G7473 → G7584 湖州 → 金山北（17:06–18:37，中途轉車，¥90）。班次待確認。
+    links: []
+  - time: '18:40'
+    text: 金山北站打車去楓涇，入住上海楓涇福朋喜來登酒店。
+    links:
+    - - 飯店地圖
+      - https://www.google.com/maps/search/?api=1&query=上海枫泾福朋喜来登酒店
+  food:
+  - title: 早餐
+    text: 飯店早餐（套餐含 2 份）。
+    links: []
+  - title: 午餐
+    text: 龍之夢園區內。
+    links: []
+  - title: 晚餐
+    text: 到楓涇後在飯店或附近吃。
+    links: []
+- date: '2026-12-01'
+  weekday: 二
+  title: 上海樂高樂園
+  stay: 上海楓涇福朋喜來登酒店
+  tags:
+  - 樂園
+  - 平日
+  rainPlan: 小雨照去帶雨衣；大雨就縮短戶外設施，回飯店休息。
+  schedule:
+  - time: '09:40'
+    text: 從飯店去上海樂高樂園，10:00 開園（平日 10:00–18:00）。親子套票 ¥695 待確認（還沒買）。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=上海乐高乐园度假区
+  - time: '18:00'
+    text: 閉園後回飯店，續住楓涇福朋。
+    links: []
+  food:
+  - title: 早餐
+    text: 飯店。
+    links: []
+  - title: 午餐
+    text: 樂高樂園內。
+    links: []
+  - title: 晚餐
+    text: 飯店附近或楓涇古鎮。
+    links: []
+- date: '2026-12-02'
+  weekday: 三
+  title: 回上海，移動到川沙
+  stay: 麗怡酒店·上海浦東機場川沙地鐵站店
+  tags:
+  - 交通日
+  rainPlan: 移動日，下雨就直接去飯店休息。
+  schedule:
+  - time: '09:30'
+    text: 退房，金山北 → 虹橋高鐵（約 20 分鐘）。班次待確認。
+    links:
+    - - 金山北站
+      - https://www.google.com/maps/search/?api=1&query=金山北站
+  - time: '11:00'
+    text: 虹橋 → 川沙：打車約 1 小時，或地鐵 2 號線直達川沙站（較久但不用換車）。入住麗怡酒店。
+    links:
+    - - 飯店地圖
+      - https://www.google.com/maps/search/?api=1&query=丽怡酒店上海浦东机场川沙地铁站店
+  - time: '15:00'
+    text: 下午行程待規劃，可在川沙附近休息，為隔天迪士尼養精神。
+    links: []
+  food:
+  - title: 早餐
+    text: 飯店。
+    links: []
+  - title: 午餐
+    text: 虹橋站或到川沙後吃。
+    links: []
+  - title: 晚餐
+    text: 川沙附近。
+    links: []
+- date: '2026-12-03'
+  weekday: 四
+  title: 上海迪士尼
+  stay: 麗怡酒店·上海浦東機場川沙地鐵站店
+  tags:
+  - 樂園
+  rainPlan: 下雨帶雨衣，優先排室內設施與表演。
+  schedule:
+  - time: '07:50'
+    text: 從川沙打車去上海迪士尼樂園，提早入園排隊。家庭票 ¥1042 待確認（還沒買）。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=上海迪士尼乐园
+  - time: '20:30'
+    text: 看完晚間表演後打車回川沙，續住麗怡。
+    links: []
+  food:
+  - title: 早餐
+    text: 飯店或路上買。
+    links: []
+  - title: 午餐
+    text: 園區內。
+    links: []
+  - title: 晚餐
+    text: 園區內或迪士尼小鎮。
+    links: []
+- date: '2026-12-04'
+  weekday: 五
+  title: 科技館、豫園與外灘夜景
+  stay: 上海陸家嘴八佰伴蘭歐飯店
+  tags:
+  - 室內
+  - 夜景
+  rainPlan: 上午科技館是室內；晚上下雨就縮短外灘，改在豫園商場或飯店附近吃飯。
+  schedule:
+  - time: '08:30'
+    text: 麗怡退房帶行李出發（地鐵 2 號線川沙站可直達科技館站），或先打車把行李放到蘭歐飯店。
+    links: []
+  - time: '09:30'
+    text: 上海科技館。門票 11/27 10:00 開賣，已設提醒；買到前仍待確認。
+    links:
+    - - 地圖
+      - https://www.google.com/maps/search/?api=1&query=上海科技馆
+  - time: '15:00'
+    text: 入住上海陸家嘴八佰伴蘭歐飯店（已訂尊貴雙床房，已付款，12/04 18:00 前可免費取消）。
+    links:
+    - - 飯店地圖
+      - https://www.google.com/maps/search/?api=1&query=上海陆家嘴八佰伴兰欧饭店
+  - time: '17:30'
+    text: 豫園晚餐、逛燈景，再走去外灘看夜景。
+    links:
+    - - 豫園
+      - https://www.google.com/maps/search/?api=1&query=上海豫园
+    - - 外灘
+      - https://www.google.com/maps/search/?api=1&query=上海外滩
+  food:
+  - title: 早餐
+    text: 飯店或路上買。
+    links: []
+  - title: 午餐
+    text: 科技館內或附近商場。
+    links: []
+  - title: 晚餐
+    text: 豫園一帶小吃。
+    links: []
+- date: '2026-12-05'
+  weekday: 六
+  title: 虹橋飛回台北
+  stay: 回家
+  tags:
+  - 交通日
+  rainPlan: 只有移動，下雨提早出發。
+  schedule:
+  - time: '10:30'
+    text: 退房，打車去虹橋機場 T1（約 45–60 分鐘）。注意是 T1：地鐵 2 號線只到 T2，搭地鐵要改 10 號線。
+    links:
+    - - 虹橋 T1
+      - https://www.google.com/maps/search/?api=1&query=Shanghai%20Hongqiao%20International%20Airport%20Terminal%201
+  - time: '12:10'
+    text: 虹橋 T1 報到（起飛前 2 小時）。
+    links: []
+  - time: '14:10'
+    text: MU5097 虹橋 T1 → 台北。
+    links: []
+  food:
+  - title: 早餐
+    text: 飯店附近。
+    links: []
+  - title: 午餐
+    text: 機場或機上餐。
+    links: []
+breakfasts:
+  '2026-11-27': 不需要，晚上才出發。
+  '2026-11-28': 前一晚便利店買好，或虹橋站內吃。
+  '2026-11-29': 龍之夢飯店早餐（套餐含 2 份）。
+  '2026-11-30': 龍之夢飯店早餐（套餐含 2 份）。
+  '2026-12-01': 楓涇福朋飯店。
+  '2026-12-02': 楓涇福朋飯店。
+  '2026-12-03': 川沙附近或路上買。
+  '2026-12-04': 川沙附近或路上買。
+  '2026-12-05': 八佰伴飯店附近。
+rainRules:
+  '2026-11-27': 只有移動。
+  '2026-11-28': 移動後待在古鎮或飯店。
+  '2026-11-29': 動物園縮短，改去演藝城。
+  '2026-11-30': 冰雪小鎮是室內場館。
+  '2026-12-01': 帶雨衣，大雨就縮短戶外設施。
+  '2026-12-02': 移動日，直接去飯店。
+  '2026-12-03': 帶雨衣，優先室內設施與表演。
+  '2026-12-04': 科技館是室內，外灘視雨勢縮短。
+  '2026-12-05': 提早出發去機場。
+stays:
+  '2026-11-27':
+    name: 上海飯店待確認（建議虹橋站附近）
+    mapUrl: ''
+  '2026-11-28':
+    name: 龍之夢太湖古鎮大酒店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=湖州太湖龙之梦古镇大酒店
+  '2026-11-29':
+    name: 龍之夢太湖古鎮大酒店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=湖州太湖龙之梦古镇大酒店
+  '2026-11-30':
+    name: 上海楓涇福朋喜來登酒店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=上海枫泾福朋喜来登酒店
+  '2026-12-01':
+    name: 上海楓涇福朋喜來登酒店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=上海枫泾福朋喜来登酒店
+  '2026-12-02':
+    name: 麗怡酒店·上海浦東機場川沙地鐵站店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=丽怡酒店上海浦东机场川沙地铁站店
+  '2026-12-03':
+    name: 麗怡酒店·上海浦東機場川沙地鐵站店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=丽怡酒店上海浦东机场川沙地铁站店
+  '2026-12-04':
+    name: 上海陸家嘴八佰伴蘭歐飯店
+    mapUrl: https://www.google.com/maps/search/?api=1&query=上海陆家嘴八佰伴兰欧饭店
+  '2026-12-05':
+    name: 回程，不住宿
+    mapUrl: ''
