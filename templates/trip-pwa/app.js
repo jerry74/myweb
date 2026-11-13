@@ -18,6 +18,9 @@ const elements = {
   rainPlan: document.querySelector("#rainPlan"),
   shoppingBlock: document.querySelector("#shoppingBlock"),
   shoppingList: document.querySelector("#shoppingList"),
+  dayTags: document.querySelector("#dayTags"),
+  tripFactsBlock: document.querySelector("#tripFactsBlock"),
+  tripFacts: document.querySelector("#tripFacts"),
   nextStopTime: document.querySelector("#nextStopTime"),
   nextStopTitle: document.querySelector("#nextStopTitle"),
   nextStopLink: document.querySelector("#nextStopLink"),
@@ -33,8 +36,28 @@ let deferredInstallPrompt = null;
 let waitingServiceWorker = null;
 let reloadForUpdate = false;
 
+const PENDING_PATTERN = /待補|待確認|待規劃/;
+const TRIP_FACTS = [
+  ["flights", "航班"],
+  ["carRental", "交通"],
+  ["rainFocus", "雨天核心"],
+];
+
+function getPreviewParam(name) {
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+function isPending(text) {
+  return !text || PENDING_PATTERN.test(text);
+}
+
+function markPending(element, text) {
+  element.classList.toggle("is-pending", isPending(text));
+  return element;
+}
+
 function getPreviewDate() {
-  const value = new URLSearchParams(window.location.search).get("previewDate");
+  const value = getPreviewParam("previewDate");
   if (!value) return null;
   const parsed = new Date(value);
   return Number.isNaN(parsed.getTime()) ? null : parsed;
@@ -183,6 +206,7 @@ function renderTimeline(day, nextEntry) {
     const text = document.createElement("p");
     text.textContent = entry.text || "待補行程。";
     content.append(text);
+    markPending(item, entry.text);
 
     const links = (entry.links || []).map((link) => createLink(link, "timeline-link")).filter(Boolean);
     if (links.length) {
@@ -202,11 +226,20 @@ function renderStay(day) {
   const details = tripData.stays?.[day.date] || { name: day.stay };
   const name = document.createElement("p");
   name.textContent = details.name || day.stay || "住宿待確認";
+  markPending(name, name.textContent);
   elements.stayDetails.append(name);
   if (details.address) {
     const address = document.createElement("p");
+    address.className = "stay-meta";
     address.textContent = details.address;
     elements.stayDetails.append(address);
+  }
+  if (details.phone) {
+    const phone = createLink({ label: details.phone, url: `tel:${details.phone.replace(/[^\d+]/g, "")}` }, "stay-phone");
+    if (phone) {
+      phone.removeAttribute("target");
+      elements.stayDetails.append(phone);
+    }
   }
   if (details.mapUrl) {
     const mapLink = createLink({ label: "查看住宿地圖", url: details.mapUrl }, "stay-link");
@@ -223,6 +256,7 @@ function renderMeals(day) {
     title.textContent = meal.title || "餐食";
     const text = document.createElement("p");
     text.textContent = meal.text || "待補。";
+    markPending(item, meal.text);
     item.append(title, text);
     elements.mealList.append(item);
   });
@@ -251,17 +285,46 @@ function renderShopping(day) {
   });
 }
 
+function renderDayTags(day) {
+  const tags = (day.tags || []).filter((tag) => typeof tag === "string" && tag.trim());
+  elements.dayTags.replaceChildren(
+    ...tags.map((tag) => {
+      const item = document.createElement("li");
+      item.textContent = tag;
+      return item;
+    }),
+  );
+  elements.dayTags.hidden = tags.length === 0;
+}
+
+function renderTripFacts() {
+  const trip = tripData.trip;
+  const facts = TRIP_FACTS.filter(([key]) => !isPending(trip[key]));
+  elements.tripFactsBlock.hidden = facts.length === 0;
+  elements.tripFacts.replaceChildren();
+  facts.forEach(([key, label]) => {
+    const term = document.createElement("dt");
+    term.textContent = label;
+    const detail = document.createElement("dd");
+    detail.textContent = trip[key];
+    elements.tripFacts.append(term, detail);
+  });
+}
+
 function renderNextStop(day, nextEntry, now) {
   const today = normalizeDayDate(day, tripData.trip) === dateKey(now);
   if (!nextEntry) {
     elements.nextStopTime.textContent = today ? "今日行程已完成" : `DAY ${String(activeDayIndex + 1).padStart(2, "0")}`;
     elements.nextStopTitle.textContent = today ? "好好休息，準備下一天" : day.title;
+    markPending(elements.nextStopTitle, today ? "" : day.title);
+    if (today) elements.nextStopTitle.classList.remove("is-pending");
     elements.nextStopLink.hidden = true;
     return;
   }
 
   elements.nextStopTime.textContent = nextEntry.time || `DAY ${String(activeDayIndex + 1).padStart(2, "0")}`;
   elements.nextStopTitle.textContent = nextEntry.text || day.title;
+  markPending(elements.nextStopTitle, nextEntry.text);
   const route = (nextEntry.links || []).map(linkParts).find((link) => link.url && /google\.[^/]+\/maps|maps\.app\.goo\.gl/i.test(link.url));
   elements.nextStopLink.hidden = !route;
   if (route) {
@@ -277,6 +340,8 @@ function renderDay(now) {
   renderDayRail();
   elements.dayNumber.textContent = `DAY ${String(activeDayIndex + 1).padStart(2, "0")} · ${displayDate(day)} 週${day.weekday || "—"}`;
   elements.dayTitle.textContent = day.title || "今日行程";
+  markPending(elements.dayTitle, day.title);
+  renderDayTags(day);
   elements.dayStayInline.textContent = day.stay ? `今晚住：${day.stay}` : "";
   const isToday = normalizeDayDate(day, tripData.trip) === dateKey(now);
   const nextEntry = getNextEntry(day, now, isToday);
@@ -285,6 +350,7 @@ function renderDay(now) {
   renderMeals(day);
   renderShopping(day);
   elements.rainPlan.textContent = day.rainPlan || tripData.rainRules?.[day.date] || "依現場天氣彈性調整。";
+  markPending(elements.rainPlan, elements.rainPlan.textContent);
   renderNextStop(day, nextEntry, now);
 }
 
@@ -312,7 +378,9 @@ function setupTheme() {
     console.warn("Theme preference is unavailable.", error);
   }
   const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-  document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+  const previewTheme = getPreviewParam("previewTheme");
+  const forcedTheme = previewTheme === "dark" || previewTheme === "light" ? previewTheme : null;
+  document.documentElement.dataset.theme = forcedTheme || savedTheme || (prefersDark ? "dark" : "light");
   elements.themeButton.addEventListener("click", () => {
     const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
     document.documentElement.dataset.theme = next;
@@ -351,7 +419,8 @@ function showUpdatePrompt(worker) {
 }
 
 function setupServiceWorker() {
-  if (!("serviceWorker" in navigator)) return;
+  // Style/theme previews (e.g. the live gallery) should never install or update a cache.
+  if (!("serviceWorker" in navigator) || getPreviewParam("previewStyle") || getPreviewParam("previewTheme")) return;
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./service-worker.js").then((registration) => {
       if (registration.waiting && navigator.serviceWorker.controller) showUpdatePrompt(registration.waiting);
@@ -380,10 +449,11 @@ async function init() {
   setupInstallPrompt();
   setupServiceWorker();
   await loadTripData();
-  document.documentElement.dataset.style = tripData.trip.style || "editorial-wayfinder";
+  document.documentElement.dataset.style = getPreviewParam("previewStyle") || tripData.trip.style || "editorial-wayfinder";
   const now = getCurrentDate();
   activeDayIndex = getInitialDayIndex(now);
   renderTripHeader(now);
+  renderTripFacts();
   renderDay(now);
 }
 

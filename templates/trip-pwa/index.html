@@ -82,6 +82,7 @@
         <div>
           <p class="day-number" id="dayNumber">DAY 01</p>
           <h2 id="dayTitle">載入行程中</h2>
+          <ul class="day-tags" id="dayTags" aria-label="當日主題" hidden></ul>
         </div>
         <p class="day-stay-inline" id="dayStayInline"></p>
       </header>
@@ -123,6 +124,14 @@
               <h3>購物備案</h3>
             </div>
             <div class="shopping-list" id="shoppingList"></div>
+          </section>
+
+          <section class="brief-block trip-facts-block" id="tripFactsBlock" hidden>
+            <div class="brief-heading">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12h18M14 5l7 7-7 7M3 6h5M3 18h5"/></svg>
+              <h3>旅程資訊</h3>
+            </div>
+            <dl class="trip-facts" id="tripFacts"></dl>
           </section>
         </aside>
       </div>

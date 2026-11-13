@@ -2,10 +2,10 @@
 
 - Style ID：`travel-toon-cards`
 - 適用：海島、賞花、親子、美食、城市探索，以及想用目的地主色強化辨識的旅行。
-- 感受：旅行繪本封面、圓角手機卡、彩色圖章與手繪場景；明亮、活潑、容易親近。
+- 感受：旅行貼紙明信片、海島波浪、郵票圓章與手繪場景；畫面像把一整趟旅程貼在冰箱上。
 - 參考來源：吸收 `20251129/` 的藍綠漸層、白色圓卡與彩色分類節奏，並參考使用者提供的多目的地旅行繪本卡構圖；不複製其中插畫或角色。
-- Light：paper `#FFF8EA`、ink `#183447`、primary `#0F766E`、blue `#2563EB`、signal `#B94B14`、highlight `#FFCF4A`。
-- Dark：paper `#081A24`、ink `#EDFAFF`、primary `#5EE1D2`、blue `#84B7FF`、signal `#FF9B5E`。
-- 元件：雙色場景 Hero、目的地色框、漸層下一站卡、膠囊日期、白色圓角時間線卡、多彩節點與柔和浮層。
+- Light：paper `#FFF6DF`、ink `#173B49`、primary `#087F83`、blue `#2167D4`、signal `#EC5E4F`、highlight `#FFD447`。
+- Dark：paper `#071D27`、ink `#EFFDFF`、primary `#62E4D6`、blue `#8FC0FF`、signal `#FF9C7D`。
+- 元件：海島波浪 Hero、郵票圓章日期、珊瑚／潟湖雙色 CTA、分層海岸場景與厚實貼紙陰影。
 - 動態：只保留 150–200ms 的顏色、陰影與按壓回饋；不得重現舊頁無限浮動動畫。
 - 避免：直接描摹參考圖、未授權角色、插畫壓住文字、過多同時動畫及低對比粉彩文字。

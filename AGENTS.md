@@ -30,7 +30,7 @@ TripHelper 是以 GitHub Pages 發布的靜態旅遊行程網站，包含可離�
 - `.codex/skills/`：此專案使用的本地 Codex skills，不是產品執行時依賴。
 - `templates/trip-pwa/`：未來行程頁面的通用 Wayfinder PWA 範本；以 `trip.style` 選擇視覺風格，不複製頁面模板。
 - `design-system/triphelper-next/`：新行程頁面的設計 token、版面、互動與無障礙規則。
-- `design-system/triphelper-next/previews/`：24 套 style ID 的瀏覽器截圖與離線選型目錄；只供設計挑選，不是 PWA 執行期資產。
+- `design-system/triphelper-next/previews/`：30 套 style ID 的瀏覽器截圖與離線選型目錄；只供設計挑選，不是 PWA 執行期資產。
 - `myweb/`：目前工作樹中的巢狀 Git 工作副本，未納入根 repo 追蹤；不可當作根 repo 的發布來源，也不可在未指定時批次修改或提交。
 - `exports/` 與根目錄的研究、匯出、暫存檔：除非任務明確要求，視為工作產物，不得加入產品提交。
 
@@ -41,8 +41,10 @@ TripHelper 是以 GitHub Pages 發布的靜態旅遊行程網站，包含可離�
 - 測試：`python tests/verify-trip-pipeline.py`；`node tests/verify-travel-pwa.js`。
 - Typecheck：不適用，本專案沒有 TypeScript。可執行語法檢查：`python -m py_compile scripts/build-trip.py tests/verify-trip-pipeline.py` 與 `node --check 20260530/app.js`。
 - Build：`python scripts/build-trip.py`。預設會重新生成 Markdown 與 `20260530/data.generated.json`。
-- 新增行程頁面：`python scripts/trip-page.py create --id YYYYMMDD-slug --name "完整名稱" --short-name "短名稱" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --style <style-id> --summary "摘要"`；style ID 見 `design-system/triphelper-next/MASTER.md`。
-- 維護新行程：先改 `data/trips/<trip-id>.yaml`，再執行 `python scripts/trip-page.py build --id <trip-id>` 與 `python scripts/trip-page.py verify --id <trip-id>`。
+- 挑選風格：`python scripts/trip-page.py styles [關鍵字]`；即時比較全部風格：`python scripts/trip-page.py gallery`（輸出到已 gitignore 的 `design-system/triphelper-next/previews/live/`）。
+- 新增行程頁面：`python scripts/trip-page.py create --id YYYYMMDD-slug --name "完整名稱" --start-date YYYY-MM-DD --end-date YYYY-MM-DD --style <style-id> --timezone +09:00 --summary "摘要"`；`--short-name` 可省略。風格清單的唯一來源是 `design-system/triphelper-next/styles.json`。
+- 新增風格：`python scripts/trip-page.py new-style --id <kebab-id> --label "名稱" --base <既有風格>`，再調整 `templates/trip-pwa/styles.css` 中該風格的 token；流程見 `design-system/triphelper-next/MASTER.md`。
+- 維護新行程：先改 `data/trips/<trip-id>.yaml`，再執行 `python scripts/trip-page.py build --id <trip-id>` 與 `python scripts/trip-page.py verify --id <trip-id> --strict`。`build` 會先檢查 YAML 並從範本重繪全部頁面資產（頁面只帶自己風格的 CSS）；`--strict` 會擋下仍含「待補」的行程。
 - 新行程流程測試：`python tests/verify-trip-page-workflow.py`。
 - 選用地圖匯出：`python scripts/export-my-maps.py`。預設輸出到 `exports/`；此工具與輸出目前都不是發布鏈或必要完成條件。
 - 完整驗證：先執行 Build，再執行上述兩個測試、Python/Node 語法檢查及 `git diff --check`；若有 UI 或 PWA 資產變更，再以本地 HTTP server 檢查兩個站點與其 manifest、service worker、生成 JSON 均回應 `200`。

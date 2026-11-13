@@ -11,26 +11,26 @@ Create new itinerary pages through the repository CLI. Keep `data/trips/<trip-id
 
 1. Read the root `AGENTS.md`, inspect `git status`, and preserve unrelated changes.
 2. Collect or infer:
-   - id: `YYYYMMDD-destination-slug`
-   - full and short names
+   - id: `YYYYMMDD-destination-slug`（日期 = 出發日）
+   - full name（short name 可省略，預設同 full name）
    - start/end dates in `YYYY-MM-DD`
+   - destination UTC offset（例如日本 `+09:00`；預設 `+08:00`）
    - one-sentence summary
-   - style profile；依旅遊類型從下方 Style Guide 選擇
-   - 如果使用者尚未決定風格，先開啟 `design-system/triphelper-next/previews/index.html` 比較實際截圖
+   - style profile：`python scripts/trip-page.py styles 海島 親子` 以關鍵字篩選；要比較實際畫面時執行 `python scripts/trip-page.py gallery`，用 `python -m http.server 4173` 開 `http://127.0.0.1:4173/design-system/triphelper-next/previews/live/`
 3. Run from the repository root:
 
 ```powershell
 python scripts/trip-page.py create `
   --id 20270403-kyoto `
   --name "2027 京都親子行程" `
-  --short-name "京都行程" `
   --start-date 2027-04-03 `
   --end-date 2027-04-05 `
+  --timezone +09:00 `
   --style heritage-ink `
   --summary "三天兩夜的京都散步與親子體驗。"
 ```
 
-The command must create the YAML source, Markdown, date-directory PWA, embedded offline fallback, manifest, content-hashed service worker, SVG icon, and root-page card. It refuses existing targets; do not bypass that safeguard by deleting or overwriting files.
+The command creates the YAML source, Markdown, date-directory PWA, embedded offline fallback, manifest, content-hashed service worker, SVG icon, and root-page card, then prints the next steps. It refuses existing targets; do not bypass that safeguard by deleting or overwriting files.
 
 ## Maintain
 
@@ -38,46 +38,37 @@ Edit only `data/trips/<trip-id>.yaml`, then run:
 
 ```powershell
 python scripts/trip-page.py build --id 20270403-kyoto
-python scripts/trip-page.py verify --id 20270403-kyoto
+python scripts/trip-page.py verify --id 20270403-kyoto --strict
 ```
 
-Do not hand-edit generated Markdown, JSON, fallback data, manifest, or service-worker cache names.
+- `build` validates the YAML first（例如未加引號的 `time: 14:00`、星期錯誤、連結格式），列出 `days[0].schedule[1].time` 這類路徑後停止；修正 YAML 再重跑。
+- `build` re-renders every page asset from `templates/trip-pwa/`, so template upgrades, name/date changes and `trip.style` changes all propagate. The page only ships the CSS of its own style.
+- `verify` warns about remaining 「待補／待確認」; `--strict` fails on them and is the publish gate.
+- Do not hand-edit generated Markdown, JSON, fallback data, HTML, CSS, manifest, or service-worker cache names.
 
 ## UI Rules
 
 - Read `design-system/triphelper-next/MASTER.md` before changing the template.
 - Use `templates/trip-pwa/` as the shared template source.
-- Preserve the shared Wayfinder layout, light/dark themes, keyboard focus, reduced motion, `previewDate`, install flow, offline fallback, and update prompt.
+- Preserve the shared Wayfinder layout, light/dark themes, keyboard focus, reduced motion, `previewDate`/`previewStyle`/`previewTheme`, install flow, offline fallback, and update prompt.
 - Use inline stroke SVG icons and system fonts only. Do not add emoji icons, external fonts, CDN assets, Tailwind, or another framework.
 
-## Style Guide
+## Styles
 
-- `editorial-wayfinder`：城市散步、跨區交通、資訊密集的綜合行程；也是預設值。
-- `coastal-breeze`：海島、海灘、渡假村與親子放鬆。
-- `alpine-field-notes`：自駕、登山、露營與自然觀察。
-- `neon-metro`：夜間城市、購物、美食與展演。
-- `heritage-ink`：古城、寺社、博物館與慢旅行。
-- `candy-postcard`：咖啡甜點、閨蜜旅行、購物與拍照景點。
-- `cloud-storybook`：親子、主題樂園、動物園與童話小鎮。
-- `sticker-playground`：樂園、追星、動漫與青春城市旅行。
-- `berry-picnic`：花季、農場、野餐與鄉村輕旅行。
-- `comic-panel`：樂園、城市闖關、運動賽事與親子冒險。
-- `cel-adventure`：自駕、戶外探索、家庭旅行與海陸移動。
-- `retro-toon`：老街、鐵道、懷舊餐廳與公路旅行。
-- `doodle-notebook`：校外旅行、市集、DIY 與親子自由行。
-- `travel-toon-cards`：海島、賞花、親子、美食與多主題城市旅行；活潑旅行繪本卡風格。
-- `aurora-frost`：冰島、雪地、溫泉、極光追尋與冬季自然旅行。
-- `savanna-safari`：非洲草原、野生動物觀察、越野與親子探險。
-- `ancient-odyssey`：古羅馬、希臘、考古遺址、博物館與文明巡禮。
-- `tokyo-pulse`：東京夜景、動漫、購物、科技、美食與高密度都會旅行。
-- `coral-dive`：潛水、浮潛、珊瑚礁、海洋生態與海島探險。
-- `sakura-promenade`：賞櫻、寺社、春日街區、和風散步與花季旅行。
-- `tropical-lagoon`：峇里島、衝浪、沙灘、渡假村與熱帶放鬆行程。
-- `golden-boulevard`：巴黎、歐洲古都、咖啡館、建築與藝術散步。
-- `alpine-railway`：瑞士、景觀列車、山屋、湖山健行與鐵道旅行。
-- `sunset-street-food`：泰國、夜市、寺廟、嘟嘟車與街頭美食探索。
+風格清單只存在 `design-system/triphelper-next/styles.json`；不要在文件或測試中再手抄一份。
 
-要更換既有新行程的風格，修改 YAML 的 `trip.style` 後執行 `build` 與 `verify`。不要手改生成頁面的 `data-style` 或 manifest 色碼。新增風格時必須沿用 primitive → semantic → component 三層 token，並同步更新 `STYLE_PROFILES`、共享 CSS、設計文件與每風格回歸測試。
+- 列出／篩選：`python scripts/trip-page.py styles [關鍵字…]`
+- 即時比較：`python scripts/trip-page.py gallery`（輸出到已 gitignore 的 `previews/live/`）
+- 更換既有行程風格：改 YAML 的 `trip.style`，再 `build` + `verify`
+- 新增風格：
+
+```powershell
+python scripts/trip-page.py new-style --id harbor-lights --label "港灣燈火" `
+  --base coastal-breeze --fits "港口、夜景、渡輪" --vibe "海港藍、燈塔黃、航線虛線" `
+  --theme-color "#1a5f8a" --background-color "#eef6fb"
+```
+
+它會複製 base 風格的所有 CSS 區塊（淺色、場景、深色）、加入登錄檔、建立 `styles/<id>.md` 並在 MASTER 表格加一列。之後只需在 `styles.css` 搜尋 `data-style="<id>"` 調整 token，並用 gallery 檢查淺色／深色與手機／桌機。靜態截圖（`previews/<id>/*.png`）是選配。
 
 ## Validate
 

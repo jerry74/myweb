@@ -276,6 +276,37 @@
   --brief-shadow: 0 10px 24px color-mix(in srgb, var(--color-cobalt) 10%, transparent);
 }
 
+/* bund-wonderland: Shanghai Bund nights, Yuyuan vermilion and lantern gold on a storybook base. */
+:root[data-style="bund-wonderland"] {
+  --primitive-ink: #1b2340;
+  --primitive-ink-soft: #4d5670;
+  --primitive-paper: #fdf6ec;
+  --primitive-surface: #ffffff;
+  --primitive-line: #e6d6bf;
+  --primitive-line-strong: #a8916f;
+  --primitive-primary: #1f3a73;
+  --primitive-primary-strong: #12244d;
+  --primitive-signal: #b3322a;
+  --primitive-signal-soft: #fde4dc;
+  --primitive-highlight: #f0b429;
+  --primitive-focus: #b3322a;
+  --primitive-shadow-accent: #f0b429;
+  --body-pattern: radial-gradient(circle at 10px 10px, color-mix(in srgb, var(--color-signal) 16%, transparent) 0 3px, transparent 3.5px), radial-gradient(circle at 34px 30px, color-mix(in srgb, var(--color-lime) 30%, transparent) 0 4px, transparent 4.5px);
+  --body-pattern-size: 48px 40px;
+  --hero-title-family: "Trebuchet MS", "Segoe UI Variable Display", "Noto Sans TC", sans-serif;
+  --hero-title-weight: 800;
+  --hero-title-tracking: -0.04em;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --next-stop-border: 2px solid var(--color-ink);
+  --next-stop-shadow: 9px 9px 0 var(--color-shadow-accent);
+  --next-stop-radius: 36px 36px 14px 36px;
+  --day-rail-radius: 26px;
+  --day-tab-radius: 18px;
+  --timeline-node-radius: 50%;
+  --brief-radius: 22px 22px 10px 22px;
+  --brief-shadow: 0 10px 24px color-mix(in srgb, var(--color-cobalt) 10%, transparent);
+}
+
 :root[data-style="sticker-playground"] {
   --primitive-ink: #1c1a23;
   --primitive-ink-soft: #514b5d;
@@ -435,89 +466,107 @@
 }
 
 :root[data-style="doodle-notebook"] {
-  --primitive-ink: #202b38;
-  --primitive-ink-soft: #536170;
-  --primitive-paper: #f7f3e7;
-  --primitive-surface: #fffdf7;
-  --primitive-line: #c7c4b7;
-  --primitive-line-strong: #7d8490;
-  --primitive-primary: #245a86;
-  --primitive-primary-strong: #173b59;
-  --primitive-signal: #39704b;
-  --primitive-signal-soft: #dfefe2;
-  --primitive-highlight: #e6bd3f;
-  --primitive-focus: #9b3f2f;
-  --primitive-shadow-accent: #202b38;
-  --body-pattern: linear-gradient(color-mix(in srgb, var(--color-cobalt) 11%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-line-strong) 8%, transparent) 1px, transparent 1px);
-  --body-pattern-size: 100% 30px, 30px 100%;
-  --hero-title-family: "Segoe Print", "Trebuchet MS", "Noto Sans TC", sans-serif;
-  --hero-title-weight: 800;
-  --hero-title-tracking: -0.045em;
-  --next-stop-background: var(--color-cobalt);
-  --next-stop-border: 2px dashed var(--color-ink);
-  --next-stop-shadow: 7px 8px 0 color-mix(in srgb, var(--color-shadow-accent) 78%, transparent);
-  --next-stop-radius: 10px 28px 12px 24px;
-  --next-stop-decoration-radius: 34% 66% 40% 60%;
-  --day-rail-radius: 14px 24px 12px 20px;
-  --day-rail-border: 2px dashed var(--color-ink);
-  --day-tab-radius: 8px 15px 7px 13px;
-  --timeline-node-radius: 3px 7px 4px 8px;
-  --brief-radius: 8px 18px 7px 16px;
-  --brief-shadow: 4px 5px 0 color-mix(in srgb, var(--color-ink) 15%, transparent);
+  --primitive-ink: #223344;
+  --primitive-ink-soft: #596879;
+  --primitive-paper: #fff8df;
+  --primitive-surface: #fffef8;
+  --primitive-line: #d9caa7;
+  --primitive-line-strong: #8d8190;
+  --primitive-primary: #2b65a0;
+  --primitive-primary-strong: #174474;
+  --primitive-signal: #e35d43;
+  --primitive-signal-soft: #ffe0d3;
+  --primitive-highlight: #f4c947;
+  --primitive-focus: #2e8a68;
+  --primitive-shadow-accent: #e58b70;
+  --primitive-hero-start: #bce7dc;
+  --primitive-hero-end: #f5c862;
+  --body-pattern: radial-gradient(circle at 10px 10px, color-mix(in srgb, var(--color-signal) 18%, transparent) 0 2px, transparent 2.5px), repeating-linear-gradient(135deg, transparent 0 18px, color-mix(in srgb, var(--color-cobalt) 8%, transparent) 18px 20px, transparent 20px 38px);
+  --body-pattern-size: 42px 42px, 64px 64px;
+  --hero-title-family: "Arial Rounded MT Bold", "Segoe Print", "Trebuchet MS", "Noto Sans TC", sans-serif;
+  --hero-title-size: clamp(3.1rem, 9vw, 7rem);
+  --hero-title-weight: 900;
+  --hero-title-tracking: -0.06em;
+  --hero-background: radial-gradient(ellipse at 12% 15%, color-mix(in srgb, var(--color-surface) 86%, transparent) 0 9%, transparent 9.5%), radial-gradient(circle at 86% 18%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(145deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 3px solid var(--color-cobalt-dark);
+  --hero-radius: 28px 12px 38px 18px;
+  --hero-shadow: 9px 10px 0 var(--color-shadow-accent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(ellipse at 18% 112%, color-mix(in srgb, var(--color-focus) 68%, transparent) 0 24%, transparent 25%), radial-gradient(ellipse at 74% 110%, color-mix(in srgb, var(--color-signal) 64%, transparent) 0 22%, transparent 23%), repeating-linear-gradient(90deg, transparent 0 22px, color-mix(in srgb, var(--color-cobalt-dark) 68%, transparent) 22px 29px, transparent 29px 58px) center bottom / 86% 38% no-repeat;
+  --hero-orbit-background: repeating-linear-gradient(165deg, transparent 0 14px, color-mix(in srgb, var(--color-ink) 35%, transparent) 15px 17px, transparent 18px 30px) center 66% / 62% 35% no-repeat;
+  --hero-orbit-opacity: 0.65;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-border: 3px solid var(--color-ink);
+  --next-stop-shadow: 7px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 24px 10px 28px 14px;
+  --next-stop-decoration-radius: 38% 62% 28% 72%;
+  --day-rail-radius: 20px 8px 26px 12px;
+  --day-rail-border: 3px dashed var(--color-cobalt);
+  --day-tab-radius: 50% 42% 50% 42%;
+  --timeline-node-radius: 50% 28% 50% 28%;
+  --timeline-card-radius: 22px 10px 28px 12px;
+  --timeline-card-border: 2px solid var(--color-line-strong);
+  --timeline-card-shadow: 5px 6px 0 color-mix(in srgb, var(--color-signal) 22%, transparent);
+  --brief-radius: 18px 8px 24px 12px;
+  --brief-shadow: 5px 6px 0 color-mix(in srgb, var(--color-cobalt) 20%, transparent);
 }
 
 :root[data-style="travel-toon-cards"] {
-  --primitive-ink: #183447;
-  --primitive-ink-soft: #4b6674;
-  --primitive-paper: #fff8ea;
-  --primitive-surface: #fffdf8;
-  --primitive-line: #c8dde0;
-  --primitive-line-strong: #73a0a7;
-  --primitive-primary: #0f766e;
-  --primitive-primary-strong: #2563eb;
-  --primitive-signal: #b94b14;
-  --primitive-signal-soft: #ffead5;
-  --primitive-highlight: #ffcf4a;
-  --primitive-focus: #7c3aed;
-  --primitive-shadow-accent: #ef6f51;
-  --primitive-hero-start: #ffd7c2;
-  --primitive-hero-end: #c6f1e8;
-  --body-pattern: radial-gradient(circle at 8px 8px, color-mix(in srgb, var(--color-cobalt) 13%, transparent) 0 2px, transparent 2.5px), radial-gradient(circle at 25px 22px, color-mix(in srgb, var(--color-signal) 11%, transparent) 0 1.5px, transparent 2px);
-  --body-pattern-size: 42px 38px;
+  --primitive-ink: #173b49;
+  --primitive-ink-soft: #4d6e7a;
+  --primitive-paper: #fff6df;
+  --primitive-surface: #fffefa;
+  --primitive-line: #b7dfe1;
+  --primitive-line-strong: #4f9ca3;
+  --primitive-primary: #087f83;
+  --primitive-primary-strong: #2167d4;
+  --primitive-signal: #ec5e4f;
+  --primitive-signal-soft: #ffe0d5;
+  --primitive-highlight: #ffd447;
+  --primitive-focus: #7a46c9;
+  --primitive-shadow-accent: #f07b63;
+  --primitive-hero-start: #8ce4dc;
+  --primitive-hero-end: #ffd46b;
+  --body-pattern: radial-gradient(circle at 9px 9px, color-mix(in srgb, var(--color-cobalt) 19%, transparent) 0 2.5px, transparent 3px), radial-gradient(circle at 28px 24px, color-mix(in srgb, var(--color-signal) 15%, transparent) 0 2px, transparent 2.5px);
+  --body-pattern-size: 46px 42px;
   --hero-title-family: "Arial Rounded MT Bold", "Trebuchet MS", "Noto Sans TC", sans-serif;
-  --hero-title-size: clamp(2.9rem, 8vw, 6.7rem);
+  --hero-title-size: clamp(3rem, 8.5vw, 6.9rem);
   --hero-title-weight: 900;
-  --hero-title-tracking: -0.055em;
-  --hero-background: radial-gradient(ellipse at 12% 18%, color-mix(in srgb, var(--color-surface) 92%, transparent) 0 8%, transparent 8.5%), radial-gradient(circle at 86% 17%, var(--color-lime) 0 4%, transparent 4.5%), linear-gradient(145deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-title-tracking: -0.065em;
+  --hero-background: radial-gradient(circle at 83% 15%, var(--color-lime) 0 7%, transparent 7.5%), radial-gradient(ellipse at 10% 15%, color-mix(in srgb, var(--color-surface) 85%, transparent) 0 10%, transparent 10.5%), linear-gradient(145deg, var(--color-hero-start), var(--color-hero-end));
   --hero-color: var(--color-ink);
   --hero-muted-color: var(--color-ink-soft);
-  --hero-border: 3px solid var(--color-cobalt);
-  --hero-radius: 34px;
-  --hero-shadow: 0 14px 0 color-mix(in srgb, var(--color-signal) 22%, transparent);
+  --hero-border: 3px solid var(--color-cobalt-dark);
+  --hero-radius: 38px 16px 32px 16px;
+  --hero-shadow: 0 13px 0 var(--color-shadow-accent);
   --hero-overflow: hidden;
   --hero-padding: clamp(28px, 6vw, 66px);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(ellipse at 15% 112%, color-mix(in srgb, var(--color-cobalt) 72%, transparent) 0 21%, transparent 22%), radial-gradient(ellipse at 78% 110%, color-mix(in srgb, var(--color-focus) 50%, transparent) 0 19%, transparent 20%), repeating-linear-gradient(0deg, transparent 0 18px, color-mix(in srgb, var(--color-surface) 74%, transparent) 19px 23px, transparent 24px 38px) center bottom / 100% 38% no-repeat;
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 88%, transparent) 0 4px, transparent 4.5px) 0 0 / 48px 42px repeat;
+  --hero-orbit-opacity: 0.72;
   --status-dot-border-color: var(--color-cobalt-dark);
-  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
   --next-stop-border: 3px solid var(--color-ink);
   --next-stop-shadow: 7px 8px 0 var(--color-shadow-accent);
-  --next-stop-radius: 28px;
+  --next-stop-radius: 30px 12px 26px 14px;
   --next-stop-decoration-radius: 50% 36% 50% 36%;
-  --day-rail-radius: 22px;
-  --day-rail-border: 2px solid var(--color-cobalt);
-  --day-tab-radius: 16px;
-  --day-tab-active-background: linear-gradient(135deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --day-rail-radius: 26px 12px 30px 12px;
+  --day-rail-border: 3px solid var(--color-cobalt);
+  --day-tab-radius: 50% 44% 50% 44%;
+  --day-tab-active-background: linear-gradient(135deg, var(--color-cobalt), var(--color-focus));
   --day-tab-active-color: var(--primitive-on-primary);
   --timeline-node-radius: 50%;
   --timeline-node-primary: var(--color-cobalt);
   --timeline-node-secondary: var(--color-signal);
   --timeline-node-tertiary: var(--color-focus);
   --timeline-card-background: var(--color-surface);
-  --timeline-card-border: 1px solid var(--color-line);
-  --timeline-card-radius: 20px;
-  --timeline-card-shadow: 0 9px 22px color-mix(in srgb, var(--color-cobalt) 10%, transparent);
+  --timeline-card-border: 2px solid var(--color-line);
+  --timeline-card-radius: 24px 12px 28px 12px;
+  --timeline-card-shadow: 0 9px 0 color-mix(in srgb, var(--color-signal) 19%, transparent);
   --timeline-card-padding: 16px 18px 16px 24px;
-  --brief-radius: 22px;
-  --brief-shadow: 0 10px 24px color-mix(in srgb, var(--color-cobalt) 11%, transparent);
+  --brief-radius: 24px 10px 28px 12px;
+  --brief-shadow: 0 9px 0 color-mix(in srgb, var(--color-cobalt) 14%, transparent);
 }
 
 :root[data-style="aurora-frost"] {
@@ -938,6 +987,492 @@
   --brief-radius: 24px 12px 24px 12px;
 }
 
+:root[data-style="desert-caravan"] {
+  --primitive-ink: #3b281d;
+  --primitive-ink-soft: #73594a;
+  --primitive-paper: #fff1d8;
+  --primitive-surface: #fffaf0;
+  --primitive-line: #e7bd83;
+  --primitive-line-strong: #a67542;
+  --primitive-primary: #8b451f;
+  --primitive-primary-strong: #5e2b14;
+  --primitive-signal: #4c4c91;
+  --primitive-signal-soft: #e5e2f6;
+  --primitive-highlight: #e3ad38;
+  --primitive-focus: #176d72;
+  --primitive-shadow-accent: #df9a55;
+  --primitive-hero-start: #f6b65d;
+  --primitive-hero-end: #c8683f;
+  --body-pattern: radial-gradient(circle at 8px 8px, color-mix(in srgb, var(--color-signal) 15%, transparent) 0 1.5px, transparent 2px), repeating-linear-gradient(135deg, transparent 0 22px, color-mix(in srgb, var(--color-cobalt) 7%, transparent) 22px 24px, transparent 24px 46px);
+  --body-pattern-size: 42px 38px, 64px 64px;
+  --hero-title-family: Georgia, "Trebuchet MS", "Noto Serif TC", serif;
+  --hero-title-weight: 900;
+  --hero-title-tracking: -0.05em;
+  --hero-background: radial-gradient(circle at 82% 17%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(165deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 34px 34px 12px 34px;
+  --hero-shadow: 0 12px 0 var(--color-shadow-accent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(ellipse at 23% 118%, color-mix(in srgb, var(--color-cobalt) 72%, transparent) 0 31%, transparent 32%), radial-gradient(ellipse at 72% 116%, color-mix(in srgb, var(--color-signal) 55%, transparent) 0 28%, transparent 29%), conic-gradient(from 45deg at 50% 100%, transparent 0 12%, color-mix(in srgb, var(--color-cobalt-dark) 72%, transparent) 13% 37%, transparent 38%) center bottom / 150px 52% no-repeat;
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 88%, transparent) 0 1.7px, transparent 2.2px) 0 0 / 43px 37px repeat;
+  --hero-orbit-opacity: 0.72;
+  --next-stop-background: linear-gradient(145deg, var(--color-signal), var(--color-cobalt));
+  --next-stop-border: 2px solid var(--color-ink);
+  --next-stop-shadow: 8px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 30px 12px 30px 12px;
+  --day-rail-radius: 20px 20px 8px 20px;
+  --day-rail-border: 2px dashed var(--color-cobalt);
+  --day-tab-radius: 18px 18px 6px 18px;
+  --timeline-node-radius: 50% 18% 50% 18%;
+  --timeline-card-radius: 24px 10px 24px 10px;
+  --timeline-card-shadow: 5px 6px 0 color-mix(in srgb, var(--color-shadow-accent) 30%, transparent);
+  --brief-radius: 24px 10px 24px 10px;
+}
+
+:root[data-style="nordic-fjord"] {
+  --primitive-ink: #17363b;
+  --primitive-ink-soft: #516b6e;
+  --primitive-paper: #edf7f5;
+  --primitive-surface: #fbfffe;
+  --primitive-line: #b9d7d3;
+  --primitive-line-strong: #729b9a;
+  --primitive-primary: #17666c;
+  --primitive-primary-strong: #0d444d;
+  --primitive-signal: #a5473c;
+  --primitive-signal-soft: #f4ded8;
+  --primitive-highlight: #d8bd48;
+  --primitive-focus: #4671a0;
+  --primitive-shadow-accent: #8fc1bc;
+  --primitive-hero-start: #9ed7de;
+  --primitive-hero-end: #579c8d;
+  --body-pattern: repeating-linear-gradient(0deg, transparent 0 34px, color-mix(in srgb, var(--color-cobalt) 10%, transparent) 34px 35px), radial-gradient(circle at 12px 11px, color-mix(in srgb, var(--color-focus) 10%, transparent) 0 2px, transparent 2.5px);
+  --body-pattern-size: 100% 35px, 46px 46px;
+  --hero-title-family: "Segoe UI Variable Display", "Trebuchet MS", "Noto Sans TC", sans-serif;
+  --hero-title-weight: 850;
+  --hero-title-tracking: -0.06em;
+  --hero-background: radial-gradient(ellipse at 14% 17%, color-mix(in srgb, var(--color-surface) 80%, transparent) 0 9%, transparent 9.5%), linear-gradient(172deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 2px solid var(--color-cobalt-dark);
+  --hero-radius: 16px 34px 16px 34px;
+  --hero-shadow: 0 11px 0 var(--color-shadow-accent);
+  --hero-scene-height: 54%;
+  --hero-scene-background: conic-gradient(from 138deg at 50% 100%, transparent 0 24%, color-mix(in srgb, var(--color-cobalt-dark) 62%, transparent) 25% 50%, transparent 51%) 0 100% / 170px 100% repeat-x, conic-gradient(from 138deg at 50% 100%, transparent 0 24%, color-mix(in srgb, var(--color-surface) 78%, transparent) 25% 50%, transparent 51%) 70px 100% / 190px 82% repeat-x, linear-gradient(to top, color-mix(in srgb, var(--color-focus) 48%, transparent) 0 20%, transparent 21%);
+  --hero-orbit-background: linear-gradient(color-mix(in srgb, var(--color-surface) 82%, transparent) 0 0) 74% 34% / 5px 34% no-repeat;
+  --hero-orbit-opacity: 0.7;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --next-stop-border: 2px solid var(--color-ink);
+  --next-stop-shadow: 6px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 14px 30px 14px 30px;
+  --day-rail-radius: 14px 28px 14px 28px;
+  --day-tab-radius: 10px 20px 10px 20px;
+  --timeline-node-radius: 4px 12px 4px 12px;
+  --timeline-card-radius: 14px 24px 14px 24px;
+  --brief-radius: 14px 24px 14px 24px;
+}
+
+:root[data-style="carnival-parade"] {
+  --primitive-ink: #38223a;
+  --primitive-ink-soft: #735873;
+  --primitive-paper: #fff3d6;
+  --primitive-surface: #fffdf5;
+  --primitive-line: #e7bdc5;
+  --primitive-line-strong: #ad7180;
+  --primitive-primary: #b52d5c;
+  --primitive-primary-strong: #7a1c45;
+  --primitive-signal: #087d69;
+  --primitive-signal-soft: #d7f1e8;
+  --primitive-highlight: #f1c52e;
+  --primitive-focus: #315fc5;
+  --primitive-shadow-accent: #ef7f99;
+  --primitive-hero-start: #ffca43;
+  --primitive-hero-end: #eb5d79;
+  --body-pattern: conic-gradient(from 15deg at 8px 8px, var(--color-cobalt) 0 12%, transparent 13% 38%, var(--color-signal) 39% 49%, transparent 50%);
+  --body-pattern-size: 44px 44px;
+  --hero-title-family: "Arial Rounded MT Bold", "Trebuchet MS", "Noto Sans TC", sans-serif;
+  --hero-title-weight: 900;
+  --hero-title-tracking: -0.065em;
+  --hero-background: radial-gradient(circle at 84% 16%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(145deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 3px solid var(--color-ink);
+  --hero-radius: 38px 18px 38px 18px;
+  --hero-shadow: 8px 9px 0 var(--color-shadow-accent);
+  --hero-scene-height: 45%;
+  --hero-scene-background: repeating-conic-gradient(from 45deg at 50% 0, var(--color-cobalt) 0 9deg, var(--color-lime) 10deg 18deg, var(--color-signal) 19deg 27deg, transparent 28deg 36deg) center top / 100% 24% no-repeat, radial-gradient(circle at 18% 80%, color-mix(in srgb, var(--color-signal) 72%, transparent) 0 10%, transparent 11%), radial-gradient(circle at 78% 78%, color-mix(in srgb, var(--color-cobalt) 68%, transparent) 0 12%, transparent 13%);
+  --hero-orbit-background: conic-gradient(var(--color-surface) 0 12%, transparent 13% 35%, var(--color-signal) 36% 48%, transparent 49%) 0 0 / 64px 58px repeat;
+  --hero-orbit-opacity: 0.5;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-border: 3px solid var(--color-ink);
+  --next-stop-shadow: 7px 8px 0 var(--color-lime);
+  --next-stop-radius: 30px 10px 30px 10px;
+  --day-rail-radius: 26px 10px 26px 10px;
+  --day-rail-border: 3px solid var(--color-cobalt);
+  --day-tab-radius: 50%;
+  --timeline-node-radius: 50%;
+  --timeline-card-border: 2px solid var(--color-line);
+  --timeline-card-radius: 26px 12px 26px 12px;
+  --timeline-card-shadow: 5px 6px 0 color-mix(in srgb, var(--color-cobalt) 18%, transparent);
+  --brief-radius: 26px 12px 26px 12px;
+}
+
+:root[data-style="forest-fairytale"] {
+  --primitive-ink: #26351f;
+  --primitive-ink-soft: #5d7151;
+  --primitive-paper: #f1f8df;
+  --primitive-surface: #fffdf3;
+  --primitive-line: #c7d9a6;
+  --primitive-line-strong: #829b63;
+  --primitive-primary: #47712f;
+  --primitive-primary-strong: #2d4d1b;
+  --primitive-signal: #a83e4a;
+  --primitive-signal-soft: #f5dce0;
+  --primitive-highlight: #e6bb45;
+  --primitive-focus: #376f8b;
+  --primitive-shadow-accent: #a8c47d;
+  --primitive-hero-start: #cbe58d;
+  --primitive-hero-end: #6ea06b;
+  --body-pattern: radial-gradient(circle at 9px 9px, color-mix(in srgb, var(--color-signal) 13%, transparent) 0 3px, transparent 3.5px), radial-gradient(ellipse at 28px 24px, color-mix(in srgb, var(--color-cobalt) 12%, transparent) 0 5px, transparent 5.5px);
+  --body-pattern-size: 48px 44px;
+  --hero-title-family: Georgia, "Arial Rounded MT Bold", "Noto Serif TC", serif;
+  --hero-title-weight: 850;
+  --hero-title-tracking: -0.05em;
+  --hero-background: radial-gradient(circle at 82% 16%, var(--color-lime) 0 5%, transparent 5.5%), linear-gradient(160deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 3px solid var(--color-cobalt-dark);
+  --hero-radius: 40px 40px 16px 40px;
+  --hero-shadow: 0 12px 0 var(--color-shadow-accent);
+  --hero-scene-height: 49%;
+  --hero-scene-background: radial-gradient(circle at 12% 32%, color-mix(in srgb, var(--color-cobalt-dark) 72%, transparent) 0 18%, transparent 19%), radial-gradient(circle at 42% 26%, color-mix(in srgb, var(--color-cobalt) 72%, transparent) 0 23%, transparent 24%), radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--color-cobalt-dark) 68%, transparent) 0 21%, transparent 22%), repeating-linear-gradient(90deg, transparent 0 36px, color-mix(in srgb, var(--color-cobalt-dark) 76%, transparent) 36px 44px, transparent 44px 80px) center bottom / 92% 72% no-repeat;
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-signal) 68%, transparent) 0 5px, color-mix(in srgb, var(--color-surface) 70%, transparent) 5.5px 8px, transparent 8.5px) 0 0 / 72px 62px repeat;
+  --hero-orbit-opacity: 0.62;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --next-stop-border: 2px solid var(--color-ink);
+  --next-stop-shadow: 7px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 34px 34px 12px 34px;
+  --day-rail-radius: 32px;
+  --day-tab-radius: 50% 45% 50% 45%;
+  --timeline-node-radius: 50% 38% 50% 38%;
+  --timeline-card-radius: 30px 30px 12px 30px;
+  --brief-radius: 30px 30px 12px 30px;
+}
+
+:root[data-style="cosmic-camp"] {
+  --primitive-ink: #252747;
+  --primitive-ink-soft: #5d6085;
+  --primitive-paper: #eef0ff;
+  --primitive-surface: #fafaff;
+  --primitive-line: #c7c9eb;
+  --primitive-line-strong: #8184b8;
+  --primitive-primary: #5042a8;
+  --primitive-primary-strong: #312778;
+  --primitive-signal: #ba3f75;
+  --primitive-signal-soft: #f5dcec;
+  --primitive-highlight: #f0c34a;
+  --primitive-focus: #087d91;
+  --primitive-shadow-accent: #8f82d4;
+  --primitive-hero-start: #17184e;
+  --primitive-hero-end: #68458e;
+  --body-pattern: radial-gradient(circle at 8px 8px, color-mix(in srgb, var(--color-cobalt) 18%, transparent) 0 1.5px, transparent 2px), radial-gradient(circle at 29px 24px, color-mix(in srgb, var(--color-signal) 15%, transparent) 0 2px, transparent 2.5px);
+  --body-pattern-size: 44px 40px;
+  --hero-title-family: "Arial Rounded MT Bold", "Segoe UI Variable Display", "Noto Sans TC", sans-serif;
+  --hero-title-weight: 900;
+  --hero-title-tracking: -0.065em;
+  --hero-background: radial-gradient(circle at 82% 18%, color-mix(in srgb, var(--color-lime) 86%, transparent) 0 5%, transparent 5.5%), radial-gradient(ellipse at 34% 10%, color-mix(in srgb, var(--color-signal) 52%, transparent) 0 8%, transparent 30%), linear-gradient(155deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-color: var(--color-hero-contrast);
+  --hero-muted-color: var(--color-hero-contrast-soft);
+  --hero-border: 3px solid var(--color-lime);
+  --hero-radius: 30px;
+  --hero-shadow: 0 12px 0 var(--color-shadow-accent), inset 0 0 0 3px color-mix(in srgb, var(--color-cobalt) 35%, transparent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(circle at 24% 80%, color-mix(in srgb, var(--color-focus) 72%, transparent) 0 12%, transparent 12.5%), radial-gradient(circle at 72% 70%, color-mix(in srgb, var(--color-signal) 66%, transparent) 0 16%, transparent 16.5%), radial-gradient(ellipse at 72% 70%, transparent 0 24%, color-mix(in srgb, var(--color-hero-contrast) 48%, transparent) 25% 27%, transparent 28%);
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-hero-contrast) 86%, transparent) 0 1.4px, transparent 1.9px) 0 0 / 38px 32px repeat;
+  --hero-orbit-opacity: 0.8;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-border: 2px solid var(--color-lime);
+  --next-stop-shadow: 7px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 26px 8px 26px 8px;
+  --day-rail-radius: 22px 8px 22px 8px;
+  --day-rail-border: 2px solid var(--color-focus);
+  --day-tab-radius: 50%;
+  --timeline-node-radius: 50%;
+  --timeline-card-radius: 24px 8px 24px 8px;
+  --timeline-card-border: 1px solid var(--color-cobalt);
+  --brief-radius: 24px 8px 24px 8px;
+}
+
+:root[data-style="treasure-island"] {
+  --primitive-ink: #31352b;
+  --primitive-ink-soft: #667062;
+  --primitive-paper: #fff4d7;
+  --primitive-surface: #fffdf3;
+  --primitive-line: #d9c79b;
+  --primitive-line-strong: #95845d;
+  --primitive-primary: #176d72;
+  --primitive-primary-strong: #0c4a4f;
+  --primitive-signal: #a74632;
+  --primitive-signal-soft: #f5ded5;
+  --primitive-highlight: #e4b334;
+  --primitive-focus: #385a99;
+  --primitive-shadow-accent: #d4aa58;
+  --primitive-hero-start: #70d4ce;
+  --primitive-hero-end: #e9c969;
+  --body-pattern: repeating-radial-gradient(ellipse at 20px 20px, transparent 0 11px, color-mix(in srgb, var(--color-cobalt) 10%, transparent) 12px 13px, transparent 14px 25px);
+  --body-pattern-size: 54px 48px;
+  --hero-title-family: Georgia, "Arial Rounded MT Bold", "Noto Serif TC", serif;
+  --hero-title-weight: 900;
+  --hero-title-tracking: -0.055em;
+  --hero-background: radial-gradient(circle at 84% 16%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(155deg, var(--color-hero-start), var(--color-hero-end));
+  --hero-border: 3px dashed var(--color-cobalt-dark);
+  --hero-radius: 20px 38px 20px 38px;
+  --hero-shadow: 8px 9px 0 var(--color-shadow-accent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(ellipse at 22% 112%, color-mix(in srgb, var(--color-cobalt) 75%, transparent) 0 24%, transparent 25%), radial-gradient(ellipse at 70% 108%, color-mix(in srgb, var(--color-focus) 45%, transparent) 0 19%, transparent 20%), radial-gradient(ellipse at 52% 108%, color-mix(in srgb, var(--color-signal) 65%, transparent) 0 12%, transparent 13%);
+  --hero-orbit-background: repeating-radial-gradient(circle at 18% 70%, transparent 0 12px, color-mix(in srgb, var(--color-ink) 38%, transparent) 13px 15px, transparent 16px 28px);
+  --hero-orbit-opacity: 0.52;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-cobalt-dark));
+  --next-stop-border: 3px dashed var(--color-surface);
+  --next-stop-shadow: 7px 8px 0 var(--color-shadow-accent);
+  --next-stop-radius: 18px 30px 18px 30px;
+  --day-rail-radius: 18px;
+  --day-rail-border: 2px dashed var(--color-cobalt);
+  --day-tab-radius: 50%;
+  --timeline-node-radius: 50%;
+  --timeline-card-radius: 18px 28px 18px 28px;
+  --timeline-card-border: 2px dashed var(--color-line-strong);
+  --brief-radius: 18px 28px 18px 28px;
+}
+
+/* Lively scene pass: the original 12 profiles keep their identity but gain a more playful travel-card rhythm. */
+:root[data-style="editorial-wayfinder"] {
+  --body-pattern: radial-gradient(circle at 7px 7px, color-mix(in srgb, var(--color-signal) 20%, transparent) 0 2px, transparent 2.5px), linear-gradient(135deg, transparent 0 47%, color-mix(in srgb, var(--color-cobalt) 7%, transparent) 48% 52%, transparent 53%);
+  --body-pattern-size: 38px 38px;
+  --hero-background: radial-gradient(circle at 84% 16%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(145deg, color-mix(in srgb, var(--color-signal-soft) 72%, white), color-mix(in srgb, var(--color-cobalt) 18%, var(--color-paper)));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 30px 12px 34px 16px;
+  --hero-shadow: 10px 11px 0 color-mix(in srgb, var(--color-signal) 34%, transparent);
+  --hero-scene-height: 46%;
+  --hero-scene-background: repeating-linear-gradient(90deg, transparent 0 26px, color-mix(in srgb, var(--color-cobalt) 58%, transparent) 27px 31px, transparent 32px 58px) center bottom / 88% 58% no-repeat, linear-gradient(168deg, transparent 0 63%, color-mix(in srgb, var(--color-signal) 60%, transparent) 64% 72%, transparent 73%);
+  --hero-orbit-background: repeating-linear-gradient(165deg, transparent 0 14px, color-mix(in srgb, var(--color-cobalt) 40%, transparent) 15px 17px, transparent 18px 30px) center 54% / 70% 30% no-repeat;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 26px 10px 30px 14px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-signal) 30%, transparent);
+  --day-rail-radius: 22px 8px 26px 12px;
+  --day-tab-radius: 50% 42% 50% 42%;
+  --timeline-card-radius: 22px 10px 28px 12px;
+}
+
+:root[data-style="coastal-breeze"] {
+  --body-pattern: repeating-radial-gradient(ellipse at 20px 18px, transparent 0 10px, color-mix(in srgb, var(--color-cobalt) 16%, transparent) 11px 13px, transparent 14px 28px);
+  --body-pattern-size: 58px 44px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(155deg, color-mix(in srgb, var(--color-paper) 86%, var(--color-signal) 14%), color-mix(in srgb, var(--color-surface) 76%, var(--color-cobalt) 24%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 38px 14px 30px 18px;
+  --hero-shadow: 0 13px 0 color-mix(in srgb, var(--color-signal) 34%, transparent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: repeating-radial-gradient(ellipse at 50% 120%, transparent 0 18px, color-mix(in srgb, var(--color-surface) 70%, transparent) 19px 23px, transparent 24px 40px), radial-gradient(ellipse at 16% 112%, color-mix(in srgb, var(--color-signal) 70%, transparent) 0 18%, transparent 19%), radial-gradient(ellipse at 82% 112%, color-mix(in srgb, var(--color-focus) 48%, transparent) 0 22%, transparent 23%);
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 86%, transparent) 0 4px, transparent 4.5px) 0 0 / 48px 40px repeat;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 32px 12px 28px 16px;
+  --day-rail-radius: 24px 10px 30px 10px;
+  --day-tab-radius: 50%;
+  --timeline-card-radius: 28px 12px 28px 16px;
+}
+
+:root[data-style="alpine-field-notes"] {
+  --body-pattern: repeating-linear-gradient(0deg, transparent 0 31px, color-mix(in srgb, var(--color-line) 42%, transparent) 31px 32px), radial-gradient(circle at 12px 12px, color-mix(in srgb, var(--color-signal) 13%, transparent) 0 3px, transparent 3.5px);
+  --body-pattern-size: 100% 32px, 52px 52px;
+  --hero-background: radial-gradient(circle at 82% 15%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(160deg, color-mix(in srgb, var(--color-paper) 88%, var(--color-signal) 12%), color-mix(in srgb, var(--color-surface) 74%, var(--color-cobalt) 26%));
+  --hero-border: 3px solid var(--color-cobalt-dark);
+  --hero-radius: 20px 34px 14px 34px;
+  --hero-shadow: 9px 10px 0 color-mix(in srgb, var(--color-signal) 28%, transparent);
+  --hero-scene-height: 50%;
+  --hero-scene-background: conic-gradient(from 138deg at 50% 100%, transparent 0 25%, color-mix(in srgb, var(--color-cobalt-dark) 76%, transparent) 26% 49%, transparent 50%) 0 100% / 170px 100% repeat-x, linear-gradient(90deg, transparent 0 20%, color-mix(in srgb, var(--color-signal) 65%, transparent) 21% 23%, transparent 24% 72%, color-mix(in srgb, var(--color-signal) 65%, transparent) 73% 75%, transparent 76%);
+  --hero-orbit-background: repeating-linear-gradient(145deg, transparent 0 17px, color-mix(in srgb, var(--color-cobalt) 42%, transparent) 18px 20px, transparent 21px 38px) center 60% / 60% 32% no-repeat;
+  --next-stop-radius: 26px 10px 30px 14px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-signal) 28%, transparent);
+  --day-rail-radius: 18px 30px 12px 30px;
+  --day-tab-radius: 50% 34% 50% 34%;
+  --timeline-card-radius: 20px 10px 28px 14px;
+}
+
+:root[data-style="neon-metro"] {
+  --body-pattern: linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--color-cobalt) 16%, transparent) 24px 25px, transparent 26px 49px), linear-gradient(0deg, transparent 0 23px, color-mix(in srgb, var(--color-signal) 14%, transparent) 24px 25px, transparent 26px 49px);
+  --body-pattern-size: 50px 50px;
+  --hero-background: radial-gradient(circle at 84% 14%, var(--color-lime) 0 5%, transparent 5.5%), linear-gradient(145deg, color-mix(in srgb, var(--color-cobalt) 28%, var(--color-paper)), color-mix(in srgb, var(--color-signal) 22%, var(--color-paper)));
+  --hero-border: 3px solid var(--color-lime);
+  --hero-radius: 22px 8px 30px 8px;
+  --hero-shadow: 8px 9px 0 var(--color-cobalt-dark), 0 0 30px color-mix(in srgb, var(--color-signal) 24%, transparent);
+  --hero-scene-height: 50%;
+  --hero-scene-background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--color-cobalt) 68%, transparent) 0 24px, transparent 25px 32px, color-mix(in srgb, var(--color-signal) 62%, transparent) 33px 52px, transparent 53px 62px) center bottom / 100% 68% no-repeat, linear-gradient(to top, color-mix(in srgb, var(--color-cobalt-dark) 92%, transparent) 0 17%, transparent 18%);
+  --hero-orbit-background: repeating-linear-gradient(135deg, transparent 0 13px, color-mix(in srgb, var(--color-lime) 42%, transparent) 14px 17px, transparent 18px 32px) center 60% / 58% 34% no-repeat;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 8px 26px 8px 26px;
+  --next-stop-shadow: 7px 8px 0 var(--color-cobalt-dark), 0 0 28px color-mix(in srgb, var(--color-cobalt) 24%, transparent);
+  --day-rail-radius: 10px 24px 10px 24px;
+  --day-tab-radius: 6px 18px 6px 18px;
+  --timeline-card-radius: 8px 24px 8px 24px;
+}
+
+:root[data-style="heritage-ink"] {
+  --body-pattern: radial-gradient(circle at 10px 10px, color-mix(in srgb, var(--color-signal) 14%, transparent) 0 2px, transparent 2.5px), repeating-linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--color-line) 20%, transparent) 24px 25px);
+  --body-pattern-size: 46px 46px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(155deg, color-mix(in srgb, var(--color-paper) 87%, var(--color-signal) 13%), color-mix(in srgb, var(--color-surface) 76%, var(--color-cobalt) 24%));
+  --hero-border: 3px double var(--color-cobalt);
+  --hero-radius: 24px 12px 32px 12px;
+  --hero-shadow: 8px 9px 0 color-mix(in srgb, var(--color-signal) 28%, transparent);
+  --hero-scene-height: 49%;
+  --hero-scene-background: repeating-linear-gradient(90deg, transparent 0 24px, color-mix(in srgb, var(--color-cobalt) 42%, transparent) 25px 30px, transparent 31px 52px) center bottom / 74% 66% no-repeat, linear-gradient(color-mix(in srgb, var(--color-signal) 72%, transparent) 0 0) center 24% / 58% 10px no-repeat;
+  --hero-orbit-background: radial-gradient(ellipse at 50% 100%, transparent 0 54%, color-mix(in srgb, var(--color-signal) 32%, transparent) 55% 59%, transparent 60%) center top / 180px 100px no-repeat;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 12px 26px 12px 26px;
+  --next-stop-shadow: 7px 8px 0 color-mix(in srgb, var(--color-signal) 30%, transparent);
+  --day-rail-radius: 14px 26px 14px 26px;
+  --day-tab-radius: 16px 16px 6px 6px;
+  --timeline-card-radius: 14px 24px 14px 24px;
+}
+
+:root[data-style="candy-postcard"] {
+  --body-pattern: radial-gradient(circle at 9px 9px, color-mix(in srgb, var(--color-signal) 18%, transparent) 0 4px, transparent 4.5px), radial-gradient(circle at 28px 25px, color-mix(in srgb, var(--color-cobalt) 14%, transparent) 0 3px, transparent 3.5px);
+  --body-pattern-size: 46px 42px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), radial-gradient(circle at 12% 24%, color-mix(in srgb, var(--color-surface) 88%, transparent) 0 9%, transparent 9.5%), linear-gradient(145deg, color-mix(in srgb, var(--color-paper) 86%, var(--color-signal) 14%), color-mix(in srgb, var(--color-surface) 74%, var(--color-cobalt) 26%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 40px 18px 34px 18px;
+  --hero-shadow: 0 13px 0 color-mix(in srgb, var(--color-shadow-accent) 50%, transparent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(circle at 18% 92%, color-mix(in srgb, var(--color-signal) 56%, transparent) 0 13%, transparent 14%), radial-gradient(circle at 75% 90%, color-mix(in srgb, var(--color-cobalt) 48%, transparent) 0 16%, transparent 17%), radial-gradient(circle at 52% 76%, color-mix(in srgb, var(--color-lime) 72%, transparent) 0 8%, transparent 8.5%);
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 80%, transparent) 0 4px, transparent 4.5px) 0 0 / 52px 46px repeat;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 32px 14px 36px 14px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-shadow-accent) 58%, transparent);
+  --day-rail-radius: 28px;
+  --day-tab-radius: 18px 50% 18px 50%;
+  --timeline-card-radius: 28px 14px 28px 14px;
+}
+
+:root[data-style="cloud-storybook"] {
+  --body-pattern: radial-gradient(ellipse at 16px 17px, color-mix(in srgb, var(--color-cobalt) 12%, transparent) 0 10px, transparent 10.5px), radial-gradient(ellipse at 31px 16px, color-mix(in srgb, var(--color-cobalt) 9%, transparent) 0 7px, transparent 7.5px);
+  --body-pattern-size: 72px 48px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(160deg, color-mix(in srgb, var(--color-paper) 88%, var(--color-signal) 12%), color-mix(in srgb, var(--color-surface) 75%, var(--color-cobalt) 25%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 42px 42px 16px 42px;
+  --hero-shadow: 0 13px 0 color-mix(in srgb, var(--color-shadow-accent) 62%, transparent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(ellipse at 16% 112%, color-mix(in srgb, var(--color-focus) 42%, transparent) 0 22%, transparent 23%), radial-gradient(ellipse at 78% 112%, color-mix(in srgb, var(--color-signal) 48%, transparent) 0 25%, transparent 26%), radial-gradient(ellipse at 50% 114%, color-mix(in srgb, var(--color-cobalt-dark) 52%, transparent) 0 18%, transparent 19%);
+  --hero-orbit-background: radial-gradient(ellipse at 50% 100%, transparent 0 45%, color-mix(in srgb, var(--color-surface) 72%, transparent) 46% 53%, transparent 54%) 0 0 / 190px 90px repeat-x;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 38px 38px 14px 38px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-shadow-accent) 58%, transparent);
+  --day-rail-radius: 32px;
+  --day-tab-radius: 22px;
+  --timeline-card-radius: 30px 30px 12px 30px;
+}
+
+/* bund-wonderland: skyline silhouette, pearl-tower spheres and a lantern string. */
+:root[data-style="bund-wonderland"] {
+  --body-pattern: radial-gradient(circle at 10px 10px, color-mix(in srgb, var(--color-signal) 18%, transparent) 0 3px, transparent 3.5px), radial-gradient(circle at 34px 30px, color-mix(in srgb, var(--color-lime) 34%, transparent) 0 4px, transparent 4.5px);
+  --body-pattern-size: 52px 44px;
+  --hero-background: radial-gradient(circle at 86% 16%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(165deg, color-mix(in srgb, var(--color-paper) 86%, var(--color-signal) 14%), color-mix(in srgb, var(--color-surface) 70%, var(--color-cobalt) 30%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 40px 40px 14px 40px;
+  --hero-shadow: 0 12px 0 color-mix(in srgb, var(--color-shadow-accent) 66%, transparent);
+  --hero-scene-height: 40%;
+  --hero-scene-background: radial-gradient(circle at 72% 40%, color-mix(in srgb, var(--color-signal) 80%, transparent) 0 3.2%, transparent 3.6%), radial-gradient(circle at 72% 66%, color-mix(in srgb, var(--color-signal) 80%, transparent) 0 5.2%, transparent 5.6%), linear-gradient(color-mix(in srgb, var(--color-cobalt-dark) 37%, transparent) 0 0) 71.6% 6% / 1.2% 90% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt-dark) 32%, transparent) 0 0) 6% 100% / 9% 46% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt) 29%, transparent) 0 0) 17% 100% / 7% 64% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt-dark) 32%, transparent) 0 0) 28% 100% / 10% 38% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt) 27%, transparent) 0 0) 41% 100% / 6% 74% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt-dark) 33%, transparent) 0 0) 52% 100% / 9% 52% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt) 28%, transparent) 0 0) 88% 100% / 8% 58% no-repeat, linear-gradient(color-mix(in srgb, var(--color-cobalt-dark) 32%, transparent) 0 0) 98% 100% / 7% 40% no-repeat, linear-gradient(to top, color-mix(in srgb, var(--color-cobalt-dark) 40%, transparent) 0 10%, transparent 10.5%);
+  --hero-orbit-background: radial-gradient(circle at 50% 18px, color-mix(in srgb, var(--color-signal) 82%, transparent) 0 5px, transparent 5.5px) 0 0 / 48px 100% repeat-x, radial-gradient(ellipse at 50% 0, transparent 0 62%, color-mix(in srgb, var(--color-lime) 60%, transparent) 63% 68%, transparent 69%) 0 0 / 48px 18px repeat-x;
+  --hero-orbit-opacity: 0.85;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 36px 36px 14px 36px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-shadow-accent) 62%, transparent);
+  --day-rail-radius: 28px;
+  --day-tab-radius: 18px;
+  --timeline-card-radius: 26px 26px 10px 26px;
+}
+
+:root[data-style="sticker-playground"] {
+  --body-pattern: radial-gradient(circle at 7px 7px, color-mix(in srgb, var(--color-signal) 28%, transparent) 0 2px, transparent 2.5px), linear-gradient(135deg, transparent 45%, color-mix(in srgb, var(--color-cobalt) 11%, transparent) 46% 55%, transparent 56%);
+  --body-pattern-size: 42px 42px;
+  --hero-background: radial-gradient(circle at 84% 16%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(145deg, color-mix(in srgb, var(--color-paper) 86%, var(--color-signal) 14%), color-mix(in srgb, var(--color-surface) 74%, var(--color-cobalt) 26%));
+  --hero-border: 3px solid var(--color-ink);
+  --hero-radius: 26px 12px 34px 12px;
+  --hero-shadow: 9px 10px 0 var(--color-shadow-accent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-cobalt) 52%, transparent) 0 18px, transparent 18px 34px, color-mix(in srgb, var(--color-signal) 46%, transparent) 34px 52px, transparent 52px 68px) center bottom / 100% 52% no-repeat, radial-gradient(circle at 18% 88%, color-mix(in srgb, var(--color-lime) 82%, transparent) 0 10%, transparent 10.5%);
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 88%, transparent) 0 4px, transparent 4.5px) 0 0 / 44px 40px repeat;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 16px 30px 16px 30px;
+  --next-stop-shadow: 8px 9px 0 var(--color-shadow-accent);
+  --day-rail-radius: 22px 8px 22px 8px;
+  --day-tab-radius: 12px 26px 12px 26px;
+  --timeline-card-radius: 12px 28px 12px 28px;
+}
+
+:root[data-style="berry-picnic"] {
+  --body-pattern: repeating-linear-gradient(0deg, transparent 0 25px, color-mix(in srgb, var(--color-line) 38%, transparent) 25px 26px), repeating-linear-gradient(90deg, transparent 0 25px, color-mix(in srgb, var(--color-line) 38%, transparent) 25px 26px), radial-gradient(circle at 14px 13px, color-mix(in srgb, var(--color-signal) 22%, transparent) 0 4px, transparent 4.5px);
+  --body-pattern-size: 52px 52px;
+  --hero-background: radial-gradient(circle at 84% 16%, var(--color-lime) 0 6%, transparent 6.5%), linear-gradient(155deg, color-mix(in srgb, var(--color-paper) 88%, var(--color-signal) 12%), color-mix(in srgb, var(--color-surface) 74%, var(--color-cobalt) 26%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 34px 16px 28px 16px;
+  --hero-shadow: 8px 9px 0 color-mix(in srgb, var(--color-shadow-accent) 70%, transparent);
+  --hero-scene-height: 48%;
+  --hero-scene-background: radial-gradient(circle at 18% 92%, color-mix(in srgb, var(--color-signal) 72%, transparent) 0 10%, transparent 10.5%), radial-gradient(circle at 76% 88%, color-mix(in srgb, var(--color-focus) 66%, transparent) 0 13%, transparent 13.5%), linear-gradient(to top, color-mix(in srgb, var(--color-cobalt-dark) 52%, transparent) 0 26%, transparent 27%);
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 78%, transparent) 0 4px, transparent 4.5px) 0 0 / 54px 46px repeat;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 30px 12px 30px 12px;
+  --next-stop-shadow: 7px 8px 0 color-mix(in srgb, var(--color-shadow-accent) 70%, transparent);
+  --day-rail-radius: 26px 12px 26px 12px;
+  --day-tab-radius: 50%;
+  --timeline-card-radius: 26px 12px 26px 12px;
+}
+
+:root[data-style="comic-panel"] {
+  --body-pattern: radial-gradient(circle at 4px 4px, color-mix(in srgb, var(--color-ink) 18%, transparent) 0 1.6px, transparent 2px), repeating-linear-gradient(165deg, transparent 0 22px, color-mix(in srgb, var(--color-signal) 10%, transparent) 22px 24px, transparent 24px 44px);
+  --body-pattern-size: 18px 18px, 58px 58px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(145deg, color-mix(in srgb, var(--color-paper) 86%, var(--color-signal) 14%), color-mix(in srgb, var(--color-surface) 76%, var(--color-cobalt) 24%));
+  --hero-border: 4px solid var(--color-ink);
+  --hero-radius: 12px 32px 12px 32px;
+  --hero-shadow: 10px 10px 0 var(--color-ink);
+  --hero-scene-height: 49%;
+  --hero-scene-background: repeating-linear-gradient(155deg, color-mix(in srgb, var(--color-cobalt) 50%, transparent) 0 15px, transparent 16px 30px, color-mix(in srgb, var(--color-signal) 48%, transparent) 31px 45px, transparent 46px 60px) center bottom / 100% 68% no-repeat;
+  --hero-orbit-background: radial-gradient(circle, color-mix(in srgb, var(--color-surface) 76%, transparent) 0 3px, transparent 3.5px) 0 0 / 34px 32px repeat;
+  --next-stop-background: linear-gradient(135deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 8px 24px 8px 24px;
+  --next-stop-shadow: 8px 8px 0 var(--color-ink);
+  --day-rail-radius: 10px 24px 10px 24px;
+  --day-tab-radius: 8px 18px 8px 18px;
+  --timeline-card-radius: 10px 24px 10px 24px;
+}
+
+:root[data-style="cel-adventure"] {
+  --body-pattern: linear-gradient(135deg, transparent 0 18px, color-mix(in srgb, var(--color-cobalt) 10%, transparent) 19px 22px, transparent 23px 42px), radial-gradient(circle at 12px 12px, color-mix(in srgb, var(--color-lime) 18%, transparent) 0 4px, transparent 4.5px);
+  --body-pattern-size: 56px 56px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(150deg, color-mix(in srgb, var(--color-paper) 88%, var(--color-signal) 12%), color-mix(in srgb, var(--color-surface) 74%, var(--color-cobalt) 26%));
+  --hero-border: 3px solid var(--color-cobalt-dark);
+  --hero-radius: 30px 8px 34px 14px;
+  --hero-shadow: 9px 10px 0 color-mix(in srgb, var(--color-signal) 55%, transparent);
+  --hero-scene-height: 50%;
+  --hero-scene-background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--color-cobalt) 54%, transparent) 0 18px, transparent 19px 36px, color-mix(in srgb, var(--color-signal) 48%, transparent) 37px 54px, transparent 55px 72px) center bottom / 100% 64% no-repeat, radial-gradient(ellipse at 18% 112%, color-mix(in srgb, var(--color-focus) 58%, transparent) 0 17%, transparent 18%);
+  --hero-orbit-background: repeating-linear-gradient(165deg, transparent 0 13px, color-mix(in srgb, var(--color-surface) 52%, transparent) 14px 17px, transparent 18px 32px) center 55% / 60% 35% no-repeat;
+  --next-stop-background: linear-gradient(150deg, var(--color-cobalt) 0 65%, var(--color-signal) 66%);
+  --next-stop-radius: 28px 8px 28px 8px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-signal) 40%, transparent);
+  --day-rail-radius: 18px 6px 18px 6px;
+  --day-tab-radius: 14px 4px 14px 4px;
+  --timeline-card-radius: 20px 6px 20px 6px;
+}
+
+:root[data-style="retro-toon"] {
+  --body-pattern: radial-gradient(ellipse at 10px 8px, color-mix(in srgb, var(--color-signal) 16%, transparent) 0 3px, transparent 3.5px), repeating-linear-gradient(90deg, transparent 0 28px, color-mix(in srgb, var(--color-cobalt) 9%, transparent) 29px 31px, transparent 32px 58px);
+  --body-pattern-size: 54px 38px;
+  --hero-background: radial-gradient(circle at 84% 15%, var(--color-lime) 0 7%, transparent 7.5%), linear-gradient(160deg, color-mix(in srgb, var(--color-paper) 88%, var(--color-signal) 12%), color-mix(in srgb, var(--color-surface) 75%, var(--color-cobalt) 25%));
+  --hero-border: 3px solid var(--color-cobalt);
+  --hero-radius: 42px 12px 42px 12px;
+  --hero-shadow: 9px 10px 0 color-mix(in srgb, var(--color-shadow-accent) 76%, transparent);
+  --hero-scene-height: 50%;
+  --hero-scene-background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--color-cobalt) 42%, transparent) 0 28px, transparent 29px 38px, color-mix(in srgb, var(--color-signal) 42%, transparent) 39px 62px, transparent 63px 74px) center bottom / 92% 62% no-repeat, linear-gradient(color-mix(in srgb, var(--color-focus) 38%, transparent) 0 0) center bottom / 80% 12px no-repeat;
+  --hero-orbit-background: radial-gradient(ellipse at 50% 100%, transparent 0 52%, color-mix(in srgb, var(--color-signal) 28%, transparent) 53% 58%, transparent 59%) center top / 190px 100px no-repeat;
+  --next-stop-background: linear-gradient(145deg, var(--color-cobalt), var(--color-signal));
+  --next-stop-radius: 38px 10px 38px 10px;
+  --next-stop-shadow: 8px 9px 0 color-mix(in srgb, var(--color-shadow-accent) 78%, transparent);
+  --day-rail-radius: 999px;
+  --day-tab-radius: 999px;
+  --timeline-card-radius: 28px 10px 28px 10px;
+}
+
 :root[data-theme="dark"] {
   color-scheme: dark;
   --primitive-ink: #f6f2e9;
@@ -1046,6 +1581,23 @@
   --primitive-shadow-accent: #826d24;
 }
 
+/* bund-wonderland: Bund night palette. */
+:root[data-theme="dark"][data-style="bund-wonderland"] {
+  --primitive-ink: #f6efe3;
+  --primitive-ink-soft: #cbc2b2;
+  --primitive-paper: #0e1326;
+  --primitive-surface: #1a2139;
+  --primitive-line: #343f60;
+  --primitive-line-strong: #6c7799;
+  --primitive-primary: #93b4ff;
+  --primitive-primary-strong: #cbd9ff;
+  --primitive-signal: #ff8d78;
+  --primitive-signal-soft: #4a201b;
+  --primitive-highlight: #f5c451;
+  --primitive-focus: #f5c451;
+  --primitive-shadow-accent: #7d5b12;
+}
+
 :root[data-theme="dark"][data-style="sticker-playground"] {
   --primitive-ink: #fff9df;
   --primitive-ink-soft: #d5cdae;
@@ -1127,37 +1679,39 @@
 }
 
 :root[data-theme="dark"][data-style="doodle-notebook"] {
-  --primitive-ink: #f6f0df;
-  --primitive-ink-soft: #c7bfad;
-  --primitive-paper: #161a20;
-  --primitive-surface: #242a32;
-  --primitive-line: #414a55;
-  --primitive-line-strong: #78828e;
-  --primitive-primary: #85bdea;
-  --primitive-primary-strong: #c1e1fa;
-  --primitive-signal: #8bd09e;
-  --primitive-signal-soft: #213b2a;
-  --primitive-highlight: #f1d16a;
-  --primitive-focus: #f19b82;
-  --primitive-shadow-accent: #f6f0df;
+  --primitive-ink: #fff4dd;
+  --primitive-ink-soft: #d5c5ad;
+  --primitive-paper: #171a22;
+  --primitive-surface: #252a37;
+  --primitive-line: #4b5262;
+  --primitive-line-strong: #8992a3;
+  --primitive-primary: #82c9ff;
+  --primitive-primary-strong: #c1e8ff;
+  --primitive-signal: #ff9078;
+  --primitive-signal-soft: #4b2924;
+  --primitive-highlight: #ffdf65;
+  --primitive-focus: #79d4ad;
+  --primitive-shadow-accent: #e76552;
+  --primitive-hero-start: #19516b;
+  --primitive-hero-end: #bd6e46;
 }
 
 :root[data-theme="dark"][data-style="travel-toon-cards"] {
-  --primitive-ink: #edfaff;
-  --primitive-ink-soft: #b7d4df;
-  --primitive-paper: #081a24;
-  --primitive-surface: #102b37;
-  --primitive-line: #28505e;
-  --primitive-line-strong: #6d909b;
-  --primitive-primary: #5ee1d2;
-  --primitive-primary-strong: #84b7ff;
-  --primitive-signal: #ff9b5e;
-  --primitive-signal-soft: #4a2b16;
-  --primitive-highlight: #ffd56a;
-  --primitive-focus: #c4a7ff;
-  --primitive-shadow-accent: #a44934;
-  --primitive-hero-start: #0e6762;
-  --primitive-hero-end: #1e4eb8;
+  --primitive-ink: #effdff;
+  --primitive-ink-soft: #b9dbe1;
+  --primitive-paper: #071d27;
+  --primitive-surface: #102f3b;
+  --primitive-line: #2d5b67;
+  --primitive-line-strong: #72a5ad;
+  --primitive-primary: #62e4d6;
+  --primitive-primary-strong: #8fc0ff;
+  --primitive-signal: #ff9c7d;
+  --primitive-signal-soft: #51251c;
+  --primitive-highlight: #ffdc70;
+  --primitive-focus: #d1a8ff;
+  --primitive-shadow-accent: #b74839;
+  --primitive-hero-start: #087d78;
+  --primitive-hero-end: #2c5fd5;
 }
 
 :root[data-theme="dark"][data-style="aurora-frost"] {
@@ -1338,6 +1892,114 @@
   --primitive-shadow-accent: #77402d;
   --primitive-hero-start: #71301f;
   --primitive-hero-end: #934121;
+}
+
+:root[data-theme="dark"][data-style="desert-caravan"] {
+  --primitive-ink: #fff1d9;
+  --primitive-ink-soft: #d7bea1;
+  --primitive-paper: #22150d;
+  --primitive-surface: #352318;
+  --primitive-line: #5c412b;
+  --primitive-line-strong: #96704b;
+  --primitive-primary: #f0a05c;
+  --primitive-primary-strong: #ffd09c;
+  --primitive-signal: #aaa1f0;
+  --primitive-signal-soft: #302b58;
+  --primitive-highlight: #f3cf68;
+  --primitive-focus: #70cbd0;
+  --primitive-shadow-accent: #75411d;
+  --primitive-hero-start: #6f341c;
+  --primitive-hero-end: #46345e;
+}
+
+:root[data-theme="dark"][data-style="nordic-fjord"] {
+  --primitive-ink: #effcf9;
+  --primitive-ink-soft: #b7d5d0;
+  --primitive-paper: #091b1d;
+  --primitive-surface: #112b2d;
+  --primitive-line: #2b5051;
+  --primitive-line-strong: #628687;
+  --primitive-primary: #67d0d0;
+  --primitive-primary-strong: #a9ece8;
+  --primitive-signal: #ff8f7e;
+  --primitive-signal-soft: #4a2924;
+  --primitive-highlight: #efd46d;
+  --primitive-focus: #7fb0e2;
+  --primitive-shadow-accent: #2f6262;
+  --primitive-hero-start: #174a58;
+  --primitive-hero-end: #315f53;
+}
+
+:root[data-theme="dark"][data-style="carnival-parade"] {
+  --primitive-ink: #fff4e4;
+  --primitive-ink-soft: #d9bdd1;
+  --primitive-paper: #23101d;
+  --primitive-surface: #35192d;
+  --primitive-line: #60334e;
+  --primitive-line-strong: #98627e;
+  --primitive-primary: #ff70a3;
+  --primitive-primary-strong: #ffb6d0;
+  --primitive-signal: #58d7b8;
+  --primitive-signal-soft: #163d34;
+  --primitive-highlight: #ffda5d;
+  --primitive-focus: #82a9ff;
+  --primitive-shadow-accent: #7c3155;
+  --primitive-hero-start: #8e2956;
+  --primitive-hero-end: #b5681f;
+}
+
+:root[data-theme="dark"][data-style="forest-fairytale"] {
+  --primitive-ink: #f4f9e8;
+  --primitive-ink-soft: #c3d0ad;
+  --primitive-paper: #111d0e;
+  --primitive-surface: #1d2c18;
+  --primitive-line: #3a5130;
+  --primitive-line-strong: #718665;
+  --primitive-primary: #91d36f;
+  --primitive-primary-strong: #c1ecaa;
+  --primitive-signal: #ff8994;
+  --primitive-signal-soft: #4a252d;
+  --primitive-highlight: #f0d16b;
+  --primitive-focus: #75b9d5;
+  --primitive-shadow-accent: #3f6431;
+  --primitive-hero-start: #355f2c;
+  --primitive-hero-end: #1f4935;
+}
+
+:root[data-theme="dark"][data-style="cosmic-camp"] {
+  --primitive-ink: #f5f2ff;
+  --primitive-ink-soft: #c5c0e6;
+  --primitive-paper: #09091d;
+  --primitive-surface: #15152d;
+  --primitive-line: #34345a;
+  --primitive-line-strong: #6a6799;
+  --primitive-primary: #9d91ff;
+  --primitive-primary-strong: #d0caff;
+  --primitive-signal: #ff78b0;
+  --primitive-signal-soft: #471b35;
+  --primitive-highlight: #ffe071;
+  --primitive-focus: #5dd9e7;
+  --primitive-shadow-accent: #3e367c;
+  --primitive-hero-start: #0b0b35;
+  --primitive-hero-end: #4d276c;
+}
+
+:root[data-theme="dark"][data-style="treasure-island"] {
+  --primitive-ink: #fff7df;
+  --primitive-ink-soft: #d6c8a9;
+  --primitive-paper: #171b16;
+  --primitive-surface: #252c22;
+  --primitive-line: #46513e;
+  --primitive-line-strong: #7a856c;
+  --primitive-primary: #66d5d2;
+  --primitive-primary-strong: #a7eeeb;
+  --primitive-signal: #ff8d72;
+  --primitive-signal-soft: #4b2922;
+  --primitive-highlight: #f2cf62;
+  --primitive-focus: #87a9e7;
+  --primitive-shadow-accent: #6a5528;
+  --primitive-hero-start: #155b61;
+  --primitive-hero-end: #75642d;
 }
 
 * {
@@ -2010,6 +2672,86 @@ main {
 
 .meal-item p {
   margin: 0;
+}
+
+.day-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day-tags li {
+  padding: 3px 10px;
+  border: 1px solid color-mix(in srgb, var(--color-cobalt) 45%, transparent);
+  border-radius: var(--day-tab-radius);
+  background: color-mix(in srgb, var(--color-cobalt) 9%, var(--color-surface));
+  color: var(--color-cobalt-dark);
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+
+.stay-meta {
+  color: var(--color-ink-soft);
+  font-size: 0.84rem;
+}
+
+.stay-phone {
+  display: inline-block;
+  margin: 0 10px 10px 0;
+  color: var(--color-cobalt-dark);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.trip-facts-block {
+  border-top: 4px solid var(--color-cobalt-dark);
+}
+
+.trip-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 8px 14px;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.trip-facts dt {
+  color: var(--color-signal);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.trip-facts dd {
+  margin: 0;
+}
+
+/* Placeholder content (待補 / 待確認) stays readable but visibly unfinished. */
+.is-pending,
+.is-pending p {
+  color: var(--color-ink-soft);
+}
+
+.timeline-item.is-pending .timeline-content {
+  border-style: dashed;
+  border-color: var(--color-line-strong);
+  background: transparent;
+  box-shadow: none;
+}
+
+.timeline-item.is-pending .timeline-content::before {
+  background: var(--color-paper);
+}
+
+.meal-item.is-pending strong {
+  color: var(--color-ink-soft);
+}
+
+.next-stop .is-pending {
+  color: var(--next-stop-muted-color);
 }
 
 .update-prompt {

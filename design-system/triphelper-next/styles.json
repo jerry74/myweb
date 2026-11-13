@@ -1,0 +1,254 @@
+{
+  "$comment": "TripHelper Next 風格登錄檔：trip-page.py、測試與文件都以此為唯一來源。新增風格請用 `python scripts/trip-page.py new-style`。",
+  "default": "editorial-wayfinder",
+  "styles": [
+    {
+      "id": "editorial-wayfinder",
+      "label": "城市編輯風",
+      "fits": "城市散步、交通密集、親子綜合行程",
+      "vibe": "路線貼紙、分層街廓、鈷藍訊號橘與手繪硬陰影",
+      "backgroundColor": "#f3f0e8",
+      "themeColor": "#2457d6"
+    },
+    {
+      "id": "coastal-breeze",
+      "label": "海島微風",
+      "fits": "海島、海灘、渡假村、親子放鬆",
+      "vibe": "海岸波浪、泡泡點紋、珊瑚潟湖與圓潤日期章",
+      "backgroundColor": "#edf8fa",
+      "themeColor": "#087e9b"
+    },
+    {
+      "id": "alpine-field-notes",
+      "label": "山野手帳",
+      "fits": "自駕、登山、露營、自然觀察",
+      "vibe": "雪峰場景、斜向步道、森林綠與土壤橘",
+      "backgroundColor": "#f0f2e7",
+      "themeColor": "#2f6845"
+    },
+    {
+      "id": "neon-metro",
+      "label": "都會霓虹",
+      "fits": "夜間城市、購物、美食、展演",
+      "vibe": "霓虹樓群、光帶路線、城市網格與發光 CTA",
+      "backgroundColor": "#f3f0ff",
+      "themeColor": "#6038d5"
+    },
+    {
+      "id": "heritage-ink",
+      "label": "文化紙本",
+      "fits": "古城、寺社、博物館、慢旅行",
+      "vibe": "柱廊場景、印章圓章、赭紅棕墨與雙線框",
+      "backgroundColor": "#f1e8d8",
+      "themeColor": "#76523b"
+    },
+    {
+      "id": "candy-postcard",
+      "label": "糖果明信片",
+      "fits": "咖啡甜點、閨蜜旅行、購物、拍照景點",
+      "vibe": "糖果泡泡、莓粉紫色、彩色圓章與柔和厚陰影",
+      "backgroundColor": "#fff3f8",
+      "themeColor": "#9d2c67"
+    },
+    {
+      "id": "cloud-storybook",
+      "label": "雲朵繪本",
+      "fits": "親子、主題樂園、動物園、童話小鎮",
+      "vibe": "雲丘場景、暖黃點綴、超大圓角與繪本軌道",
+      "backgroundColor": "#f0f8ff",
+      "themeColor": "#2369a8"
+    },
+    {
+      "id": "sticker-playground",
+      "label": "貼紙玩樂",
+      "fits": "樂園、追星、動漫、青春城市旅行",
+      "vibe": "斜切街景、貼紙圓章、彩色帶狀 CTA 與硬陰影",
+      "backgroundColor": "#fff8d9",
+      "themeColor": "#cf2862"
+    },
+    {
+      "id": "berry-picnic",
+      "label": "莓果野餐",
+      "fits": "花季、農場、野餐、鄉村與輕旅行",
+      "vibe": "野餐格紋、果實丘陵、莓果紅葉綠與圓形日期章",
+      "backgroundColor": "#fff8f0",
+      "themeColor": "#7f2d4f"
+    },
+    {
+      "id": "comic-panel",
+      "label": "漫畫分鏡",
+      "fits": "樂園、城市闖關、運動賽事、親子冒險",
+      "vibe": "速度線、印刷網點、對話框 CTA 與厚黑框卡片",
+      "backgroundColor": "#fff6d8",
+      "themeColor": "#b7242a"
+    },
+    {
+      "id": "cel-adventure",
+      "label": "動畫冒險",
+      "fits": "自駕、戶外探索、家庭旅行、海陸移動",
+      "vibe": "斜向冒險場景、速度帶、青綠橘色塊與動態節點",
+      "backgroundColor": "#eaf8f4",
+      "themeColor": "#147d82"
+    },
+    {
+      "id": "retro-toon",
+      "label": "復古卡通",
+      "fits": "老街、鐵道、懷舊餐廳、公路旅行",
+      "vibe": "復古街景、道路條紋、青綠珊瑚紅與膠囊曲線",
+      "backgroundColor": "#f8eed8",
+      "themeColor": "#146b70"
+    },
+    {
+      "id": "doodle-notebook",
+      "label": "塗鴉手帳",
+      "fits": "校外旅行、市集、DIY、親子自由行",
+      "vibe": "剪貼簿紙膠帶、彩色筆刷、波浪路線與手繪硬陰影",
+      "backgroundColor": "#f7f3e7",
+      "themeColor": "#245a86"
+    },
+    {
+      "id": "travel-toon-cards",
+      "label": "旅行繪本卡",
+      "fits": "海島、賞花、親子、美食與多主題城市旅行",
+      "vibe": "旅行貼紙明信片、海岸波浪、郵票圓章與珊瑚潟湖層次",
+      "backgroundColor": "#fff8ea",
+      "themeColor": "#0f766e"
+    },
+    {
+      "id": "aurora-frost",
+      "label": "極光冰原",
+      "fits": "冰島、雪地、溫泉、極光追尋",
+      "vibe": "深海藍、冰霜青、極光綠、雪峰幾何與星點底紋",
+      "backgroundColor": "#eaf5f8",
+      "themeColor": "#18547a"
+    },
+    {
+      "id": "savanna-safari",
+      "label": "草原遊獵",
+      "fits": "非洲草原、動物觀察、越野與親子探險",
+      "vibe": "夕照金、土棕、草原綠、足跡點紋與有機曲線",
+      "backgroundColor": "#fff4d9",
+      "themeColor": "#81510f"
+    },
+    {
+      "id": "ancient-odyssey",
+      "label": "古文明漫遊",
+      "fits": "古羅馬、希臘、遺址與博物館",
+      "vibe": "石灰金、赭紅、柱廊幾何、雙線框與襯線標題",
+      "backgroundColor": "#fff3d8",
+      "themeColor": "#825316"
+    },
+    {
+      "id": "tokyo-pulse",
+      "label": "東京潮流",
+      "fits": "東京夜景、動漫、購物、科技與美食",
+      "vibe": "午夜藍、霓虹粉與青、城市網格、切角街廓與高能量對比",
+      "backgroundColor": "#e9f7fb",
+      "themeColor": "#075d80"
+    },
+    {
+      "id": "coral-dive",
+      "label": "珊瑚潛旅",
+      "fits": "潛水、浮潛、珊瑚礁與海島生態",
+      "vibe": "潟湖青、珊瑚紅、氣泡點紋、海底弧線與圓潤卡片",
+      "backgroundColor": "#e8f9f8",
+      "themeColor": "#0b7182"
+    },
+    {
+      "id": "sakura-promenade",
+      "label": "櫻花漫遊",
+      "fits": "賞櫻、寺社、春日街區與和風散步",
+      "vibe": "櫻花粉、春芽綠、花瓣點紋、鳥居場景與柔和圓角",
+      "backgroundColor": "#fff4f3",
+      "themeColor": "#9d3e5b"
+    },
+    {
+      "id": "tropical-lagoon",
+      "label": "熱帶潟湖",
+      "fits": "峇里島、衝浪、沙灘與渡假",
+      "vibe": "潟湖藍綠、珊瑚橘、日光黃、波紋與島嶼曲線",
+      "backgroundColor": "#eaf9f6",
+      "themeColor": "#08717d"
+    },
+    {
+      "id": "golden-boulevard",
+      "label": "金色街廓",
+      "fits": "巴黎、歐洲古都、咖啡與建築散步",
+      "vibe": "蜂蜜金、磚紅、街廓格線、遮棚條紋與典雅襯線字",
+      "backgroundColor": "#fff6e8",
+      "themeColor": "#925008"
+    },
+    {
+      "id": "alpine-railway",
+      "label": "高山鐵道",
+      "fits": "瑞士、景觀列車、山屋與湖山健行",
+      "vibe": "森林綠、天空藍、雪峰幾何、鐵道路線與明信片卡",
+      "backgroundColor": "#eff8f1",
+      "themeColor": "#2c6f46"
+    },
+    {
+      "id": "sunset-street-food",
+      "label": "夕陽街頭食趣",
+      "fits": "泰國、夜市、寺廟、嘟嘟車與美食探索",
+      "vibe": "夕陽橘、辣椒紅、青綠點綴、攤棚條紋與街屋色塊",
+      "backgroundColor": "#fff3e9",
+      "themeColor": "#9d3d2a"
+    },
+    {
+      "id": "desert-caravan",
+      "label": "沙漠星旅",
+      "fits": "摩洛哥、沙漠露營、古城與駱駝旅程",
+      "vibe": "香料橘、靛青、沙丘波線、帳篷剪影與夜空星點",
+      "backgroundColor": "#fff1d8",
+      "themeColor": "#8b451f"
+    },
+    {
+      "id": "nordic-fjord",
+      "label": "北歐峽灣",
+      "fits": "挪威、峽灣、公路、瀑布與木屋旅行",
+      "vibe": "冰河青、松林綠、分層山谷、瀑布線與清爽留白",
+      "backgroundColor": "#edf7f5",
+      "themeColor": "#17666c"
+    },
+    {
+      "id": "carnival-parade",
+      "label": "嘉年華遊行",
+      "fits": "巴西、節慶、音樂、舞蹈與朋友旅行",
+      "vibe": "莓紅、亮黃、熱帶綠、彩旗節奏與紙花碎片",
+      "backgroundColor": "#fff3d6",
+      "themeColor": "#b52d5c"
+    },
+    {
+      "id": "forest-fairytale",
+      "label": "森林童話",
+      "fits": "親子森林、童話村、動物園與露營",
+      "vibe": "苔蘚綠、莓果紅、蘑菇圓點、樹冠剪影與柔軟卡片",
+      "backgroundColor": "#f1f8df",
+      "themeColor": "#47712f"
+    },
+    {
+      "id": "cosmic-camp",
+      "label": "宇宙露營",
+      "fits": "天文館、觀星、科技館與科學親子旅行",
+      "vibe": "深空靛、星雲紫、電光藍、軌道圓環與星球幾何",
+      "backgroundColor": "#eef0ff",
+      "themeColor": "#5042a8"
+    },
+    {
+      "id": "treasure-island",
+      "label": "尋寶海島",
+      "fits": "海島跳島、船旅、親子探險與尋寶闖關",
+      "vibe": "海圖米色、潟湖青、寶箱紅、航線虛線與島嶼輪廓",
+      "backgroundColor": "#fff4d7",
+      "themeColor": "#176d72"
+    },
+    {
+      "id": "bund-wonderland",
+      "label": "外灘樂遊",
+      "fits": "上海、江南古鎮、主題樂園、外灘夜景與親子城市行",
+      "vibe": "黛藍夜空、豫園朱紅、燈籠金、天際線剪影與雲朵圓角",
+      "backgroundColor": "#fdf6ec",
+      "themeColor": "#1f3a73"
+    }
+  ]
+}
